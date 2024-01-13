@@ -2,4 +2,4 @@
 2024 Official Codebase
 
 Credit:
-(Swerve Base - dirtbikerxz)[https://github.com/dirtbikerxz/BaseTalonFXSwerve]
+[Swerve Base - dirtbikerxz](https://github.com/dirtbikerxz/BaseTalonFXSwerve)
