@@ -15,6 +15,25 @@ import frc.lib.util.SwerveModuleConstants;
 public final class Constants {
     public static final double stickDeadband = 0.1;
 
+    public static final class LimeLight {
+        public static final double kP_rotate = 0.01;
+
+        /*
+        where in form ax^2 + bx + c, quadratic[0] = a, quadratic[1]=b, quadratic[2] = c 
+        x is in meters, output in desired reading from REV throughbore abs. encoder
+        */ 
+        public static final double[] quadratic = {1,1,1}; 
+
+        public static final double[] shotRange = {1,2}; // in meters, closest location for shots, furthest location for shots.
+    }
+
+
+    public static final class Arm {
+        public static final int armRotateMotorID = 22;
+        public static final double kP_rotate = 0.1;
+        public static final double kF_rotate = 0.15; //volts to hold arm rotation at a fixed position when arm is @ 180/0 deg (flat). multiple by sin(angle)
+    }
+
     public static final class Swerve {
         public static final int pigeonID = 1;
 
@@ -129,7 +148,7 @@ public final class Constants {
         }
     }
 
-    public static final class AutoConstants { //TODO: The below constants are used in the example auto, and must be tuned to specific robot
+    public static final class AutoConstants { //TODO: DONE
         public static final double kMaxSpeedMetersPerSecond = 4;
         public static final double kMaxAccelerationMetersPerSecondSquared = 3;
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
