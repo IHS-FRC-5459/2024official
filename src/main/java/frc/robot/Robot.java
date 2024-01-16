@@ -84,8 +84,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    //m_robotContainer.s_Pivot.setRotationVoltage(m_robotContainer.s_Pivot.calculateRotationVoltage(90));
-    //System.out.println((m_robotContainer.s_Pivot.calculateRotationVoltage(0)));
+   // m_robotContainer.s_Pivot.setRotationVoltage(m_robotContainer.s_Pivot.calculateRotationVoltage(90));
+    //System.out.println((m_robotContainer.s_Pivot.getAngle()));
   }
 
   @Override

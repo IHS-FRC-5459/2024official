@@ -24,15 +24,16 @@ public class Pivot extends SubsystemBase {
   public Pivot() {
     armRotationNeo.setIdleMode(IdleMode.kBrake);
     armRotationNeo.setInverted(true);
-    encoder.setPositionOffset(0.9);
+    encoder.setPositionOffset(0.21);
    
     
   }
   
 
   public double getAngle(){
-    return encoder.get()*360;
+    return (encoder.getAbsolutePosition() - encoder.getPositionOffset()) * 360;
   }
+
 
   public double calculateRotationVoltage(double goalAngle){ //TOOD: CHANGE VALUES
     return ((-1*MathUtil.clamp((Constants.Arm.kP_rotate * (getAngle() - goalAngle) * 12),-0.5,0.5)) + 0.9 * (Constants.Arm.kF_rotate * Math.cos(Math.toRadians(getAngle()))));
@@ -49,6 +50,6 @@ public class Pivot extends SubsystemBase {
     //System.out.println(getAngle() + " " +     encoder.getPositionOffset());
     //System.out.println(calculateRotationVoltage(0));
     //setRotationVoltage(calculateRotationVoltage(0));
-    System.out.println(getAngle()+ " " + (-1*MathUtil.clamp((Constants.Arm.kP_rotate * (getAngle() - 0) * 12),-0.5,0.5)));
+    //System.out.println(getAngle()+ " " + (-1*MathUtil.clamp((Constants.Arm.kP_rotate * (getAngle() - 0) * 12),-0.5,0.5)));
   }
 }
