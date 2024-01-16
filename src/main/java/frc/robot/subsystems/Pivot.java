@@ -19,20 +19,25 @@ public class Pivot extends SubsystemBase {
   CANSparkMax armRotationNeo = new CANSparkMax(Constants.Arm.armRotateMotorID, MotorType.kBrushless);
   //create absolute encoder (rev through-bore)
   DutyCycleEncoder encoder = new DutyCycleEncoder(9); //TODO: SET CHANNEL
-
+  
   /** Creates a new Pivot. */
   public Pivot() {
     armRotationNeo.setIdleMode(IdleMode.kBrake);
+    armRotationNeo.setInverted(true);
+    encoder.setPositionOffset(0.9);
+   
+    
   }
+  
 
   public double getAngle(){
-    return encoder.getAbsolutePosition();
+    return encoder.get()*360;
   }
 
   public double calculateRotationVoltage(double goalAngle){ //TOOD: CHANGE VALUES
-    return (MathUtil.clamp((Constants.Arm.kP_rotate * (getAngle() - goalAngle) * 12),-6,6) + 0.9 * (Constants.Arm.kF_rotate * Math.cos(Math.toRadians(getAngle()))));
+    return ((-1*MathUtil.clamp((Constants.Arm.kP_rotate * (getAngle() - goalAngle) * 12),-0.5,0.5)) + 0.9 * (Constants.Arm.kF_rotate * Math.cos(Math.toRadians(getAngle()))));
   }
-
+//MathUtil.clamp((Constants.Arm.kP_rotate * (getAngle() - goalAngle) * 12),-1,1) + 
   public void setRotationVoltage(double volts){
     armRotationNeo.setVoltage(volts);
   }
@@ -41,5 +46,9 @@ public class Pivot extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    //System.out.println(getAngle() + " " +     encoder.getPositionOffset());
+    //System.out.println(calculateRotationVoltage(0));
+    //setRotationVoltage(calculateRotationVoltage(0));
+    System.out.println(getAngle()+ " " + (-1*MathUtil.clamp((Constants.Arm.kP_rotate * (getAngle() - 0) * 12),-0.5,0.5)));
   }
 }

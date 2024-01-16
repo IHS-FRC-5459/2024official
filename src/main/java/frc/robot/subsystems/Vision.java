@@ -62,7 +62,7 @@ public class Vision extends SubsystemBase {
     targetInVision = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     if(targetInVision > 0.9){
       angle = NetworkTableInstance.getDefault().getTable("limelight").getEntry("targetpose_cameraspace").getDoubleArray(new double[6])[5];
-      distance = NetworkTableInstance.getDefault().getTable("limelight").getEntry("targetpose_robotspace").getDoubleArray(new double[6])[2];
+      distance = Math.sqrt(Math.pow(NetworkTableInstance.getDefault().getTable("limelight").getEntry("targetpose_robotspace").getDoubleArray(new double[6])[2],2) + Math.pow(NetworkTableInstance.getDefault().getTable("limelight").getEntry("targetpose_robotspace").getDoubleArray(new double[6])[1],2));
     }
 
   }
