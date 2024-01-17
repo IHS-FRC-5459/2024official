@@ -15,6 +15,10 @@ import frc.lib.util.SwerveModuleConstants;
 public final class Constants {
     public static final double stickDeadband = 0.1;
 
+    public static final class Climber {
+        public static final int climberMotorID = 26;
+    }
+
     public static final class LimeLight {
         public static final double kP_rotate = 0.01;
 
