@@ -34,6 +34,17 @@ public final class Constants {
         public static final double kF_rotate = 0.27; //volts to hold arm rotation at a fixed position when arm is @ 180/0 deg (flat). multiple by sin(angle)
     }
 
+    public static final class EndEffector {
+        public static final int flywheelMotor1 = 23;
+        public static final int flywheelMotor2 = 24;
+        public static final int intakeMotor = 25;
+        public static final int beambreakChannel = 7;
+
+        public static final double kS_Flywheel = 0; 
+        public static final double kV_Flywheel = 0.40344/60;
+        public static final double kA_Flywheel = 0; 
+    }
+
     public static final class Swerve {
         public static final int pigeonID = 1;
 
