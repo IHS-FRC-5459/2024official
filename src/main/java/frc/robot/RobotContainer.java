@@ -36,6 +36,7 @@ public class RobotContainer {
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     public final Pivot s_Pivot = new Pivot();
+    public final Vision s_Vision = new Vision();
 
 
     private final SendableChooser<Command> autoChooser;

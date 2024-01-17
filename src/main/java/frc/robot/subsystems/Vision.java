@@ -8,6 +8,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 public class Vision extends SubsystemBase {
   private double angle = 0;
@@ -26,6 +27,16 @@ public class Vision extends SubsystemBase {
       return output;
   }
 
+  //valid target
+  public boolean validTarget(){
+    if(isTargetInVision()){
+      if(isTagInRange(distance)){
+        return true;
+      }
+    }
+    return false;
+  }
+
   //calculate pivot angle
   public double calculateGoalAngle(double distanceToTag)
   {
@@ -34,7 +45,7 @@ public class Vision extends SubsystemBase {
 
   //check if aprilTag is in shot range
   public boolean isTagInRange(double distanceToTag){
-    return (distanceToTag > Constants.LimeLight.shotRange[0] && distanceToTag < Constants.LimeLight.shotRange[1]);
+    return (distanceToTag >= Constants.LimeLight.shotRange[0] && distanceToTag <= Constants.LimeLight.shotRange[1]);
   }
 
   //get vision data atributes
@@ -62,8 +73,10 @@ public class Vision extends SubsystemBase {
     targetInVision = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     if(targetInVision > 0.9){
       angle = NetworkTableInstance.getDefault().getTable("limelight").getEntry("targetpose_cameraspace").getDoubleArray(new double[6])[5];
-      distance = Math.sqrt(Math.pow(NetworkTableInstance.getDefault().getTable("limelight").getEntry("targetpose_robotspace").getDoubleArray(new double[6])[2],2) + Math.pow(NetworkTableInstance.getDefault().getTable("limelight").getEntry("targetpose_robotspace").getDoubleArray(new double[6])[1],2));
+      double[] lltable =  NetworkTableInstance.getDefault().getTable("limelight").getEntry("targetpose_robotspace").getDoubleArray(new double[6]);
+      distance = Math.sqrt(Math.pow(lltable[0],2) + Math.pow(lltable[2],2));
     }
+
 
   }
 }

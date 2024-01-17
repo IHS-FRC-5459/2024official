@@ -86,6 +86,12 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
    // m_robotContainer.s_Pivot.setRotationVoltage(m_robotContainer.s_Pivot.calculateRotationVoltage(90));
     //System.out.println((m_robotContainer.s_Pivot.getAngle()));
+    // if(m_robotContainer.s_Vision.validTarget()){
+    // System.out.println(m_robotContainer.s_Vision.getDistance());
+    // m_robotContainer.s_Pivot.setRotationVoltage(m_robotContainer.s_Pivot.calculateRotationVoltage(m_robotContainer.s_Vision.calculateGoalAngle(m_robotContainer.s_Vision.getDistance())));
+    // } else {
+    //   m_robotContainer.s_Pivot.setRotationVoltage(0);
+    // }
   }
 
   @Override
