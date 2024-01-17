@@ -44,9 +44,9 @@ public final class Constants {
         public static final int intakeMotor = 25;
         public static final int beambreakChannel = 7;
 
-        public static final double kS_Flywheel = 0; 
-        public static final double kV_Flywheel = 0.40344/60;
-        public static final double kA_Flywheel = 0; 
+        public static final double kS_Flywheel = 0;  //#TODO
+        public static final double kV_Flywheel = 0; //#TODO
+        public static final double kA_Flywheel = 0; //0
     }
 
     public static final class Swerve {
