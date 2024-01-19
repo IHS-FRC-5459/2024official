@@ -36,6 +36,10 @@ public final class Constants {
         public static final int armRotateMotorID = 22;
         public static final double kP_rotate = 0.0008;
         public static final double kF_rotate = 0.27; //volts to hold arm rotation at a fixed position when arm is @ 180/0 deg (flat). multiple by sin(angle)
+
+        public static final double restingAngle = 0;
+        public static final double ampAngle = 0;
+
     }
 
     public static final class EndEffector {
@@ -47,6 +51,9 @@ public final class Constants {
         public static final double kS_Flywheel = 0;  //#TODO
         public static final double kV_Flywheel = 0; //#TODO
         public static final double kA_Flywheel = 0; //0
+
+        public static final double restingVelocity = 0;
+
     }
 
     public static final class Swerve {

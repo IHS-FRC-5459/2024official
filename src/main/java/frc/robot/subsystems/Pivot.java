@@ -12,6 +12,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Vision;
 
 public class Pivot extends SubsystemBase {
 
@@ -19,9 +20,13 @@ public class Pivot extends SubsystemBase {
   CANSparkMax armRotationNeo = new CANSparkMax(Constants.Arm.armRotateMotorID, MotorType.kBrushless);
   //create absolute encoder (rev through-bore)
   DutyCycleEncoder encoder = new DutyCycleEncoder(9); //TODO: SET CHANNEL
+
+  private Vision m_Vision;
+
   
   /** Creates a new Pivot. */
-  public Pivot() {
+  public Pivot(Vision vision) {
+    m_Vision = vision;
     armRotationNeo.setIdleMode(IdleMode.kBrake);
     armRotationNeo.setInverted(true);
     encoder.setPositionOffset(0.21);
@@ -52,4 +57,11 @@ public class Pivot extends SubsystemBase {
     //setRotationVoltage(calculateRotationVoltage(0));
     //System.out.println(getAngle()+ " " + (-1*MathUtil.clamp((Constants.Arm.kP_rotate * (getAngle() - 0) * 12),-0.5,0.5)));
   }
+
+  //from vision:
+  public double calculateGoalAngle(){
+    return m_Vision.calculateGoalAngle();
+  }
+
+
 }

@@ -34,9 +34,10 @@ public class RobotContainer {
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
     /* Subsystems */
-    private final Swerve s_Swerve = new Swerve();
-    public final Pivot s_Pivot = new Pivot();
-    public final Vision s_Vision = new Vision();
+    private final Vision vision = new Vision();
+
+    private final Swerve s_Swerve = new Swerve(vision);
+    private final Pivot s_Pivot = new Pivot(vision);
 
 
     private final SendableChooser<Command> autoChooser;
@@ -54,6 +55,14 @@ public class RobotContainer {
                 () -> robotCentric.getAsBoolean()
             )
         );
+
+        s_Pivot.setDefaultCommand(
+            new PivotToNeutral(
+                s_Pivot
+            )
+        );
+
+
 
         // Configure the button bindings
         configureButtonBindings();

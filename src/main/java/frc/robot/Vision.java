@@ -2,14 +2,12 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems;
+package frc.robot;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
-public class Vision extends SubsystemBase {
+public class Vision {
   private double angle = 0;
   private double distance = 0;
   private double targetInVision = 0;
@@ -19,9 +17,9 @@ public class Vision extends SubsystemBase {
   public Vision() {}
 
   //calculate turning power
-  public double rotPower(double goalRotation, double currentRotation)
+  public double rotPower(double goalRotation)
   {
-      double error = currentRotation - goalRotation;
+      double error = getAngle() - goalRotation;
       double output = MathUtil.clamp(Constants.LimeLight.kP_rotate * error, -0.2, 0.2);
       return output;
   }
@@ -29,7 +27,7 @@ public class Vision extends SubsystemBase {
   //valid target
   public boolean validTarget(){
     if(isTargetInVision()){
-      if(isTagInRange(distance)){
+      if(isTagInRange(getDistance())){
         return true;
       }
     }
@@ -37,9 +35,9 @@ public class Vision extends SubsystemBase {
   }
 
   //calculate pivot angle
-  public double calculateGoalAngle(double distanceToTag)
+  public double calculateGoalAngle()
   {
-    return Constants.LimeLight.quadratic[0]*Math.pow(distanceToTag,2) + Constants.LimeLight.quadratic[1]*distanceToTag + Constants.LimeLight.quadratic[2];
+    return Constants.LimeLight.quadratic[0]*Math.pow(getDistance(),2) + Constants.LimeLight.quadratic[1]*getDistance() + Constants.LimeLight.quadratic[2];
   }
 
   //check if aprilTag is in shot range
@@ -49,24 +47,26 @@ public class Vision extends SubsystemBase {
 
   //get vision data atributes
   public boolean isTargetInVision(){
+    fetchData();
     return targetInVision > 0.9;
   }
 
   public double getAngle(){
+    fetchData();
     return angle;
   }
 
   public double getDistance(){
+    fetchData();
     return distance;
   }
 
   public double getTargetInVision(){
+    fetchData();
     return targetInVision;
   }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+  public void fetchData() {
 
     //get pose of apriltag in camera space -> must configure in LL web GUI
     targetInVision = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
