@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.BeamBreak;
 import frc.robot.Constants;
 import frc.robot.Vision;
 
@@ -22,11 +23,13 @@ public class Pivot extends SubsystemBase {
   DutyCycleEncoder encoder = new DutyCycleEncoder(9); //TODO: SET CHANNEL
 
   private Vision m_Vision;
+  private BeamBreak m_BeamBreak;
 
   
   /** Creates a new Pivot. */
-  public Pivot(Vision vision) {
+  public Pivot(Vision vision, BeamBreak beambreak) {
     m_Vision = vision;
+    m_BeamBreak=beambreak;
     armRotationNeo.setIdleMode(IdleMode.kBrake);
     armRotationNeo.setInverted(true);
     encoder.setPositionOffset(0.21);
@@ -61,6 +64,11 @@ public class Pivot extends SubsystemBase {
   //from vision:
   public double calculateGoalAngle(){
     return m_Vision.calculateGoalAngle();
+  }
+
+  // from beambreak:
+  public boolean hasNote(){
+    return m_BeamBreak.hasNote();
   }
 
 

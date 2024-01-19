@@ -188,4 +188,8 @@ public class Swerve extends SubsystemBase {
         return m_Vision.rotPower(0);
     }
 
+    public double visionAngleError(){
+        return m_Vision.getAngle();
+    }
+
 }

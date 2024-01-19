@@ -35,9 +35,10 @@ public class RobotContainer {
 
     /* Subsystems */
     private final Vision vision = new Vision();
+    private final BeamBreak beambreak = new BeamBreak();
 
     private final Swerve s_Swerve = new Swerve(vision);
-    private final Pivot s_Pivot = new Pivot(vision);
+    private final Pivot s_Pivot = new Pivot(vision, beambreak);
 
 
     private final SendableChooser<Command> autoChooser;

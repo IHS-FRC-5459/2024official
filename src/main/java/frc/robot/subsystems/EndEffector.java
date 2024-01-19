@@ -19,7 +19,6 @@ public class EndEffector extends SubsystemBase {
   CANSparkMax flywheelNeo1 = new CANSparkMax(Constants.EndEffector.flywheelMotor1, MotorType.kBrushless);
   CANSparkMax flywheelNeo2 = new CANSparkMax(Constants.EndEffector.flywheelMotor2, MotorType.kBrushless);
   CANSparkMax intakeNeo = new CANSparkMax(Constants.EndEffector.intakeMotor, MotorType.kBrushless);
-  DigitalInput beambreak;
   SimpleMotorFeedforward flywheelFeedForward = new SimpleMotorFeedforward(Constants.EndEffector.kS_Flywheel, Constants.EndEffector.kV_Flywheel, Constants.EndEffector.kA_Flywheel);
   BangBangController controller = new BangBangController();
   private RelativeEncoder flywheelEncoder;
@@ -30,15 +29,11 @@ public class EndEffector extends SubsystemBase {
     flywheelNeo1.setIdleMode(IdleMode.kCoast);
     flywheelNeo2.setIdleMode(IdleMode.kCoast);
     intakeNeo.setIdleMode(IdleMode.kBrake);
-    beambreak = new DigitalInput(Constants.EndEffector.beambreakChannel);
     flywheelEncoder = flywheelNeo1.getEncoder();
 
   }
 
-  //is beambreak broken
-  public boolean hasNote(){
-    return !beambreak.get();
-  }
+
 
   //calculate bang-bang output for flywheel
   public double calculateFlywheelVoltage(double setpoint){
