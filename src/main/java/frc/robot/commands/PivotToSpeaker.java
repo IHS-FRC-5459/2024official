@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Vision;
 import frc.robot.subsystems.Pivot;
 
 public class PivotToSpeaker extends Command {
