@@ -11,6 +11,7 @@ public class Vision {
   private double angle = 0;
   private double distance = 0;
   private double targetInVision = 0;
+  private double[] defaultReturn = new double[6];
 
   
   /** Creates a new Vision. */
@@ -71,8 +72,8 @@ public class Vision {
     //get pose of apriltag in camera space -> must configure in LL web GUI
     targetInVision = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     if(targetInVision > 0.9){
-      angle = NetworkTableInstance.getDefault().getTable("limelight").getEntry("targetpose_cameraspace").getDoubleArray(new double[6])[5];
-      double[] lltable =  NetworkTableInstance.getDefault().getTable("limelight").getEntry("targetpose_robotspace").getDoubleArray(new double[6]);
+      angle = NetworkTableInstance.getDefault().getTable("limelight").getEntry("targetpose_cameraspace").getDoubleArray(defaultReturn)[5];
+      double[] lltable =  NetworkTableInstance.getDefault().getTable("limelight").getEntry("targetpose_robotspace").getDoubleArray(defaultReturn);
       distance = Math.sqrt(Math.pow(lltable[0],2) + Math.pow(lltable[2],2));
     }
 
