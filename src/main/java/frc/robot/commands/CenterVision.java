@@ -18,7 +18,7 @@ public class CenterVision extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     this.s_Swerve = s_Swerve;
     addRequirements(s_Swerve);
-
+ 
   }
 
   // Called when the command is initially scheduled.

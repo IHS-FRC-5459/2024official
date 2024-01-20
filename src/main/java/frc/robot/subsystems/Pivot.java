@@ -12,18 +12,26 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.BeamBreak;
-import frc.robot.Constants;
 import frc.robot.Vision;
 
 public class Pivot extends SubsystemBase {
 
+  private double voltsMax = 0.5; 
+  private double feedforwardPercentage =0.9;
+  public static final double kP_rotate = 0.0008;
+  public static final double kF_rotate = 0.27; //volts to hold arm rotation at a fixed position when arm is @ 180/0 deg (flat). multiple by sin(angle)
+  public static final int armRotateMotorID = 22;
+
   // create neo for pivot
-  CANSparkMax armRotationNeo = new CANSparkMax(Constants.Arm.armRotateMotorID, MotorType.kBrushless);
+  CANSparkMax armRotationNeo = new CANSparkMax(armRotateMotorID, MotorType.kBrushless);
   //create absolute encoder (rev through-bore)
   DutyCycleEncoder encoder = new DutyCycleEncoder(9); //TODO: SET CHANNEL
 
   private Vision m_Vision;
   private BeamBreak m_BeamBreak;
+
+
+
 
   
   /** Creates a new Pivot. */
@@ -44,9 +52,8 @@ public class Pivot extends SubsystemBase {
 
 
   public double calculateRotationVoltage(double goalAngle){ //TOOD: CHANGE VALUES
-    return ((-1*MathUtil.clamp((Constants.Arm.kP_rotate * (getAngle() - goalAngle) * 12),-0.5,0.5)) + 0.9 * (Constants.Arm.kF_rotate * Math.cos(Math.toRadians(getAngle()))));
+    return ((MathUtil.clamp((kP_rotate * (getAngle() - goalAngle) * -12),-voltsMax,voltsMax)) + feedforwardPercentage * (kF_rotate * Math.cos(Math.toRadians(getAngle()))));
   }
-//MathUtil.clamp((Constants.Arm.kP_rotate * (getAngle() - goalAngle) * 12),-1,1) + 
   public void setRotationVoltage(double volts){
     armRotationNeo.setVoltage(volts);
   }
@@ -54,11 +61,6 @@ public class Pivot extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    //System.out.println(getAngle() + " " +     encoder.getPositionOffset());
-    //System.out.println(calculateRotationVoltage(0));
-    //setRotationVoltage(calculateRotationVoltage(0));
-    //System.out.println(getAngle()+ " " + (-1*MathUtil.clamp((Constants.Arm.kP_rotate * (getAngle() - 0) * 12),-0.5,0.5)));
   }
 
   //from vision:

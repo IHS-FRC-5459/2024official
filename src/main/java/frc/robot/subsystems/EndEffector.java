@@ -15,12 +15,18 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class EndEffector extends SubsystemBase {
+
+  
+  public static final double kS_Flywheel = 0;  //#TODO
+  public static final double kV_Flywheel = 0; //#TODO
+  public static final double kA_Flywheel = 0; //0
   CANSparkMax flywheelNeo1 = new CANSparkMax(Constants.EndEffector.flywheelMotor1, MotorType.kBrushless);
   CANSparkMax flywheelNeo2 = new CANSparkMax(Constants.EndEffector.flywheelMotor2, MotorType.kBrushless);
   CANSparkMax intakeNeo = new CANSparkMax(Constants.EndEffector.intakeMotor, MotorType.kBrushless);
-  SimpleMotorFeedforward flywheelFeedForward = new SimpleMotorFeedforward(Constants.EndEffector.kS_Flywheel, Constants.EndEffector.kV_Flywheel, Constants.EndEffector.kA_Flywheel);
+  SimpleMotorFeedforward flywheelFeedForward = new SimpleMotorFeedforward(kS_Flywheel, kV_Flywheel, kA_Flywheel);
   BangBangController controller = new BangBangController();
   private RelativeEncoder flywheelEncoder;
+  private double flywheelFeedForwardPercentage = 0.92;
 
 
   /** Creates a new EndEffector. */
@@ -36,7 +42,7 @@ public class EndEffector extends SubsystemBase {
 
   //calculate bang-bang output for flywheel
   public double calculateFlywheelVoltage(double setpoint){
-    double voltage = (controller.calculate(getMotorVelocity(), setpoint) * 12.0 + 0.92 * flywheelFeedForward.calculate(setpoint));
+    double voltage = (controller.calculate(getMotorVelocity(), setpoint) * 12.0 + flywheelFeedForwardPercentage * flywheelFeedForward.calculate(setpoint));
     return voltage;
   }
 

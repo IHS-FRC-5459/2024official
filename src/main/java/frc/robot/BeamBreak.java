@@ -8,10 +8,12 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 /** Add your docs here. */
 public class BeamBreak {
+  public static final int beambreakChannel = 7;
+
   DigitalInput beambreak;
 
     public BeamBreak(){
-        beambreak = new DigitalInput(Constants.EndEffector.beambreakChannel);
+        beambreak = new DigitalInput(beambreakChannel);
     }
       //is beambreak broken
   public boolean hasNote(){
