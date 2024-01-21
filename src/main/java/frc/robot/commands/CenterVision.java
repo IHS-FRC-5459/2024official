@@ -30,10 +30,12 @@ public class CenterVision extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    //System.out.println("center running");
+
         /* Get Values, Deadband*/
         double translationVal =0;
         double strafeVal = 0;
-        double rotationVal = MathUtil.applyDeadband(s_Swerve.getRotPwr(), 0.05);
+        double rotationVal = MathUtil.applyDeadband(s_Swerve.getRotPwr(), 0.02);
         
 
         /* Drive */
@@ -43,6 +45,8 @@ public class CenterVision extends Command {
             false, 
             true
         );
+
+       // System.out.println(s_Swerve.getRotPwr());
   }
 
   // Called once the command ends or is interrupted.
@@ -52,9 +56,9 @@ public class CenterVision extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(Math.abs(s_Swerve.visionAngleError())<=0.75){
-      return true;
-    }
+    // if(Math.abs(s_Swerve.visionAngleError())<0.17){
+    //   return true;
+    // }
 
     return false;
   }

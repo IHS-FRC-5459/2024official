@@ -24,6 +24,7 @@ public class PivotToNeutral extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
     s_Pivot.setRotationVoltage(s_Pivot.calculateRotationVoltage(Constants.Arm.restingAngle));
   }
 

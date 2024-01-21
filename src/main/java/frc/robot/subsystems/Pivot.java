@@ -61,6 +61,7 @@ public class Pivot extends SubsystemBase {
 
   @Override
   public void periodic() {
+    //System.out.println(getAngle());
   }
 
   //from vision:

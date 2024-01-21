@@ -185,7 +185,7 @@ public class Swerve extends SubsystemBase {
 
     //from vision:
     public double getRotPwr(){
-        return m_Vision.rotPower(0);
+        return -m_Vision.rotPower(0);
     }
 
     public double visionAngleError(){

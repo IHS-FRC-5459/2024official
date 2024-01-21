@@ -26,6 +26,7 @@ public class PivotToAmp extends Command {
   @Override
   public void execute() {
     s_Pivot.setRotationVoltage(s_Pivot.calculateRotationVoltage(Constants.Arm.ampAngle));
+    System.out.println("amp running");
   }
 
   // Called once the command ends or is interrupted.

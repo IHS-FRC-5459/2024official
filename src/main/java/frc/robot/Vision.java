@@ -21,7 +21,7 @@ public class Vision {
   public double rotPower(double goalRotation)
   {
       double error = getAngle() - goalRotation;
-      double output = MathUtil.clamp(Constants.LimeLight.kP_rotate * error, -0.2, 0.2);
+      double output = MathUtil.clamp(Constants.LimeLight.kP_rotate * error, -0.1, 0.1);
       return output;
   }
 
@@ -72,7 +72,7 @@ public class Vision {
     //get pose of apriltag in camera space -> must configure in LL web GUI
     targetInVision = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     if(targetInVision > 0.9){
-      angle = NetworkTableInstance.getDefault().getTable("limelight").getEntry("targetpose_cameraspace").getDoubleArray(defaultReturn)[5];
+      angle = NetworkTableInstance.getDefault().getTable("limelight").getEntry("targetpose_cameraspace").getDoubleArray(defaultReturn)[0];
       double[] lltable =  NetworkTableInstance.getDefault().getTable("limelight").getEntry("targetpose_robotspace").getDoubleArray(defaultReturn);
       distance = Math.sqrt(Math.pow(lltable[0],2) + Math.pow(lltable[2],2));
     }

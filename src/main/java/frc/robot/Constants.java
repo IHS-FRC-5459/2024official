@@ -20,7 +20,7 @@ public final class Constants {
     }
 
     public static final class LimeLight {
-        public static final double kP_rotate = 0.01;
+        public static final double kP_rotate = 0.2;
 
         /*
         where in form ax^2 + bx + c, quadratic[0] = a, quadratic[1]=b, quadratic[2] = c 
@@ -35,7 +35,7 @@ public final class Constants {
     public static final class Arm {
 
         public static final double restingAngle = 0;
-        public static final double ampAngle = 0;
+        public static final double ampAngle = 90;
 
     }
 
