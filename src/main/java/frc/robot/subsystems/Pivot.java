@@ -25,15 +25,11 @@ public class Pivot extends SubsystemBase {
   // create neo for pivot
   CANSparkMax armRotationNeo = new CANSparkMax(armRotateMotorID, MotorType.kBrushless);
   //create absolute encoder (rev through-bore)
-  DutyCycleEncoder encoder = new DutyCycleEncoder(9); //TODO: SET CHANNEL
+  DutyCycleEncoder encoder = new DutyCycleEncoder(9); 
 
   private Vision m_Vision;
   private BeamBreak m_BeamBreak;
 
-
-
-
-  
   /** Creates a new Pivot. */
   public Pivot(Vision vision, BeamBreak beambreak) {
     m_Vision = vision;
@@ -51,7 +47,7 @@ public class Pivot extends SubsystemBase {
   }
 
 
-  public double calculateRotationVoltage(double goalAngle){ //TOOD: CHANGE VALUES
+  public double calculateRotationVoltage(double goalAngle){ 
     return ((MathUtil.clamp((kP_rotate * (getAngle() - goalAngle) * -12),-voltsMax,voltsMax)) + feedforwardPercentage * (kF_rotate * Math.cos(Math.toRadians(getAngle()))));
   }
   public void setRotationVoltage(double volts){
@@ -61,7 +57,6 @@ public class Pivot extends SubsystemBase {
 
   @Override
   public void periodic() {
-    //System.out.println(getAngle());
   }
 
   //from vision:

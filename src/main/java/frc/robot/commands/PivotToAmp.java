@@ -36,10 +36,6 @@ public class PivotToAmp extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //TODO: end when no more note detected
-    if(!s_Pivot.hasNote()){
-      return true;
-    }
-    return false;
+    return !s_Pivot.hasNote();
   }
 }

@@ -70,10 +70,10 @@ public class Vision {
   public void fetchData() {
 
     //get pose of apriltag in camera space -> must configure in LL web GUI
-    targetInVision = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+    targetInVision = NetworkTableInstance.getDefault().getTable(Constants.LimeLight.llTableName).getEntry(Constants.LimeLight.targetInVisionKey).getDouble(0);
     if(targetInVision > 0.9){
-      angle = NetworkTableInstance.getDefault().getTable("limelight").getEntry("targetpose_cameraspace").getDoubleArray(defaultReturn)[0];
-      double[] lltable =  NetworkTableInstance.getDefault().getTable("limelight").getEntry("targetpose_robotspace").getDoubleArray(defaultReturn);
+      angle = NetworkTableInstance.getDefault().getTable(Constants.LimeLight.llTableName).getEntry(Constants.LimeLight.targetPoseCameraSpaceKey).getDoubleArray(defaultReturn)[0];
+      double[] lltable =  NetworkTableInstance.getDefault().getTable(Constants.LimeLight.llTableName).getEntry(Constants.LimeLight.targetPoseRobotSpaceKey).getDoubleArray(defaultReturn);
       distance = Math.sqrt(Math.pow(lltable[0],2) + Math.pow(lltable[2],2));
     }
 

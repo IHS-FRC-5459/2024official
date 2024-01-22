@@ -17,9 +17,9 @@ import frc.robot.Constants;
 public class EndEffector extends SubsystemBase {
 
   
-  public static final double kS_Flywheel = 0;  //#TODO
-  public static final double kV_Flywheel = 0; //#TODO
-  public static final double kA_Flywheel = 0; //0
+  public static final double kS_Flywheel = 0; 
+  public static final double kV_Flywheel = 0;
+  public static final double kA_Flywheel = 0;
   CANSparkMax flywheelNeo1 = new CANSparkMax(Constants.EndEffector.flywheelMotor1, MotorType.kBrushless);
   CANSparkMax flywheelNeo2 = new CANSparkMax(Constants.EndEffector.flywheelMotor2, MotorType.kBrushless);
   CANSparkMax intakeNeo = new CANSparkMax(Constants.EndEffector.intakeMotor, MotorType.kBrushless);
