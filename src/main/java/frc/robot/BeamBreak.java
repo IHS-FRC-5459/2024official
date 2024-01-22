@@ -4,19 +4,39 @@
 
 package frc.robot;
 
+import java.util.Arrays;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 
 /** Add your docs here. */
 public class BeamBreak {
   public static final int beambreakChannel = 7;
 
-  DigitalInput beambreak;
+  DigitalInput[] beambreaks;
 
-    public BeamBreak(){
-        beambreak = new DigitalInput(beambreakChannel);
+    public BeamBreak(int[] channels){
+      beambreaks = new DigitalInput[channels.length];
+      for (int i = 0; i < channels.length; i++) {
+        beambreaks[i] = new DigitalInput(channels[i]);
+      }
+      
     }
       //is beambreak broken
   public boolean hasNote(){
-    return !beambreak.get();
+    for(Boolean b:hasNoteArray()){
+      if(b){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public boolean[] hasNoteArray(){
+    boolean[] ret = new boolean[beambreaks.length];
+    for (int i = 0; i < beambreaks.length; i++) {
+        ret[i] = beambreaks[i].get();
+      }
+
+    return ret;
   }
 }

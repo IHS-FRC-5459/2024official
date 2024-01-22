@@ -33,9 +33,12 @@ public class RobotContainer {
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
-    /* Subsystems */
+
+    /* Sensors */
+    public final int[] channels = {7};
     public final Vision vision = new Vision();
-    public final BeamBreak beambreak = new BeamBreak();
+    public final BeamBreak beambreak = new BeamBreak(channels);
+    /* Subsystems */
 
     private final Swerve s_Swerve = new Swerve(vision);
     private final Pivot s_Pivot = new Pivot(vision, beambreak);
