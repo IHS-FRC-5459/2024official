@@ -20,10 +20,12 @@ public final class Constants {
     }
 
     public static final class LimeLight {
-        public static final double kP_rotate = 0.2;
+        public static final double kP_rotate = 0.01;
+        public static final double kD_rotate = -0.00135;
 
         public static final String llTableName = "limelight";
         public static final String targetInVisionKey = "tv";
+        public static final String targetInAngleKey = "tx";
         public static final String targetPoseCameraSpaceKey = "targetpose_cameraspace";
         public static final String targetPoseRobotSpaceKey = "targetpose_robotspace";
 
@@ -39,7 +41,7 @@ public final class Constants {
 
     public static final class Arm {
 
-        public static final double restingAngle = 0;
+        public static final double restingAngle = -15;
         public static final double ampAngle = 90;
 
     }

@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Vision {
@@ -16,14 +15,6 @@ public class Vision {
   
   /** Creates a new Vision. */
   public Vision() {}
-
-  //calculate turning power
-  public double rotPower(double goalRotation)
-  {
-      double error = getAngle() - goalRotation;
-      double output = MathUtil.clamp(Constants.LimeLight.kP_rotate * error, -0.1, 0.1);
-      return output;
-  }
 
   //valid target
   public boolean validTarget(){
@@ -71,11 +62,11 @@ public class Vision {
 
     //get pose of apriltag in camera space -> must configure in LL web GUI
     targetInVision = NetworkTableInstance.getDefault().getTable(Constants.LimeLight.llTableName).getEntry(Constants.LimeLight.targetInVisionKey).getDouble(0);
-    if(targetInVision > 0.9){
-      angle = NetworkTableInstance.getDefault().getTable(Constants.LimeLight.llTableName).getEntry(Constants.LimeLight.targetPoseCameraSpaceKey).getDoubleArray(defaultReturn)[0];
-      double[] lltable =  NetworkTableInstance.getDefault().getTable(Constants.LimeLight.llTableName).getEntry(Constants.LimeLight.targetPoseRobotSpaceKey).getDoubleArray(defaultReturn);
-      distance = Math.sqrt(Math.pow(lltable[0],2) + Math.pow(lltable[2],2));
-    }
+
+    angle = NetworkTableInstance.getDefault().getTable(Constants.LimeLight.llTableName).getEntry(Constants.LimeLight.targetInAngleKey).getDouble(0);
+    double[] lltable =  NetworkTableInstance.getDefault().getTable(Constants.LimeLight.llTableName).getEntry(Constants.LimeLight.targetPoseRobotSpaceKey).getDoubleArray(defaultReturn);
+    distance = Math.sqrt(Math.pow(lltable[0],2) + Math.pow(lltable[2],2));
+    
 
 
   }

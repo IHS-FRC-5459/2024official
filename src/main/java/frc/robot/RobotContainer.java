@@ -33,7 +33,6 @@ public class RobotContainer {
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
-
     /* Sensors */
     public final int[] channels = {7};
     public final Vision vision = new Vision();
@@ -60,7 +59,7 @@ public class RobotContainer {
             )
         );
 
-           s_Pivot.setDefaultCommand(
+        s_Pivot.setDefaultCommand(
             new PivotToNeutral(
                 s_Pivot
             )

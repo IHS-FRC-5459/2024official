@@ -16,6 +16,7 @@ import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -165,6 +166,10 @@ public class Swerve extends SubsystemBase {
         return Rotation2d.fromDegrees(gyro.getYaw().getValue());
     }
 
+    public double gyroYawDouble(){
+        return gyro.getYaw().getValue();
+    }
+
     public void resetModulesToAbsolute(){
         for(SwerveModule mod : mSwerveMods){
             mod.resetToAbsolute();
@@ -184,12 +189,16 @@ public class Swerve extends SubsystemBase {
 
 
     //from vision:
-    public double getRotPwr(){
-        return -m_Vision.rotPower(0);
-    }
 
     public double visionAngleError(){
         return m_Vision.getAngle();
     }
+
+
+    // angle pid
+    public double getRotPwr(double goalAngle){
+        return MathUtil.clamp(Constants.LimeLight.kP_rotate * (goalAngle - gyroYawDouble()) - Constants.LimeLight.kD_rotate * gyro.getRate(), -0.1, 0.1);
+    }
+
 
 }

@@ -5,14 +5,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
 
 public class CenterVision extends Command {
-  private Swerve s_Swerve;    
+  private Swerve s_Swerve;   
+  private double goalAngle; 
 
   /** Creates a new CenterVision. */
   public CenterVision(Swerve s_Swerve) {
@@ -25,17 +25,16 @@ public class CenterVision extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    goalAngle = s_Swerve.gyroYawDouble() - s_Swerve.visionAngleError();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //System.out.println("center running");
-
         /* Get Values, Deadband*/
         double translationVal =0;
         double strafeVal = 0;
-        double rotationVal = MathUtil.applyDeadband(s_Swerve.getRotPwr(), 0.02);
+        double rotationVal = MathUtil.applyDeadband(s_Swerve.getRotPwr(goalAngle), 0.0);
         
 
         /* Drive */
@@ -46,16 +45,24 @@ public class CenterVision extends Command {
             true
         );
 
-       // System.out.println(s_Swerve.getRotPwr());
+        System.out.println(goalAngle - s_Swerve.gyroYawDouble());
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    /* Drive */
+        s_Swerve.drive(
+            new Translation2d(0, 0).times(Constants.Swerve.maxSpeed), 
+            0 * Constants.Swerve.maxAngularVelocity, 
+            false, 
+            true
+        );
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return Math.abs(s_Swerve.visionAngleError()) < 1;
   }
 }

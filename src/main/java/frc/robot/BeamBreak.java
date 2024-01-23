@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import java.util.Arrays;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 
 /** Add your docs here. */
