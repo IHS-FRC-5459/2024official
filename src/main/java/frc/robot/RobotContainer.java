@@ -58,12 +58,12 @@ public class RobotContainer {
                 () -> robotCentric.getAsBoolean()
             )
         );
-
-        s_Pivot.setDefaultCommand(
+//temp removal for testing 
+/*        s_Pivot.setDefaultCommand(
             new PivotToNeutral(
                 s_Pivot
             )
-        );
+        );*/
 
 
 
