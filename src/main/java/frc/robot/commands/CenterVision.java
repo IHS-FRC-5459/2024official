@@ -65,4 +65,10 @@ public class CenterVision extends Command {
   public boolean isFinished() {
     return Math.abs(s_Swerve.visionAngleError()) < 1;
   }
+
+  @Override
+  public InterruptionBehavior getInterruptionBehavior() {
+    return InterruptionBehavior.kCancelSelf;
+  }
+
 }
