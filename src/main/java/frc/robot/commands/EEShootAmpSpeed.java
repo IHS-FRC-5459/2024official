@@ -8,11 +8,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.EndEffector;
 
-public class EEShootFullSpeed extends Command {
+public class EEShootAmpSpeed extends Command {
   private EndEffector s_EndEffector;
-
-  /** Creates a new ShootFullSpeed. */
-  public EEShootFullSpeed(EndEffector endEffector) {
+  /** Creates a new EEShootAmpSpeed. */
+  public EEShootAmpSpeed(EndEffector endEffector) {
     s_EndEffector = endEffector;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(s_EndEffector);
@@ -20,16 +19,15 @@ public class EEShootFullSpeed extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     //spin flywheel up to speed
-    s_EndEffector.setFlywheel(s_EndEffector.calculateFlywheelVoltage(Constants.EndEffector.speakerShotRPM));
+    s_EndEffector.setFlywheel(s_EndEffector.calculateFlywheelVoltage(Constants.EndEffector.ampShotRPM));
     //intake push note into flywheel if up to speed
-    if(s_EndEffector.getMotorVelocity() >= 0.9 * Constants.EndEffector.speakerShotRPM){
+    if(s_EndEffector.getMotorVelocity() >= 0.9 * Constants.EndEffector.ampShotRPM){
       s_EndEffector.setIntake(0.3);
     }
   }
@@ -44,7 +42,6 @@ public class EEShootFullSpeed extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //finish if the note is gone
     return !s_EndEffector.hasNote();  
   }
 }
