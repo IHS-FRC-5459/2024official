@@ -53,6 +53,8 @@ public final class Constants {
 
         public static final double restingVelocity = 0;
 
+        public static final double shotRPM = 1000;
+
     }
 
     public static final class Swerve {

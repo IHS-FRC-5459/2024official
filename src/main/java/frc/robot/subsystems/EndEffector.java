@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.math.controller.BangBangController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.BeamBreak;
 import frc.robot.Constants;
 
 public class EndEffector extends SubsystemBase {
@@ -28,9 +29,12 @@ public class EndEffector extends SubsystemBase {
   private RelativeEncoder flywheelEncoder;
   private double flywheelFeedForwardPercentage = 0.92;
 
+  private BeamBreak beamBreak;
+
 
   /** Creates a new EndEffector. */
-  public EndEffector() {
+  public EndEffector(BeamBreak beambreak) {
+    this.beamBreak = beambreak;
     flywheelNeo1.setIdleMode(IdleMode.kCoast);
     flywheelNeo2.setIdleMode(IdleMode.kCoast);
     intakeNeo.setIdleMode(IdleMode.kBrake);
@@ -59,6 +63,10 @@ public class EndEffector extends SubsystemBase {
 
   public void setIntake(double p){
     intakeNeo.set(p);
+  }
+
+  public boolean hasNote(){
+    return beamBreak.hasNote();
   }
 
   @Override
