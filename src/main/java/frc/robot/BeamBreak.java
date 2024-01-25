@@ -12,6 +12,11 @@ public class BeamBreak {
 
   DigitalInput[] beambreaks;
 
+    /**
+   * Creates a beambreak.
+   *
+   * @param channels channels[0] = lower BB, channels[1] = higher BB
+   */
     public BeamBreak(int[] channels){
       beambreaks = new DigitalInput[channels.length];
       for (int i = 0; i < channels.length; i++) {

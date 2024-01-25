@@ -69,6 +69,10 @@ public class EndEffector extends SubsystemBase {
     return beamBreak.hasNote();
   }
 
+  public boolean hasNoteShooter(){
+    return beamBreak.hasNoteArray()[1];
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
