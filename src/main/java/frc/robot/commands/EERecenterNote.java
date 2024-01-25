@@ -28,13 +28,18 @@ public class EERecenterNote extends Command {
     if(s_EndEffector.hasNoteShooter()){
       s_EndEffector.setIntake(-0.1);
 
+    } else {
+      s_EndEffector.setIntake(0);
+
     }
-    s_EndEffector.setIntake(0);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    s_EndEffector.setIntake(0);
+
+  }
 
   // Returns true when the command should end.
   @Override
