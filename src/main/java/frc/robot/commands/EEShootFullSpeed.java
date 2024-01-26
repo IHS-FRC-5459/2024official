@@ -29,7 +29,7 @@ public class EEShootFullSpeed extends Command {
     //spin flywheel up to speed
     s_EndEffector.setFlywheel(s_EndEffector.calculateFlywheelVoltage(Constants.EndEffector.speakerShotRPM));
     //intake push note into flywheel if up to speed
-    if(s_EndEffector.getMotorVelocity() >= 0.9 * Constants.EndEffector.speakerShotRPM){
+    if(s_EndEffector.getTopMotorVelocity() >= 0.9 * Constants.EndEffector.speakerShotRPM){
       s_EndEffector.setIntake(Constants.EndEffector.passthroughPower);
     }
   }

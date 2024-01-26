@@ -18,16 +18,26 @@ import frc.robot.Constants;
 public class EndEffector extends SubsystemBase {
 
   
-  public static final double kS_Flywheel = 0; 
-  public static final double kV_Flywheel = 0;
-  public static final double kA_Flywheel = 0;
-  CANSparkMax flywheelNeo1 = new CANSparkMax(Constants.EndEffector.flywheelMotor1, MotorType.kBrushless);
-  CANSparkMax flywheelNeo2 = new CANSparkMax(Constants.EndEffector.flywheelMotor2, MotorType.kBrushless);
+  public static final double kS_FlywheelTop = 0; 
+  public static final double kV_FlywheelTop = 0;
+  public static final double kA_FlywheelTop = 0;
+  
+  public static final double kS_FlywheelBottom = 0; 
+  public static final double kV_FlywheelBottom = 0;
+  public static final double kA_FlywheelBottom = 0;
+
+  CANSparkMax flywheelNeoTop = new CANSparkMax(Constants.EndEffector.flywheelMotor1, MotorType.kBrushless);
+  CANSparkMax flywheelNeoBottom = new CANSparkMax(Constants.EndEffector.flywheelMotor2, MotorType.kBrushless);
   CANSparkMax intakeNeo = new CANSparkMax(Constants.EndEffector.intakeMotor, MotorType.kBrushless);
-  SimpleMotorFeedforward flywheelFeedForward = new SimpleMotorFeedforward(kS_Flywheel, kV_Flywheel, kA_Flywheel);
+  SimpleMotorFeedforward flywheelTopFeedForward = new SimpleMotorFeedforward(kS_FlywheelTop, kV_FlywheelTop, kA_FlywheelTop);
+  SimpleMotorFeedforward flywheelBottomFeedForward = new SimpleMotorFeedforward(kS_FlywheelBottom, kV_FlywheelBottom, kA_FlywheelBottom);
+
   BangBangController controller = new BangBangController();
-  private RelativeEncoder flywheelEncoder;
-  private double flywheelFeedForwardPercentage = 0.92;
+  private RelativeEncoder flywheelTopEncoder;
+  private RelativeEncoder flywheelBottomEncoder;
+  private double flywheelTopFeedForwardPercentage = 0.92;
+  private double flywheelBottomFeedForwardPercentage = 0.92;
+
 
   private BeamBreak beamBreak;
 
@@ -35,30 +45,44 @@ public class EndEffector extends SubsystemBase {
   /** Creates a new EndEffector. */
   public EndEffector(BeamBreak beambreak) {
     this.beamBreak = beambreak;
-    flywheelNeo1.setIdleMode(IdleMode.kCoast);
-    flywheelNeo2.setIdleMode(IdleMode.kCoast);
+    flywheelNeoTop.setIdleMode(IdleMode.kCoast);
+    flywheelNeoBottom.setIdleMode(IdleMode.kCoast);
     intakeNeo.setIdleMode(IdleMode.kBrake);
-    flywheelEncoder = flywheelNeo1.getEncoder();
+    flywheelTopEncoder = flywheelNeoTop.getEncoder();
+    flywheelBottomEncoder = flywheelNeoBottom.getEncoder();
+
 
   }
 
 
 
   //calculate bang-bang output for flywheel
-  public double calculateFlywheelVoltage(double setpoint){
-    double voltage = (controller.calculate(getMotorVelocity(), setpoint) * 12.0 + flywheelFeedForwardPercentage * flywheelFeedForward.calculate(setpoint));
+  public double[] calculateFlywheelVoltage(double setpoint){
+    double[] voltage = {(controller.calculate(getTopMotorVelocity(), setpoint) * 12.0 + flywheelTopFeedForwardPercentage * flywheelTopFeedForward.calculate(setpoint)), controller.calculate(getBottomMotorVelocity(), setpoint) * 12.0 + flywheelBottomFeedForwardPercentage * flywheelBottomFeedForward.calculate(setpoint)};
     return voltage;
   }
 
-  public double getMotorVelocity(){
-    return flywheelEncoder.getVelocity(); // return flywheel motor velocity
+  public double getTopMotorVelocity(){
+    return flywheelTopEncoder.getVelocity(); // return flywheel motor velocity
   }
 
-  //set power to motors
+  public double getBottomMotorVelocity(){
+    return flywheelBottomEncoder.getVelocity(); // return flywheel motor velocity
+  }
+
+
+  //set power to motors from array
+  public void setFlywheel(double[] v)
+  {
+    flywheelNeoTop.setVoltage(v[0]);
+    flywheelNeoBottom.setVoltage(v[1]);
+  }
+
+    //set power to motors global voltage
   public void setFlywheel(double v)
   {
-    flywheelNeo1.setVoltage(v);
-    flywheelNeo2.setVoltage(v);
+    flywheelNeoTop.setVoltage(v);
+    flywheelNeoBottom.setVoltage(v);
   }
 
   public void setIntake(double p){
