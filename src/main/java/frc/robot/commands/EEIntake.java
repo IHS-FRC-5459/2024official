@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.EndEffector;
 
 public class EEIntake extends Command {
@@ -35,9 +36,9 @@ public class EEIntake extends Command {
      
     } else {
        //run shooter motors slowly backwards
-      s_EndEffector.setFlywheel(-1);
+      s_EndEffector.setFlywheel(Constants.EndEffector.intakingFlywheelVoltage);
       // run intake
-      s_EndEffector.setIntake(0.3);
+      s_EndEffector.setIntake(Constants.EndEffector.intakingPower);
 
     }
     

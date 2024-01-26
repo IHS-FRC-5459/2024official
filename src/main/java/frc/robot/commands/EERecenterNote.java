@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.EndEffector;
 
 public class EERecenterNote extends Command {
@@ -26,7 +27,7 @@ public class EERecenterNote extends Command {
   public void execute() {
     // kick back note if it is touching the beambreak until it isnt 
     if(s_EndEffector.hasNoteShooter()){
-      s_EndEffector.setIntake(-0.1);
+      s_EndEffector.setIntake(Constants.EndEffector.recenterPower);
 
     } else {
       s_EndEffector.setIntake(0);

@@ -28,7 +28,7 @@ public class EEShootAmpSpeed extends Command {
     s_EndEffector.setFlywheel(s_EndEffector.calculateFlywheelVoltage(Constants.EndEffector.ampShotRPM));
     //intake push note into flywheel if up to speed
     if(s_EndEffector.getMotorVelocity() >= 0.9 * Constants.EndEffector.ampShotRPM){
-      s_EndEffector.setIntake(0.3);
+      s_EndEffector.setIntake(Constants.EndEffector.passthroughPower);
     }
   }
 
