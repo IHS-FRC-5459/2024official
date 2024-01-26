@@ -26,12 +26,23 @@ public class EENeutral extends Command {
   public void execute() {
     //set intake to zero
     //set shooter speed to zero
+    
     if(s_EndEffector.hasNote()){
-      s_EndEffector.setFlywheel(s_EndEffector.calculateFlywheelVoltage(Constants.EndEffector.speakerShotRPM));
-    } else {
+      if(s_EndEffector.hasNoteShooter()){
+      s_EndEffector.setIntake(Constants.EndEffector.recenterPower);
       s_EndEffector.setFlywheel(s_EndEffector.calculateFlywheelVoltage(Constants.EndEffector.restingVelocity));
+
+    }  else {
+      s_EndEffector.setFlywheel(s_EndEffector.calculateFlywheelVoltage(Constants.EndEffector.speakerShotRPM));
+      s_EndEffector.setIntake(0);
     }
-    s_EndEffector.setIntake(0);
+  } else {
+      s_EndEffector.setIntake(0);
+      s_EndEffector.setFlywheel(s_EndEffector.calculateFlywheelVoltage(Constants.EndEffector.restingVelocity));
+
+  }
+
+
 
   }
 
