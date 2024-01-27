@@ -94,7 +94,7 @@ public class EndEffector extends SubsystemBase {
   }
 
   public boolean hasNoteShooter(){
-    return beamBreak.hasNoteArray()[1];
+    return beamBreak.getResults().topState;
   }
 
   @Override

@@ -4,11 +4,16 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants;
 import frc.robot.subsystems.Pivot;
 
 public class PivotToSpeaker extends Command {
   private Pivot s_Pivot;
+  WaitCommand clock = new WaitCommand(Constants.EndEffector.waitTime);
+
 
   /** Creates a new PivotToAmp. */
   public PivotToSpeaker(Pivot s_Pivot) {
@@ -24,7 +29,10 @@ public class PivotToSpeaker extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      s_Pivot.setRotationVoltage(s_Pivot.calculateRotationVoltage(s_Pivot.calculateGoalAngle()));
+    //put smart dashboard running command update
+    SmartDashboard.putString("Pivot CMD", "Speaker");
+
+    s_Pivot.setRotationVoltage(s_Pivot.calculateRotationVoltage(s_Pivot.calculateGoalAngle()));
   }
 
   // Called once the command ends or is interrupted.
@@ -34,6 +42,18 @@ public class PivotToSpeaker extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !s_Pivot.hasNote();
+
+    if(!s_Pivot.hasNote()){
+      if(!clock.isScheduled()){ //init clock if not started
+        clock.initialize();
+      } else { // if clock is started clock
+        if(clock.isFinished()){// if clock is over end cmd and reset clock 
+          clock.cancel();
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 }

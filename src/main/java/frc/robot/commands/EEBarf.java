@@ -10,16 +10,15 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.EndEffector;
 
-public class EEIntake extends Command {
-  private EndEffector s_EndEffector;
+public class EEBarf extends Command {
+  EndEffector s_EndEffector;
   WaitCommand clock = new WaitCommand(Constants.EndEffector.waitTime);
 
-  /** Creates a new Intake. */
-  public EEIntake(EndEffector endEffector) {
+  /** Creates a new EEBarf. */
+  public EEBarf(EndEffector endEffector) {
     s_EndEffector = endEffector;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(s_EndEffector);
-  }
+    addRequirements(s_EndEffector);  }
 
   // Called when the command is initially scheduled.
   @Override
@@ -28,27 +27,10 @@ public class EEIntake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
     //put smart dashboard running command update
-    SmartDashboard.putString("EE CMD", "Intake");
+    SmartDashboard.putString("EE CMD", "Barf");
 
-
-    // check if note is fully intooken
-    if(s_EndEffector.hasNote()){
-        // stop shooter and intake
-      s_EndEffector.setFlywheel(0);
-      s_EndEffector.setIntake(0);
-
-
-     
-    } else {
-       //run shooter motors slowly backwards
-      s_EndEffector.setFlywheel(Constants.EndEffector.intakingFlywheelVoltage);
-      // run intake
-      s_EndEffector.setIntake(Constants.EndEffector.intakingPower);
-
-    }
-    
+    s_EndEffector.setIntake(-Constants.EndEffector.intakingPower);
   }
 
   // Called once the command ends or is interrupted.
@@ -59,7 +41,7 @@ public class EEIntake extends Command {
   @Override
   public boolean isFinished() {
     //finish if the note is intooken
-    if(s_EndEffector.hasNote()){
+    if(!s_EndEffector.hasNote()){
       if(!clock.isScheduled()){ //init clock if not started
         clock.initialize();
       } else { // if clock is started clock

@@ -51,6 +51,9 @@ public final class Constants {
         public static final int flywheelMotor2 = 24;
         public static final int intakeMotor = 25;
 
+        public static final double waitTime = 0.2;
+
+
         public static final double restingVelocity = 0;
 
         public static final double speakerShotRPM = 1000;
