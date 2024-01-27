@@ -56,8 +56,8 @@ public final class Constants {
     }
 
     public static final class LED {
-        public static final int CANdleID = 1;
-        
+        public static final int CANdleID = 30;
+
         public static final String CANDdleCANbus = "light bus";
 
     }
