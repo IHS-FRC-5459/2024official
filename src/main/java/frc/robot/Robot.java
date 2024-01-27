@@ -23,7 +23,7 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  CANdle _candle = new CANdle(1, "light bus");
+  CANdle _candle = new CANdle(Constants.LED.CANdleID, Constants.LED.CANDdleCANbus);
 
   /**
    * This function is run when the robot is first started up and should be used for any
