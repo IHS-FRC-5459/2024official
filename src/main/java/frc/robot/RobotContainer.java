@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.commands.*;
@@ -32,6 +33,7 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton centerButton = new JoystickButton(driver, XboxController.Button.kA.value);
 
     /* Sensors */
     public final int[] channels = {7};
@@ -58,12 +60,12 @@ public class RobotContainer {
                 () -> robotCentric.getAsBoolean()
             )
         );
-
-        s_Pivot.setDefaultCommand(
+//temp removal for testing 
+/*        s_Pivot.setDefaultCommand(
             new PivotToNeutral(
                 s_Pivot
             )
-        );
+        );*/
 
 
 
@@ -84,6 +86,7 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
+        //centerButton.onTrue(new CenterVision(s_Swerve));
     }
 
     /**

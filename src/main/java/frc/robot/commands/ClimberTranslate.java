@@ -6,16 +6,17 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
-import frc.robot.subsystems.Pivot;
+import frc.robot.subsystems.Climber;
 
-public class PivotToNeutral extends Command {
-  private Pivot s_Pivot;
-  /** Creates a new PivotToNeutral. */
-  public PivotToNeutral(Pivot s_Pivot) {
+public class ClimberTranslate extends Command {
+  private Climber s_climber; 
+  private double pwr;
+  /** Creates a new ClimberTranslate. */
+  public ClimberTranslate(Climber clibmer, double pwr) {
+    this.pwr = pwr;
+    s_climber = clibmer;
+    addRequirements(s_climber);
     // Use addRequirements() here to declare subsystem dependencies.
-    this.s_Pivot=s_Pivot;
-    addRequirements(s_Pivot);
   }
 
   // Called when the command is initially scheduled.
@@ -25,15 +26,18 @@ public class PivotToNeutral extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //put smart dashboard running command update
-    SmartDashboard.putString("Pivot CMD", "Neutral");
 
-    s_Pivot.setRotationVoltage(s_Pivot.calculateRotationVoltage(Constants.Arm.restingAngle));
+    //put smart dashboard running command update
+    SmartDashboard.putString("Climber CMD", "Translate");
+
+    s_climber.setClimberPower(pwr);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    s_climber.setClimberPower(0);
+  }
 
   // Returns true when the command should end.
   @Override

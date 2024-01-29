@@ -12,6 +12,11 @@ public class BeamBreak {
 
   DigitalInput[] beambreaks;
 
+    /**
+   * Creates a beambreak.
+   *
+   * @param channels channels[0] = lower BB, channels[1] = higher BB
+   */
     public BeamBreak(int[] channels){
       beambreaks = new DigitalInput[channels.length];
       for (int i = 0; i < channels.length; i++) {
@@ -19,22 +24,32 @@ public class BeamBreak {
       }
       
     }
-      //is beambreak broken
+  //is beambreak broken
   public boolean hasNote(){
-    for(Boolean b:hasNoteArray()){
-      if(b){
+    for(DigitalInput b: beambreaks){
+      if(b.get()){
         return true;
       }
     }
     return false;
   }
 
-  public boolean[] hasNoteArray(){
-    boolean[] ret = new boolean[beambreaks.length];
-    for (int i = 0; i < beambreaks.length; i++) {
-        ret[i] = beambreaks[i].get();
-      }
 
-    return ret;
+  public BeamBreak.Result getResults(){
+    return new Result(
+      beambreaks[0].get(), beambreaks[1].get()
+    );
+  }
+
+  public class Result {
+    public boolean bottomState = false;
+    public boolean topState = false;
+
+    public Result(boolean t, boolean b){
+      bottomState = b;
+      topState = t;
+    }
   }
 }
+
+

@@ -51,11 +51,27 @@ public final class Constants {
         public static final int flywheelMotor2 = 24;
         public static final int intakeMotor = 25;
 
+        public static final double waitTime = 0.2;
+
+
         public static final double restingVelocity = 0;
+
+        public static final double speakerShotRPM = 1000;
+        public static final double ampShotRPM = 1000;
+
+        public static final double intakingPower = 0.3;
+        public static final double passthroughPower = 0.4;
+        public static final double recenterPower = -0.1;
+        public static final double intakingFlywheelVoltage = -1;
+
+
 
     }
 
     public static final class Swerve {
+
+        public static final int centerWaitTime = 1; 
+
         public static final int pigeonID = 1;
 
         public static final COTSTalonFXSwerveConstants chosenModule =  

@@ -4,14 +4,20 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.BooleanSupplier;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.BeamBreak;
+import frc.robot.Constants;
 import frc.robot.Vision;
 
 public class Pivot extends SubsystemBase {
@@ -21,6 +27,7 @@ public class Pivot extends SubsystemBase {
   public static final double kP_rotate = 0.0008;
   public static final double kF_rotate = 0.27; //volts to hold arm rotation at a fixed position when arm is @ 180/0 deg (flat). multiple by sin(angle)
   public static final int armRotateMotorID = 22;
+  public static final double offset=0.0;
 
   // create neo for pivot
   CANSparkMax armRotationNeo = new CANSparkMax(armRotateMotorID, MotorType.kBrushless);
@@ -36,7 +43,7 @@ public class Pivot extends SubsystemBase {
     m_BeamBreak=beambreak;
     armRotationNeo.setIdleMode(IdleMode.kBrake);
     armRotationNeo.setInverted(true);
-    encoder.setPositionOffset(0.21);
+    encoder.setPositionOffset(offset);
    
     
   }
@@ -57,6 +64,8 @@ public class Pivot extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("pivot angle", getAngle());
+
   }
 
   //from vision:
@@ -67,6 +76,13 @@ public class Pivot extends SubsystemBase {
   // from beambreak:
   public boolean hasNote(){
     return m_BeamBreak.hasNote();
+  }
+
+  public Command withNoteTimeout(Command pivotCommand){
+    return Commands.race(
+      pivotCommand,
+      Commands.waitUntil(() -> !hasNote()).andThen(Commands.waitSeconds(Constants.EndEffector.waitTime))
+    );
   }
 
 

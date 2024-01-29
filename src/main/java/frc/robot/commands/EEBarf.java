@@ -7,16 +7,16 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.subsystems.Pivot;
+import frc.robot.subsystems.EndEffector;
 
-public class PivotToNeutral extends Command {
-  private Pivot s_Pivot;
-  /** Creates a new PivotToNeutral. */
-  public PivotToNeutral(Pivot s_Pivot) {
+public class EEBarf extends Command {
+  EndEffector s_EndEffector;
+
+  /** Creates a new EEBarf. */
+  public EEBarf(EndEffector endEffector) {
+    s_EndEffector = endEffector;
     // Use addRequirements() here to declare subsystem dependencies.
-    this.s_Pivot=s_Pivot;
-    addRequirements(s_Pivot);
-  }
+    addRequirements(s_EndEffector);  }
 
   // Called when the command is initially scheduled.
   @Override
@@ -26,9 +26,9 @@ public class PivotToNeutral extends Command {
   @Override
   public void execute() {
     //put smart dashboard running command update
-    SmartDashboard.putString("Pivot CMD", "Neutral");
+    SmartDashboard.putString("EE CMD", "Barf");
 
-    s_Pivot.setRotationVoltage(s_Pivot.calculateRotationVoltage(Constants.Arm.restingAngle));
+    s_EndEffector.setIntake(-Constants.EndEffector.intakingPower);
   }
 
   // Called once the command ends or is interrupted.
