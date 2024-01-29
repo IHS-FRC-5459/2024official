@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.BooleanSupplier;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -11,8 +13,11 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.BeamBreak;
+import frc.robot.Constants;
 import frc.robot.Vision;
 
 public class Pivot extends SubsystemBase {
@@ -71,6 +76,13 @@ public class Pivot extends SubsystemBase {
   // from beambreak:
   public boolean hasNote(){
     return m_BeamBreak.hasNote();
+  }
+
+  public Command withNoteTimeout(Command pivotCommand){
+    return Commands.race(
+      pivotCommand,
+      Commands.waitUntil(() -> !hasNote()).andThen(Commands.waitSeconds(Constants.EndEffector.waitTime))
+    );
   }
 
 

@@ -12,14 +12,10 @@ import frc.robot.subsystems.EndEffector;
 
 public class EEShootFullSpeed extends Command {
   private EndEffector s_EndEffector;
-  WaitCommand clock;
-
 
   /** Creates a new ShootFullSpeed. */
   public EEShootFullSpeed(EndEffector endEffector) {
     s_EndEffector = endEffector;
-    clock = new WaitCommand(Constants.EndEffector.waitTime);
-
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(s_EndEffector);
   }
@@ -54,19 +50,6 @@ public class EEShootFullSpeed extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-
-  //finish if the note is intooken
-  if(!s_EndEffector.hasNote()){
-    if(!clock.isScheduled()){ //init clock if not started
-      clock.schedule();
-    } else { // if clock is started clock
-      if(clock.isFinished()){// if clock is over end cmd and reset clock 
-        clock.cancel();
-        return true;
-      }
-    }
-  }
-    //finish if the note is gone
     return false;  
   }
 }

@@ -12,13 +12,9 @@ import frc.robot.subsystems.Pivot;
 
 public class PivotToAmp extends Command {
   private Pivot s_Pivot;
-  WaitCommand clock;
-
 
   /** Creates a new PivotToAmp. */
   public PivotToAmp(Pivot s_Pivot) {
-    clock = new WaitCommand(Constants.EndEffector.waitTime);
-
     // Use addRequirements() here to declare subsystem dependencies.
     this.s_Pivot=s_Pivot;
     addRequirements(s_Pivot);
@@ -45,16 +41,6 @@ public class PivotToAmp extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(!s_Pivot.hasNote()){
-      if(!clock.isScheduled()){ //init clock if not started
-        clock.schedule();
-      } else { // if clock is started clock
-        if(clock.isFinished()){// if clock is over end cmd and reset clock 
-          clock.cancel();
-          return true;
-        }
-      }
-    }
     return false;
   }
 }

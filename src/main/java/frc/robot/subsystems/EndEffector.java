@@ -11,6 +11,8 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.BangBangController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.BeamBreak;
 import frc.robot.Constants;
@@ -95,6 +97,23 @@ public class EndEffector extends SubsystemBase {
 
   public boolean hasNoteShooter(){
     return beamBreak.getResults().topState;
+  }
+
+
+  public Command EETimedShooterBuilder(Command EECommand){
+    return Commands.race(
+      EECommand,
+      Commands.waitUntil(() -> !hasNote()).andThen(Commands.waitSeconds(Constants.EndEffector.waitTime))
+    ); 
+  }
+
+  public Command EETimedRecenterBuilder(Command EECommand)
+  {
+    return Commands.race(
+      EECommand,
+      Commands.waitUntil(() -> !hasNoteShooter()).andThen(Commands.waitSeconds(Constants.EndEffector.waitTime))
+
+    );
   }
 
   @Override
