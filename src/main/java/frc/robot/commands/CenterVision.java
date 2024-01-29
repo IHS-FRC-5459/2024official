@@ -8,16 +8,20 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
 
 public class CenterVision extends Command {
   private Swerve s_Swerve;   
   private double goalAngle; 
+  WaitCommand clock;
+
 
   /** Creates a new CenterVision. */
   public CenterVision(Swerve s_Swerve) {
     // Use addRequirements() here to declare subsystem dependencies.
+    clock = new WaitCommand(Constants.Swerve.centerWaitTime);
     this.s_Swerve = s_Swerve;
     addRequirements(s_Swerve);
  
@@ -26,6 +30,7 @@ public class CenterVision extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    clock.schedule();
     goalAngle = s_Swerve.gyroYawDouble() - s_Swerve.visionAngleError();
   }
 
@@ -68,12 +73,7 @@ public class CenterVision extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(s_Swerve.visionAngleError()) < 1;
-  }
-
-  @Override
-  public InterruptionBehavior getInterruptionBehavior() {
-    return InterruptionBehavior.kCancelSelf;
+    return Math.abs(s_Swerve.visionAngleError()) < 1 || clock.isFinished();
   }
 
 }

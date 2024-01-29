@@ -69,6 +69,9 @@ public final class Constants {
     }
 
     public static final class Swerve {
+
+        public static final int centerWaitTime = 1; 
+
         public static final int pigeonID = 1;
 
         public static final COTSTalonFXSwerveConstants chosenModule =  

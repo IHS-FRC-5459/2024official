@@ -61,7 +61,7 @@ public class EEIntake extends Command {
     //finish if the note is intooken
     if(s_EndEffector.hasNote()){
       if(!clock.isScheduled()){ //init clock if not started
-        clock.initialize();
+        clock.schedule();
       } else { // if clock is started clock
         if(clock.isFinished()){// if clock is over end cmd and reset clock 
           clock.cancel();
