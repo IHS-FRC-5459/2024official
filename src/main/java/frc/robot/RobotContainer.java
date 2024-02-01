@@ -133,9 +133,8 @@ s_EndEffector.setDefaultCommand(
 
     public Command shootWithCenterSpeaker(){//used in auto 
         return Commands.parallel(
-            s_Swerve.centerVisionBuilder(),
-            s_Pivot.withNoteTimeout(new PivotToAmp(s_Pivot)),
-            s_EndEffector.EETimedShooterBuilder(new EEShootFullSpeed(s_EndEffector))
+            s_Swerve.centerVisionBuilder().andThen(s_EndEffector.EETimedShooterBuilder(new EEShootFullSpeed(s_EndEffector))),
+            s_Pivot.withNoteTimeout(new PivotToAmp(s_Pivot))
         );
     }
 }
