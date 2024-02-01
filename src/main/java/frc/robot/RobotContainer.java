@@ -1,6 +1,7 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
@@ -8,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -42,6 +44,8 @@ public class RobotContainer {
 
     private final Swerve s_Swerve = new Swerve(vision);
     private final Pivot s_Pivot = new Pivot(vision, beambreak);
+    private final EndEffector s_EndEffector = new EndEffector(beambreak);
+
 
 
     private final SendableChooser<Command> autoChooser;
@@ -50,6 +54,11 @@ public class RobotContainer {
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
+
+        //named commands for swerve
+        NamedCommands.registerCommand("Intake", getAutonomousCommand());//intaking
+        NamedCommands.registerCommand("Shoot", shootNoCenterSpeaker());//shooting
+
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
@@ -64,7 +73,15 @@ public class RobotContainer {
             new PivotToNeutral(
                 s_Pivot
             )
+s_EndEffector.setDefaultCommand(
+            new EENeutral(s_EndEffector)
+        );
+
         );*/
+
+        
+
+
 
 
 
@@ -95,5 +112,31 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         return autoChooser.getSelected();
+    }
+
+
+    //large command builders:
+    //shoot sequence without vision center
+    public Command shootNoCenterSpeaker(){
+        return Commands.parallel(
+            s_Pivot.withNoteTimeout(new PivotToSpeaker(s_Pivot)),
+            s_EndEffector.EETimedShooterBuilder(new EEShootFullSpeed(s_EndEffector))
+        );
+    }
+
+    public Command shootNoCenterAmp(){
+        return Commands.parallel(
+            s_Pivot.withNoteTimeout(new PivotToAmp(s_Pivot)),
+            s_EndEffector.EETimedShooterBuilder(new EEShootAmpSpeed(s_EndEffector))
+        );
+    }
+
+
+    public Command shootWithCenterSpeaker(){//used in auto 
+        return Commands.parallel(
+            s_Swerve.centerVisionBuilder(),
+            s_Pivot.withNoteTimeout(new PivotToAmp(s_Pivot)),
+            s_EndEffector.EETimedShooterBuilder(new EEShootFullSpeed(s_EndEffector))
+        );
     }
 }

@@ -107,14 +107,6 @@ public class EndEffector extends SubsystemBase {
     ); 
   }
 
-  public Command EETimedRecenterBuilder(Command EECommand)
-  {
-    return Commands.race(
-      EECommand,
-      Commands.waitUntil(() -> !hasNoteShooter()).andThen(Commands.waitSeconds(Constants.EndEffector.waitTime))
-
-    );
-  }
 
   @Override
   public void periodic() {
