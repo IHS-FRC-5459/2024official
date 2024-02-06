@@ -24,11 +24,14 @@ public class Pivot extends SubsystemBase {
   private double feedforwardPercentage =0.9;
   public static final double kP_rotate = 0.0008;
   public static final double kF_rotate = 0.27; //volts to hold arm rotation at a fixed position when arm is @ 180/0 deg (flat). multiple by sin(angle)
-  public static final int armRotateMotorID = 22;
+  public static final int armRotateMotor1ID = 22;
+  public static final int armRotateMotor2ID = 23;
   public static final double offset=0.0;
 
   // create neo for pivot
-  CANSparkMax armRotationNeo = new CANSparkMax(armRotateMotorID, MotorType.kBrushless);
+  CANSparkMax armRotationNeo = new CANSparkMax(armRotateMotor1ID, MotorType.kBrushless);
+  CANSparkMax armRotationNeo2 = new CANSparkMax(armRotateMotor2ID, MotorType.kBrushless);
+
   //create absolute encoder (rev through-bore)
   DutyCycleEncoder encoder = new DutyCycleEncoder(9); 
 
@@ -40,6 +43,7 @@ public class Pivot extends SubsystemBase {
     m_Vision = vision;
     m_BeamBreak=beambreak;
     armRotationNeo.setIdleMode(IdleMode.kBrake);
+    armRotationNeo2.setIdleMode(IdleMode.kBrake);
     armRotationNeo.setInverted(true);
     encoder.setPositionOffset(offset);
    
@@ -57,6 +61,7 @@ public class Pivot extends SubsystemBase {
   }
   public void setRotationVoltage(double volts){
     armRotationNeo.setVoltage(volts);
+    armRotationNeo2.setVoltage(volts);
   }
 
 
