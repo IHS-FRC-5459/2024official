@@ -45,6 +45,7 @@ public class Pivot extends SubsystemBase {
     armRotationNeo.setIdleMode(IdleMode.kBrake);
     armRotationNeo2.setIdleMode(IdleMode.kBrake);
     armRotationNeo.setInverted(true);
+    armRotationNeo2.setInverted(false);
     encoder.setPositionOffset(offset);
    
     
