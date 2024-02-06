@@ -41,8 +41,9 @@ public final class Constants {
 
     public static final class Arm {
 
-        public static final double restingAngle = -15;
-        public static final double ampAngle = 90;
+        public static final double restingAngle = -6;
+        public static final double ampAngle = 80;
+        public static final double voltageDeadband = 0.1;
 
     }
 

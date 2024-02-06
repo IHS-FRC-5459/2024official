@@ -20,20 +20,20 @@ import frc.robot.Vision;
 
 public class Pivot extends SubsystemBase {
 
-  private double voltsMax = 0.5; 
+  private double voltsMax = 4; 
   private double feedforwardPercentage =0.9;
-  public static final double kP_rotate = 0.0008;
-  public static final double kF_rotate = 0.27; //volts to hold arm rotation at a fixed position when arm is @ 180/0 deg (flat). multiple by sin(angle)
+  public static final double kP_rotate = 0.002;
+  public static final double kF_rotate = 0.5; //volts to hold arm rotation at a fixed position when arm is @ 180/0 deg (flat). multiple by sin(angle)
   public static final int armRotateMotor1ID = 22;
   public static final int armRotateMotor2ID = 23;
-  public static final double offset=0.0;
+  public static final double offset=0.215;
 
   // create neo for pivot
   CANSparkMax armRotationNeo = new CANSparkMax(armRotateMotor1ID, MotorType.kBrushless);
   CANSparkMax armRotationNeo2 = new CANSparkMax(armRotateMotor2ID, MotorType.kBrushless);
 
   //create absolute encoder (rev through-bore)
-  DutyCycleEncoder encoder = new DutyCycleEncoder(9); 
+  DutyCycleEncoder encoder = new DutyCycleEncoder(4); 
 
   private Vision m_Vision;
   private BeamBreak m_BeamBreak;
@@ -44,8 +44,8 @@ public class Pivot extends SubsystemBase {
     m_BeamBreak=beambreak;
     armRotationNeo.setIdleMode(IdleMode.kBrake);
     armRotationNeo2.setIdleMode(IdleMode.kBrake);
-    armRotationNeo.setInverted(true);
-    armRotationNeo2.setInverted(false);
+    armRotationNeo.setInverted(false);
+    armRotationNeo2.setInverted(true);
     encoder.setPositionOffset(offset);
    
     
@@ -58,7 +58,8 @@ public class Pivot extends SubsystemBase {
 
 
   public double calculateRotationVoltage(double goalAngle){ 
-    return ((MathUtil.clamp((kP_rotate * (getAngle() - goalAngle) * -12),-voltsMax,voltsMax)) + feedforwardPercentage * (kF_rotate * Math.cos(Math.toRadians(getAngle()))));
+    double pwr = ((MathUtil.clamp((kP_rotate * (getAngle() - goalAngle) * -12),-voltsMax,voltsMax)) + feedforwardPercentage * (kF_rotate * Math.cos(Math.toRadians(getAngle()))));
+    return MathUtil.applyDeadband(pwr, Constants.Arm.voltageDeadband);
   }
   public void setRotationVoltage(double volts){
     armRotationNeo.setVoltage(volts);

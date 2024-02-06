@@ -34,7 +34,7 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-
+    private final JoystickButton pivotTest = new JoystickButton(driver, XboxController.Button.kB.value);
     /* Sensors */
     public final int[] channels = {7};
     public final Vision vision = new Vision();
@@ -42,7 +42,7 @@ public class RobotContainer {
     /* Subsystems */
 
     private final Swerve s_Swerve = new Swerve(vision);
-   // private final Pivot s_Pivot = new Pivot(vision, beambreak);
+    private final Pivot s_Pivot = new Pivot(vision, beambreak);
    // private final EndEffector s_EndEffector = new EndEffector(beambreak);
 
 
@@ -67,11 +67,14 @@ public class RobotContainer {
                 () -> robotCentric.getAsBoolean()
             )
         );
-//temp removal for testing 
-/*        s_Pivot.setDefaultCommand(
+
+        s_Pivot.setDefaultCommand(
             new PivotToNeutral(
                 s_Pivot
             )
+        );
+//temp removal for testing 
+/*        
 s_EndEffector.setDefaultCommand(
             new EENeutral(s_EndEffector)
         );
@@ -101,6 +104,7 @@ s_EndEffector.setDefaultCommand(
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
+        pivotTest.whileTrue(new PivotToAmp(s_Pivot));
         //centerButton.onTrue(new CenterVision(s_Swerve));
     }
 
