@@ -1,0 +1,61 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "StartR2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "TurnToSpeakerR2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GoToFirstNoteR2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ReturnFromFirstNoteR2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AngleFromOuterR2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GoToSecondNoteR2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ReturnFromSecondNoteR2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AngleFromOuterR2"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "AutoR2",
+  "choreoAuto": false
+}

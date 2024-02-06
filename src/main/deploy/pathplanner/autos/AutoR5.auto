@@ -1,0 +1,25 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GoToSpeakerShooting"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "TurnToSpeaker"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "AutoR5",
+  "choreoAuto": false
+}

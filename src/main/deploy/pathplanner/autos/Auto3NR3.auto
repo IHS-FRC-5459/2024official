@@ -1,0 +1,67 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GoToFirstNoteR3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AngleToSpeakerR3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AngleBackFromSpeakerR3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AngleToSpeakerR3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GoToSecondNoteR3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GoToThirdNoteR3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GoToFinalShootingPosR3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GoToMiddleNoteR3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GoToShootMiddleNoteR3"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "AutoR3",
+  "choreoAuto": false
+}

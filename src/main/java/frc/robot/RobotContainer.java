@@ -42,8 +42,8 @@ public class RobotContainer {
     /* Subsystems */
 
     private final Swerve s_Swerve = new Swerve(vision);
-    private final Pivot s_Pivot = new Pivot(vision, beambreak);
-    private final EndEffector s_EndEffector = new EndEffector(beambreak);
+   // private final Pivot s_Pivot = new Pivot(vision, beambreak);
+   // private final EndEffector s_EndEffector = new EndEffector(beambreak);
 
 
 
@@ -55,8 +55,8 @@ public class RobotContainer {
     public RobotContainer() {
 
         //named commands for swerve
-        NamedCommands.registerCommand("Intake", getAutonomousCommand());//intaking
-        NamedCommands.registerCommand("Shoot", shootNoCenterSpeaker());//shooting
+      //  NamedCommands.registerCommand("Intake", new EEIntake(s_EndEffector));//intaking
+      //  NamedCommands.registerCommand("Shoot", shootNoCenterSpeaker());//shooting
 
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
@@ -116,7 +116,7 @@ s_EndEffector.setDefaultCommand(
 
     //large command builders:
     //shoot sequence without vision center
-    public Command shootNoCenterSpeaker(){
+ /*    public Command shootNoCenterSpeaker(){
         return Commands.parallel(
             s_Pivot.withNoteTimeout(new PivotToSpeaker(s_Pivot)),
             s_EndEffector.EETimedShooterBuilder(new EEShootFullSpeed(s_EndEffector))
@@ -136,5 +136,5 @@ s_EndEffector.setDefaultCommand(
             s_Swerve.centerVisionBuilder().andThen(s_EndEffector.EETimedShooterBuilder(new EEShootFullSpeed(s_EndEffector))),
             s_Pivot.withNoteTimeout(new PivotToAmp(s_Pivot))
         );
-    }
+    }*/
 }

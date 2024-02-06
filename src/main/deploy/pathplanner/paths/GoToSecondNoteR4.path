@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.918404239090931,
-        "y": 6.9328152351026535
+        "x": 14.5,
+        "y": 4.1
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.2580184989185943,
-        "y": 6.312140898176232
+        "x": 14.538741708348933,
+        "y": 4.131608227318314
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.918404239090931,
-        "y": 5.515804013063089
+        "x": 13.99,
+        "y": 5.55
       },
       "prevControl": {
-        "x": 2.625633325446393,
-        "y": 6.171610859626855
+        "x": 14.040000000000001,
+        "y": 5.55
       },
       "nextControl": null,
       "isLocked": false,
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "AutoPathsR4",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }
