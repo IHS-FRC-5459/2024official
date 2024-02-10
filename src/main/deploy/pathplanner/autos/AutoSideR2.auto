@@ -12,9 +12,15 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "TurnToSpeakerR2"
+            "name": "shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
           }
         },
         {
@@ -30,9 +36,15 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "AngleFromOuterR2"
+            "name": "shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
           }
         },
         {
@@ -48,9 +60,9 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "AngleFromOuterR2"
+            "name": "shoot"
           }
         }
       ]

@@ -16,6 +16,12 @@
           "data": {
             "pathName": "TurnToSpeaker"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot"
+          }
         }
       ]
     }

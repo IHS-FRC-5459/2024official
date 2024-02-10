@@ -10,10 +10,16 @@
           "data": {
             "pathName": "GoToShootPreloadR6"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot"
+          }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "AutoR6",
   "choreoAuto": false
 }

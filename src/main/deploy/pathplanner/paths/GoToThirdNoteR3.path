@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 13.99,
+        "x": 14.2,
         "y": 5.55
       },
       "prevControl": null,
       "nextControl": {
-        "x": 13.99,
+        "x": 14.2,
         "y": 5.5
       },
       "isLocked": false,
@@ -16,19 +16,25 @@
     },
     {
       "anchor": {
-        "x": 13.99,
-        "y": 4.1022
+        "x": 14.2,
+        "y": 4.2
       },
       "prevControl": {
-        "x": 13.94,
-        "y": 4.1022
+        "x": 14.17479975306623,
+        "y": 4.156814961451018
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 30.0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -39,8 +45,8 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
-    "rotateFast": false
+    "rotation": 30.27,
+    "rotateFast": true
   },
   "reversed": false,
   "folder": "AutoPathsR3",

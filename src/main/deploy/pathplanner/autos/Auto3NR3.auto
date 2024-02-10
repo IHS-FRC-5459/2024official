@@ -12,21 +12,27 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "AngleToSpeakerR3"
+            "name": "shoot"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "AngleBackFromSpeakerR3"
+            "name": "intake"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "AngleToSpeakerR3"
+            "name": "shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
           }
         },
         {
@@ -38,13 +44,37 @@
         {
           "type": "path",
           "data": {
-            "pathName": "GoToThirdNoteR3"
+            "pathName": "RotateForMiddleNoteR3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "GoToFinalShootingPosR3"
+            "pathName": "GoToThirdNoteR3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
           }
         },
         {
@@ -57,6 +87,12 @@
           "type": "path",
           "data": {
             "pathName": "GoToShootMiddleNoteR3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot"
           }
         }
       ]

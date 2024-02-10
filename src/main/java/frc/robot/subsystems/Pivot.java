@@ -20,9 +20,9 @@ import frc.robot.Vision;
 
 public class Pivot extends SubsystemBase {
 
-  private double voltsMax = 4; 
+  private double voltsMax = 7; 
   private double feedforwardPercentage =0.9;
-  public static final double kP_rotate = 0.002;
+  public static final double kP_rotate = 0.0035;
   public static final double kF_rotate = 0.5; //volts to hold arm rotation at a fixed position when arm is @ 180/0 deg (flat). multiple by sin(angle)
   public static final int armRotateMotor1ID = 22;
   public static final int armRotateMotor2ID = 23;
@@ -33,7 +33,7 @@ public class Pivot extends SubsystemBase {
   CANSparkMax armRotationNeo2 = new CANSparkMax(armRotateMotor2ID, MotorType.kBrushless);
 
   //create absolute encoder (rev through-bore)
-  DutyCycleEncoder encoder = new DutyCycleEncoder(4); 
+  DutyCycleEncoder encoder = new DutyCycleEncoder(5); 
 
   private Vision m_Vision;
   private BeamBreak m_BeamBreak;

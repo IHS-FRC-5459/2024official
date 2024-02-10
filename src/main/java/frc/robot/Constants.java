@@ -17,6 +17,8 @@ public final class Constants {
 
     public static final class Climber {
         public static final int climberMotorID = 26;
+        public static final double climberDownPower = -0.3;
+        public static final double climberUpPower = 0.03;
     }
 
     public static final class LimeLight {
@@ -42,15 +44,15 @@ public final class Constants {
     public static final class Arm {
 
         public static final double restingAngle = -6;
-        public static final double ampAngle = 80;
+        public static final double ampAngle = 90;
         public static final double voltageDeadband = 0.1;
 
     }
 
     public static final class EndEffector {
-        public static final int flywheelMotor1 = 23;
-        public static final int flywheelMotor2 = 24;
-        public static final int intakeMotor = 25;
+        public static final int flywheelMotor1 = 41;
+        public static final int flywheelMotor2 = 40;
+        public static final int intakeMotor = 43;
 
         public static final double waitTime = 0.2;
 

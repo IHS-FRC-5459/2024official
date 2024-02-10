@@ -49,7 +49,10 @@ public class EndEffector extends SubsystemBase {
     this.beamBreak = beambreak;
     flywheelNeoTop.setIdleMode(IdleMode.kCoast);
     flywheelNeoBottom.setIdleMode(IdleMode.kCoast);
+    flywheelNeoTop.setInverted(true);
+    flywheelNeoBottom.setInverted(true);
     intakeNeo.setIdleMode(IdleMode.kBrake);
+    intakeNeo.setInverted(true);
     flywheelTopEncoder = flywheelNeoTop.getEncoder();
     flywheelBottomEncoder = flywheelNeoBottom.getEncoder();
 

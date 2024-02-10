@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 13.99,
-        "y": 5.6000000000000005
+        "x": 14.48085252465042,
+        "y": 6.122848160185632
       },
       "isLocked": false,
       "linkedName": null
@@ -20,8 +20,8 @@
         "y": 7.0
       },
       "prevControl": {
-        "x": 13.99,
-        "y": 6.949999999999999
+        "x": 14.383354942481857,
+        "y": 6.5810867963778685
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,8 +39,8 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
-    "rotateFast": false
+    "rotation": -25.470000000000027,
+    "rotateFast": true
   },
   "reversed": false,
   "folder": "AutoPathsR4",

@@ -34,7 +34,11 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton pivotTest = new JoystickButton(driver, XboxController.Button.kB.value);
+    private final JoystickButton eeTest = new JoystickButton(driver, XboxController.Button.kB.value);
+    private final JoystickButton climberDownButton = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton climberUpButton = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+
+
     /* Sensors */
     public final int[] channels = {7};
     public final Vision vision = new Vision();
@@ -43,7 +47,8 @@ public class RobotContainer {
 
     private final Swerve s_Swerve = new Swerve(vision);
     private final Pivot s_Pivot = new Pivot(vision, beambreak);
-   // private final EndEffector s_EndEffector = new EndEffector(beambreak);
+    private final EndEffector s_EndEffector = new EndEffector(beambreak);
+    private final Climber s_Climber = new Climber();
 
 
 
@@ -68,18 +73,17 @@ public class RobotContainer {
             )
         );
 
-        s_Pivot.setDefaultCommand(
+          s_Pivot.setDefaultCommand(
             new PivotToNeutral(
                 s_Pivot
             )
         );
-//temp removal for testing 
-/*        
+       
 s_EndEffector.setDefaultCommand(
             new EENeutral(s_EndEffector)
         );
 
-        );*/
+        
 
         
 
@@ -104,7 +108,11 @@ s_EndEffector.setDefaultCommand(
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
-        pivotTest.whileTrue(new PivotToAmp(s_Pivot));
+        climberDownButton.whileTrue(new ClimberTranslate(s_Climber, Constants.Climber.climberDownPower));
+        climberUpButton.whileTrue(new ClimberTranslate(s_Climber, Constants.Climber.climberUpPower));
+
+        //eeTest.whileTrue(new EERunner(s_EndEffector));
+        //eeTest.whileTrue(Commands.race(new PivotToAmp(s_Pivot), new EERunner(s_EndEffector)));
         //centerButton.onTrue(new CenterVision(s_Swerve));
     }
 
