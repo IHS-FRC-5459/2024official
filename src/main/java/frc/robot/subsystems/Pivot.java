@@ -22,7 +22,7 @@ public class Pivot extends SubsystemBase {
 
   private double voltsMax = 7; 
   private double feedforwardPercentage =0.9;
-  public static final double kP_rotate = 0.0035;
+  public static final double kP_rotate = 0.0045;
   public static final double kF_rotate = 0.5; //volts to hold arm rotation at a fixed position when arm is @ 180/0 deg (flat). multiple by sin(angle)
   public static final int armRotateMotor1ID = 22;
   public static final int armRotateMotor2ID = 23;

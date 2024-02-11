@@ -48,7 +48,9 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
    
-    SmartDashboard.putBoolean("beam break",  m_robotContainer.beambreak.hasNote());
+    SmartDashboard.putBoolean("bb top",  m_robotContainer.beambreak.getResults().topState);
+    SmartDashboard.putBoolean("bb bottom",  m_robotContainer.beambreak.getResults().bottomState);
+
     SmartDashboard.putNumber("angle", m_robotContainer.vision.getAngle());
     SmartDashboard.putNumber("distance", m_robotContainer.vision.getDistance());
   }

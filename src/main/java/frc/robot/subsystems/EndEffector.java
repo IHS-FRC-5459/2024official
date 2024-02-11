@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.BangBangController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -37,6 +38,8 @@ public class EndEffector extends SubsystemBase {
   BangBangController controller = new BangBangController();
   private RelativeEncoder flywheelTopEncoder;
   private RelativeEncoder flywheelBottomEncoder;
+  private RelativeEncoder intakeEncoder;
+
   private double flywheelTopFeedForwardPercentage = 0.92;
   private double flywheelBottomFeedForwardPercentage = 0.92;
 
@@ -55,6 +58,7 @@ public class EndEffector extends SubsystemBase {
     intakeNeo.setInverted(true);
     flywheelTopEncoder = flywheelNeoTop.getEncoder();
     flywheelBottomEncoder = flywheelNeoBottom.getEncoder();
+    intakeEncoder = intakeNeo.getEncoder();
 
 
   }
@@ -63,7 +67,14 @@ public class EndEffector extends SubsystemBase {
 
   //calculate bang-bang output for flywheel
   public double[] calculateFlywheelVoltage(double setpoint){
-    double[] voltage = {(controller.calculate(getTopMotorVelocity(), setpoint) * 12.0 + flywheelTopFeedForwardPercentage * flywheelTopFeedForward.calculate(setpoint)), controller.calculate(getBottomMotorVelocity(), setpoint) * 12.0 + flywheelBottomFeedForwardPercentage * flywheelBottomFeedForward.calculate(setpoint)};
+    double voltage[] = {0,0};
+    //double[] voltage = {(controller.calculate(getTopMotorVelocity(), setpoint) * 12.0 + flywheelTopFeedForwardPercentage * flywheelTopFeedForward.calculate(setpoint)), controller.calculate(getBottomMotorVelocity(), setpoint) * 12.0 + flywheelBottomFeedForwardPercentage * flywheelBottomFeedForward.calculate(setpoint)};
+    if(setpoint != 0){
+      double fullVoltage[] = {9,9};
+      return fullVoltage;
+    } 
+
+
     return voltage;
   }
 
@@ -73,6 +84,10 @@ public class EndEffector extends SubsystemBase {
 
   public double getBottomMotorVelocity(){
     return flywheelBottomEncoder.getVelocity(); // return flywheel motor velocity
+  }
+
+   public double getIntakeVelocity(){
+    return intakeEncoder.getVelocity(); // return flywheel motor velocity
   }
 
 
@@ -114,5 +129,9 @@ public class EndEffector extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("bottom", getBottomMotorVelocity());
+    SmartDashboard.putNumber("top", getTopMotorVelocity());
+    SmartDashboard.putNumber("intake", getIntakeVelocity());
+
   }
 }

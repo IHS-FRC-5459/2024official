@@ -22,7 +22,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -58,7 +58,7 @@ public class Swerve extends SubsystemBase {
                         new PIDConstants(Constants.AutoConstants.kPXController, 0.0, 0.0), // Translation PID constants
                         new PIDConstants(Constants.AutoConstants.kPThetaController, 0.0, 0.0), // Rotation PID constants
                         4, // Max module speed, in m/s
-                        0.415779716, // Drive base radius in meters. Distance from robot center to furthest module. 
+                        Units.inchesToMeters(18.217), // Drive base radius in meters. Distance from robot center to furthest module. 
                         new ReplanningConfig() // Default path replanning config. See the API for the options here
                 ),
                 () -> {

@@ -29,7 +29,6 @@ public class ClimberTranslate extends Command {
 
     //put smart dashboard running command update
     SmartDashboard.putString("Climber CMD", "Translate");
-
     s_climber.setClimberPower(pwr);
   }
 

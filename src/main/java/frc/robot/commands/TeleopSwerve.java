@@ -33,7 +33,7 @@ public class TeleopSwerve extends Command {
     public void execute() {
 
 //put smart dashboard running command update
-    SmartDashboard.putString("Swerve CMD", "Teleop");
+    //SmartDashboard.putString("Swerve CMD", "Teleop");
 
 
         /* Get Values, Deadband*/

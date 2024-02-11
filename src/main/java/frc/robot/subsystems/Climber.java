@@ -15,6 +15,7 @@ public class Climber extends SubsystemBase {
   /** Creates a new Climber. */
   public Climber() {
     climberMotor.setNeutralMode(NeutralModeValue.Brake);
+    climberMotor.setInverted(true);
   }
 
   public void setClimberPower(double p){

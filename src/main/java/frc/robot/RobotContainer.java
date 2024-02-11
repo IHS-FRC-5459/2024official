@@ -25,6 +25,8 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
     /* Controllers */
     private final Joystick driver = new Joystick(0);
+    private final Joystick operator = new Joystick(1);
+
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -34,13 +36,18 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton eeTest = new JoystickButton(driver, XboxController.Button.kB.value);
-    private final JoystickButton climberDownButton = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton climberUpButton = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton shotButton = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
+    private final JoystickButton climberDownButton = new JoystickButton(operator, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton climberUpButton = new JoystickButton(operator, XboxController.Button.kRightBumper.value);
+    
+    private final JoystickButton ampPivot = new JoystickButton(operator, XboxController.Button.kA.value);
+    private final JoystickButton ampShoot = new JoystickButton(operator, XboxController.Button.kX.value);
 
+
+    private final JoystickButton intakeButton = new JoystickButton(operator, XboxController.Button.kB.value);
 
     /* Sensors */
-    public final int[] channels = {7};
+    public final int[] channels = {7,6};
     public final Vision vision = new Vision();
     public final BeamBreak beambreak = new BeamBreak(channels);
     /* Subsystems */
@@ -60,8 +67,8 @@ public class RobotContainer {
     public RobotContainer() {
 
         //named commands for swerve
-      //  NamedCommands.registerCommand("Intake", new EEIntake(s_EndEffector));//intaking
-      //  NamedCommands.registerCommand("Shoot", shootNoCenterSpeaker());//shooting
+        NamedCommands.registerCommand("intake", new EEIntake(s_EndEffector));//intaking
+        NamedCommands.registerCommand("shoot", shootNoCenterSpeaker());//shooting
 
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
@@ -78,10 +85,14 @@ public class RobotContainer {
                 s_Pivot
             )
         );
+
+        s_Climber.setDefaultCommand(
+            new ClimberDefault(s_Climber)
+        );;
        
-s_EndEffector.setDefaultCommand(
+        s_EndEffector.setDefaultCommand(
             new EENeutral(s_EndEffector)
-        );
+       );
 
         
 
@@ -110,7 +121,10 @@ s_EndEffector.setDefaultCommand(
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
         climberDownButton.whileTrue(new ClimberTranslate(s_Climber, Constants.Climber.climberDownPower));
         climberUpButton.whileTrue(new ClimberTranslate(s_Climber, Constants.Climber.climberUpPower));
-
+        intakeButton.whileTrue(new EEIntake(s_EndEffector));
+        shotButton.whileTrue(shootNoCenterSpeaker());
+        ampPivot.whileTrue(s_Pivot.withNoteTimeout(new PivotToAmp(s_Pivot)));
+        ampShoot.whileTrue(new EEShootFullSpeed(s_EndEffector));
         //eeTest.whileTrue(new EERunner(s_EndEffector));
         //eeTest.whileTrue(Commands.race(new PivotToAmp(s_Pivot), new EERunner(s_EndEffector)));
         //centerButton.onTrue(new CenterVision(s_Swerve));
@@ -128,22 +142,17 @@ s_EndEffector.setDefaultCommand(
 
     //large command builders:
     //shoot sequence without vision center
- /*    public Command shootNoCenterSpeaker(){
+     public Command shootNoCenterSpeaker(){
         return Commands.parallel(
             s_Pivot.withNoteTimeout(new PivotToSpeaker(s_Pivot)),
             s_EndEffector.EETimedShooterBuilder(new EEShootFullSpeed(s_EndEffector))
         );
     }
 
-    public Command shootNoCenterAmp(){
-        return Commands.parallel(
-            s_Pivot.withNoteTimeout(new PivotToAmp(s_Pivot)),
-            s_EndEffector.EETimedShooterBuilder(new EEShootAmpSpeed(s_EndEffector))
-        );
-    }
+/* 
 
-
-    public Command shootWithCenterSpeaker(){//used in auto 
+    public Command shootWithCenterSpeaker(){
+        //used in auto 
         return Commands.parallel(
             s_Swerve.centerVisionBuilder().andThen(s_EndEffector.EETimedShooterBuilder(new EEShootFullSpeed(s_EndEffector))),
             s_Pivot.withNoteTimeout(new PivotToAmp(s_Pivot))

@@ -38,7 +38,7 @@ public class EENeutral extends Command {
       s_EndEffector.setFlywheel(s_EndEffector.calculateFlywheelVoltage(Constants.EndEffector.restingVelocity));
 
     }  else {
-      s_EndEffector.setFlywheel(s_EndEffector.calculateFlywheelVoltage(Constants.EndEffector.speakerShotRPM));
+      s_EndEffector.setFlywheel(s_EndEffector.calculateFlywheelVoltage(Constants.EndEffector.neutralRPM));
       s_EndEffector.setIntake(0);
     }
   } else {

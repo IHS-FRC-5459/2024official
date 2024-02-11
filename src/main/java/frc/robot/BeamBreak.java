@@ -27,7 +27,7 @@ public class BeamBreak {
   //is beambreak broken
   public boolean hasNote(){
     for(DigitalInput b: beambreaks){
-      if(b.get()){
+      if(!b.get()){
         return true;
       }
     }
@@ -46,8 +46,8 @@ public class BeamBreak {
     public boolean topState = false;
 
     public Result(boolean t, boolean b){
-      bottomState = b;
-      topState = t;
+      bottomState = !b;
+      topState = !t;
     }
   }
 }
