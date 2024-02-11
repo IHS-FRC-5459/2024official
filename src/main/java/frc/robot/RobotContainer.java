@@ -141,11 +141,13 @@ public class RobotContainer {
 
 
     //large command builders:
-    //shoot sequence without vision center
+    //shoot sequence without vision target
      public Command shootNoCenterSpeaker(){
         return Commands.parallel(
             s_Pivot.withNoteTimeout(new PivotToSpeaker(s_Pivot)),
-            s_EndEffector.EETimedShooterBuilder(new EEShootFullSpeed(s_EndEffector))
+            Commands.waitUntil(() -> (s_Pivot.getAngle() > Constants.Arm.subwooferAngle - 1)).andThen(
+                s_EndEffector.EETimedShooterBuilder(new EEShootFullSpeed(s_EndEffector)))
+            
         );
     }
 
