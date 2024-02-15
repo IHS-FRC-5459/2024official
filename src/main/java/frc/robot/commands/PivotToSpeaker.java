@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.Pivot;
 
 public class PivotToSpeaker extends Command {
@@ -28,8 +29,8 @@ public class PivotToSpeaker extends Command {
     //put smart dashboard running command update
     SmartDashboard.putString("Pivot CMD", "Speaker");
 
-    s_Pivot.setRotationVoltage(s_Pivot.calculateRotationVoltage(s_Pivot.calculateGoalAngle()));
-    //s_Pivot.setRotationVoltage(s_Pivot.calculateRotationVoltage(28.5));
+    //s_Pivot.setRotationVoltage(s_Pivot.calculateRotationVoltage(s_Pivot.calculateGoalAngle()));
+    s_Pivot.setRotationVoltage(s_Pivot.calculateRotationVoltage(Constants.Arm.subwooferAngle));
   }
 
   // Called once the command ends or is interrupted.

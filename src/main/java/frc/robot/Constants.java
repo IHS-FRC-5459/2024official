@@ -16,7 +16,7 @@ public final class Constants {
     public static final double stickDeadband = 0.1;
 
     public static final class Climber {
-        public static final int climberMotorID = 23;
+        public static final int climberMotorID = 24;
         public static final double climberDownPower = -0.75;
         public static final double climberUpPower = 1;
     }
@@ -42,10 +42,10 @@ public final class Constants {
 
 
     public static final class Arm {
-        public static final double subwooferAngle = 28.5;
+        public static final double subwooferAngle = 19;
 
         public static final double restingAngle = -6;
-        public static final double ampAngle = 90;
+        public static final double ampAngle = 85;
         public static final double voltageDeadband = 0.1;
 
     }
@@ -55,7 +55,7 @@ public final class Constants {
         public static final int flywheelMotor2 = 43;
         public static final int intakeMotor = 40;
 
-        public static final double waitTime = 2;
+        public static final double waitTime = 4;
 
 
         public static final double restingVelocity = 0;
@@ -65,7 +65,7 @@ public final class Constants {
         public static final double neutralRPM = 500;
 
 
-        public static final double intakingPower = 0.6;
+        public static final double intakingPower = 0.75;
         public static final double passthroughPower = 0.4;
         public static final double recenterPower = -0.1;
         public static final double intakingFlywheelVoltage = -1;
@@ -129,15 +129,15 @@ public final class Constants {
         public static final double angleKD = chosenModule.angleKD;
 
         /* Drive Motor PID Values */
-        public static final double driveKP = 0.10771; 
+        public static final double driveKP = 0.63085; 
         public static final double driveKI = 0.0;
         public static final double driveKD = 0.0;
         public static final double driveKF = 0.0;
 
         /* Drive Motor Characterization Values From SYSID */
-        public static final double driveKS = (0.14012);
-        public static final double driveKV = (2.2247);
-        public static final double driveKA = (0.25784);
+        public static final double driveKS = (0.12567);
+        public static final double driveKV = (0.5928);
+        public static final double driveKA = (0.67384);
 
         /* Swerve Profiling Values */
         /** Meters per Second */
@@ -155,7 +155,7 @@ public final class Constants {
             public static final int driveMotorID = 5;
             public static final int angleMotorID = 4;
             public static final int canCoderID = 13;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-12.128);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(360-12.128);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -186,7 +186,7 @@ public final class Constants {
             public static final int driveMotorID = 7;
             public static final int angleMotorID = 6;
             public static final int canCoderID = 12;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-69.697);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(360-69.697);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }

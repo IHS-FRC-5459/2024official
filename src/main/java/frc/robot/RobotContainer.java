@@ -81,10 +81,10 @@ public class RobotContainer {
         );
 
           s_Pivot.setDefaultCommand(
-            new PivotToNeutral(
-                s_Pivot
+          new PivotToNeutral(
+            s_Pivot
             )
-        );
+      );
 
         s_Climber.setDefaultCommand(
             new ClimberDefault(s_Climber)
@@ -145,9 +145,9 @@ public class RobotContainer {
      public Command shootNoCenterSpeaker(){
         return Commands.parallel(
             s_Pivot.withNoteTimeout(new PivotToSpeaker(s_Pivot)),
-            Commands.waitUntil(() -> (s_Pivot.getAngle() > Constants.Arm.subwooferAngle - 1)).andThen(
-                s_EndEffector.EETimedShooterBuilder(new EEShootFullSpeed(s_EndEffector)))
-            
+            Commands.waitUntil(() -> (s_Pivot.getAngle() > Constants.Arm.subwooferAngle - 2)).andThen(
+                s_EndEffector.EETimedShooterBuilder(new EEShootFullSpeed(s_EndEffector))
+            )
         );
     }
 

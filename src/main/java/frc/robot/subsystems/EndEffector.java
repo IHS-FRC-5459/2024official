@@ -70,7 +70,7 @@ public class EndEffector extends SubsystemBase {
     double voltage[] = {0,0};
     //double[] voltage = {(controller.calculate(getTopMotorVelocity(), setpoint) * 12.0 + flywheelTopFeedForwardPercentage * flywheelTopFeedForward.calculate(setpoint)), controller.calculate(getBottomMotorVelocity(), setpoint) * 12.0 + flywheelBottomFeedForwardPercentage * flywheelBottomFeedForward.calculate(setpoint)};
     if(setpoint != 0){
-      double fullVoltage[] = {9,9};
+      double fullVoltage[] = {11,11};
       return fullVoltage;
     } 
 
