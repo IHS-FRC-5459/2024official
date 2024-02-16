@@ -54,7 +54,7 @@ public class RobotContainer {
     public final BeamBreak beambreak = new BeamBreak(channels);
     /* Subsystems */
 
-    private final Swerve s_Swerve = new Swerve(vision);
+    public final Swerve s_Swerve = new Swerve(vision);
     private final Pivot s_Pivot = new Pivot(vision, beambreak);
     private final EndEffector s_EndEffector = new EndEffector(beambreak);
     private final Climber s_Climber = new Climber();
