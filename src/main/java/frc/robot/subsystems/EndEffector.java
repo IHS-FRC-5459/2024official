@@ -69,10 +69,19 @@ public class EndEffector extends SubsystemBase {
   public double[] calculateFlywheelVoltage(double setpoint){
     double voltage[] = {0,0};
     //double[] voltage = {(controller.calculate(getTopMotorVelocity(), setpoint) * 12.0 + flywheelTopFeedForwardPercentage * flywheelTopFeedForward.calculate(setpoint)), controller.calculate(getBottomMotorVelocity(), setpoint) * 12.0 + flywheelBottomFeedForwardPercentage * flywheelBottomFeedForward.calculate(setpoint)};
-    if(setpoint != 0){
-      double fullVoltage[] = {11,11};
+    if(setpoint < 1){
+      double fullVoltage[] = {-1,-2};
       return fullVoltage;
     } 
+    if(setpoint < 600){
+      double fullVoltage1[] = {4,4};
+      return fullVoltage1;
+    }
+    if(setpoint >= 999){
+      double fullVoltage2[] = {12,12};
+      return fullVoltage2;
+    }
+
 
 
     return voltage;

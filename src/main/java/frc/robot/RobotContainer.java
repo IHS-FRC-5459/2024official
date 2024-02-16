@@ -37,6 +37,8 @@ public class RobotContainer {
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton shotButton = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
+    
+    private final JoystickButton climberLockOut = new JoystickButton(operator, XboxController.Button.kY.value);
     private final JoystickButton climberDownButton = new JoystickButton(operator, XboxController.Button.kLeftBumper.value);
     private final JoystickButton climberUpButton = new JoystickButton(operator, XboxController.Button.kRightBumper.value);
     
@@ -68,7 +70,7 @@ public class RobotContainer {
 
         //named commands for swerve
         NamedCommands.registerCommand("intake", new EEIntake(s_EndEffector));//intaking
-        NamedCommands.registerCommand("shoot", shootNoCenterSpeaker());//shooting
+        NamedCommands.registerCommand("shoot", autoShoot());//shooting
 
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
@@ -119,12 +121,16 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
-        climberDownButton.whileTrue(new ClimberTranslate(s_Climber, Constants.Climber.climberDownPower));
-        climberUpButton.whileTrue(new ClimberTranslate(s_Climber, Constants.Climber.climberUpPower));
+        
+        climberLockOut.and(climberDownButton).whileTrue(new ClimberTranslate(s_Climber, Constants.Climber.climberDownPower));
+        climberLockOut.and(climberUpButton).whileTrue((new ClimberTranslate(s_Climber, Constants.Climber.climberUpPower)));
+
+        
         intakeButton.whileTrue(new EEIntake(s_EndEffector));
         shotButton.whileTrue(shootNoCenterSpeaker());
         ampPivot.whileTrue(s_Pivot.withNoteTimeout(new PivotToAmp(s_Pivot)));
-        ampShoot.whileTrue(new EEShootFullSpeed(s_EndEffector));
+        ampShoot.whileTrue(new EEShootAmpSpeed(s_EndEffector));
+        
         //eeTest.whileTrue(new EERunner(s_EndEffector));
         //eeTest.whileTrue(Commands.race(new PivotToAmp(s_Pivot), new EERunner(s_EndEffector)));
         //centerButton.onTrue(new CenterVision(s_Swerve));
@@ -146,9 +152,18 @@ public class RobotContainer {
         return Commands.parallel(
             s_Pivot.withNoteTimeout(new PivotToSpeaker(s_Pivot)),
             Commands.waitUntil(() -> (s_Pivot.getAngle() > Constants.Arm.subwooferAngle - 2)).andThen(
-                s_EndEffector.EETimedShooterBuilder(new EEShootFullSpeed(s_EndEffector))
+            s_EndEffector.EETimedShooterBuilder(new EEShootFullSpeed(s_EndEffector))
             )
         );
+    }
+
+    public Command autoShoot(){
+        return Commands.parallel(
+            s_Pivot.withNoteTimeout(new PivotToSpeaker(s_Pivot)),
+            Commands.waitUntil(() -> (s_Pivot.getAngle() > Constants.Arm.subwooferAngle - 2)).andThen(
+            s_EndEffector.EETimedShooterBuilder(new EEShootFullSpeed(s_EndEffector))
+            )
+        ).withTimeout(4);
     }
 
 /* 

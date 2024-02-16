@@ -59,10 +59,17 @@ public class Pivot extends SubsystemBase {
 
   public double calculateRotationVoltage(double goalAngle){ 
     double local_kP_rotate = kP_rotate;
-    if(goalAngle < getAngle() || goalAngle > 80 || getAngle() < 10){
+    if(goalAngle < getAngle() || getAngle() < 10 || getAngle() > 75){
       local_kP_rotate = 0.001;
     }
-    if(goalAngle < 10){
+    if(goalAngle > 80){
+      local_kP_rotate = 0.01;
+    }
+    if(goalAngle < 10)
+    {
+      local_kP_rotate = 0.003;
+    }
+    if(getAngle() < 10){
       local_kP_rotate = 0.01;
     }
 

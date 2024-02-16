@@ -45,7 +45,7 @@ public final class Constants {
         public static final double subwooferAngle = 19;
 
         public static final double restingAngle = -6;
-        public static final double ampAngle = 85;
+        public static final double ampAngle = 90;
         public static final double voltageDeadband = 0.1;
 
     }
@@ -61,7 +61,7 @@ public final class Constants {
         public static final double restingVelocity = 0;
 
         public static final double speakerShotRPM = 1000;
-        public static final double ampShotRPM = 1000;
+        public static final double ampShotRPM = 500;
         public static final double neutralRPM = 500;
 
 
@@ -129,15 +129,15 @@ public final class Constants {
         public static final double angleKD = chosenModule.angleKD;
 
         /* Drive Motor PID Values */
-        public static final double driveKP = 0.63085; 
+        public static final double driveKP = 0.10771; 
         public static final double driveKI = 0.0;
         public static final double driveKD = 0.0;
         public static final double driveKF = 0.0;
 
         /* Drive Motor Characterization Values From SYSID */
-        public static final double driveKS = (0.12567);
-        public static final double driveKV = (0.5928);
-        public static final double driveKA = (0.67384);
+        public static final double driveKS = (0.14012);
+        public static final double driveKV = (2.2247);
+        public static final double driveKA = (0.25784);
 
         /* Swerve Profiling Values */
         /** Meters per Second */
