@@ -39,7 +39,7 @@ public class Swerve extends SubsystemBase {
     public Swerve(Vision vision) {
         m_Vision=vision;
         gyro = new Pigeon2(Constants.Swerve.pigeonID);
-        gyro.getConfigurator().apply(new Pigeon2Configuration());
+       // gyro.getConfigurator().apply(new Pigeon2Configuration());
         gyro.setYaw(0);
 
         mSwerveMods = new SwerveModule[] {
