@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
@@ -29,9 +31,9 @@ public class EndEffector extends SubsystemBase {
   public static final double kV_FlywheelBottom = 0;
   public static final double kA_FlywheelBottom = 0;
 
-  CANSparkMax flywheelNeoTop = new CANSparkMax(Constants.EndEffector.flywheelMotor1, MotorType.kBrushless);
-  CANSparkMax flywheelNeoBottom = new CANSparkMax(Constants.EndEffector.flywheelMotor2, MotorType.kBrushless);
-  CANSparkMax intakeNeo = new CANSparkMax(Constants.EndEffector.intakeMotor, MotorType.kBrushless);
+  TalonFX flywheelTop = new TalonFX(Constants.EndEffector.flywheelMotor1);
+  TalonFX flywheelBottom = new TalonFX(Constants.EndEffector.flywheelMotor2);
+  TalonFX intakeFalcon = new TalonFX(Constants.EndEffector.intakeMotor);
   SimpleMotorFeedforward flywheelTopFeedForward = new SimpleMotorFeedforward(kS_FlywheelTop, kV_FlywheelTop, kA_FlywheelTop);
   SimpleMotorFeedforward flywheelBottomFeedForward = new SimpleMotorFeedforward(kS_FlywheelBottom, kV_FlywheelBottom, kA_FlywheelBottom);
 
@@ -50,17 +52,12 @@ public class EndEffector extends SubsystemBase {
   /** Creates a new EndEffector. */
   public EndEffector(BeamBreak beambreak) {
     this.beamBreak = beambreak;
-    flywheelNeoTop.setIdleMode(IdleMode.kCoast);
-    flywheelNeoBottom.setIdleMode(IdleMode.kCoast);
-    flywheelNeoTop.setInverted(true);
-    flywheelNeoBottom.setInverted(true);
-    intakeNeo.setIdleMode(IdleMode.kBrake);
-    intakeNeo.setInverted(true);
-    flywheelTopEncoder = flywheelNeoTop.getEncoder();
-    flywheelBottomEncoder = flywheelNeoBottom.getEncoder();
-    intakeEncoder = intakeNeo.getEncoder();
-
-
+    flywheelTop.setNeutralMode(NeutralModeValue.Coast);
+    flywheelBottom.setNeutralMode(NeutralModeValue.Coast);
+    flywheelTop.setInverted(true);
+    flywheelBottom.setInverted(true);
+    intakeFalcon.setNeutralMode(NeutralModeValue.Brake);
+    intakeFalcon.setInverted(true);
   }
 
 
@@ -70,15 +67,15 @@ public class EndEffector extends SubsystemBase {
     double voltage[] = {0,0};
     //double[] voltage = {(controller.calculate(getTopMotorVelocity(), setpoint) * 12.0 + flywheelTopFeedForwardPercentage * flywheelTopFeedForward.calculate(setpoint)), controller.calculate(getBottomMotorVelocity(), setpoint) * 12.0 + flywheelBottomFeedForwardPercentage * flywheelBottomFeedForward.calculate(setpoint)};
     if(setpoint < 1){
-      double fullVoltage[] = {-1,-2};
+      double fullVoltage[] = {-1,0};  // -1
       return fullVoltage;
     } 
     if(setpoint < 600){
-      double fullVoltage1[] = {4,4};
+      double fullVoltage1[] = {4,0};
       return fullVoltage1;
     }
     if(setpoint >= 999){
-      double fullVoltage2[] = {12,12};
+      double fullVoltage2[] = {12,0};
       return fullVoltage2;
     }
 
@@ -88,34 +85,35 @@ public class EndEffector extends SubsystemBase {
   }
 
   public double getTopMotorVelocity(){
-    return flywheelTopEncoder.getVelocity(); // return flywheel motor velocity
+    
+    return flywheelTop.getVelocity().getValueAsDouble(); // return flywheel motor velocity
   }
 
   public double getBottomMotorVelocity(){
-    return flywheelBottomEncoder.getVelocity(); // return flywheel motor velocity
+    return flywheelBottom.getVelocity().getValueAsDouble(); // return flywheel motor velocity
   }
 
    public double getIntakeVelocity(){
-    return intakeEncoder.getVelocity(); // return flywheel motor velocity
+    return intakeFalcon.getVelocity().getValueAsDouble(); // return flywheel motor velocity
   }
 
 
   //set power to motors from array
   public void setFlywheel(double[] v)
   {
-    flywheelNeoTop.setVoltage(v[0]);
-    flywheelNeoBottom.setVoltage(v[1]);
+    flywheelTop.setVoltage(v[0]);
+    flywheelBottom.setVoltage(v[1]);
   }
 
     //set power to motors global voltage
   public void setFlywheel(double v)
   {
-    flywheelNeoTop.setVoltage(v);
-    flywheelNeoBottom.setVoltage(v);
+    flywheelTop.setVoltage(v);
+    flywheelBottom.setVoltage(v);
   }
 
   public void setIntake(double p){
-    intakeNeo.set(p);
+    intakeFalcon.set(p);
   }
 
   public boolean hasNote(){

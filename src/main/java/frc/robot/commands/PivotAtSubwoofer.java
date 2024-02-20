@@ -7,16 +7,16 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.subsystems.EndEffector;
+import frc.robot.subsystems.Pivot;
 
-public class EEShootAmpSpeed extends Command {
-  private EndEffector s_EndEffector;
+public class PivotAtSubwoofer extends Command {
+  private Pivot s_Pivot;
 
-  /** Creates a new EEShootAmpSpeed. */
-  public EEShootAmpSpeed(EndEffector endEffector) {
-    s_EndEffector = endEffector;
+  /** Creates a new PivotAtSubwoofer. */
+  public PivotAtSubwoofer(Pivot s_Pivot) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(s_EndEffector);
+    this.s_Pivot=s_Pivot;
+    addRequirements(s_Pivot);
   }
 
   // Called when the command is initially scheduled.
@@ -26,28 +26,18 @@ public class EEShootAmpSpeed extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
     //put smart dashboard running command update
-    SmartDashboard.putString("EE CMD", "Amp");
-
-    //spin flywheel up to speed
-    s_EndEffector.setFlywheel(s_EndEffector.calculateFlywheelVoltage(Constants.EndEffector.ampShotRPM));
-    //intake push note into flywheel if up to speed
-    s_EndEffector.setIntake(0.8);
-
-
+    SmartDashboard.putString("Pivot CMD", "Speaker");
+    s_Pivot.setRotationVoltage(s_Pivot.calculateRotationVoltage(Constants.Arm.subwooferAngle));
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    s_EndEffector.setFlywheel(0);
-    s_EndEffector.setIntake(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;  
+    return false;
   }
 }

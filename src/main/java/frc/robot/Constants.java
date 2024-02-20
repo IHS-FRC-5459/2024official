@@ -35,7 +35,7 @@ public final class Constants {
         where in form ax^2 + bx + c, quadratic[0] = a, quadratic[1]=b, quadratic[2] = c 
         x is in meters, output in desired reading from REV throughbore abs. encoder
         */ 
-        public static final double[] quadratic = {0,((90)/(2)),0}; 
+        public static final double[] quadratic = {0,0,20}; 
 
         public static final double[] shotRange = {0,2}; // in meters, closest location for shots, furthest location for shots.
     }

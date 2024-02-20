@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.EndEffector;
 
-public class EEShootAmpSpeed extends Command {
+public class EESpeakerWithVision extends Command {
   private EndEffector s_EndEffector;
 
-  /** Creates a new EEShootAmpSpeed. */
-  public EEShootAmpSpeed(EndEffector endEffector) {
+  /** Creates a new ShootFullSpeed. */
+  public EESpeakerWithVision(EndEffector endEffector) {
     s_EndEffector = endEffector;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(s_EndEffector);
@@ -21,21 +21,23 @@ public class EEShootAmpSpeed extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
     //put smart dashboard running command update
-    SmartDashboard.putString("EE CMD", "Amp");
+    SmartDashboard.putString("EE CMD", "Intake");
 
     //spin flywheel up to speed
-    s_EndEffector.setFlywheel(s_EndEffector.calculateFlywheelVoltage(Constants.EndEffector.ampShotRPM));
+    s_EndEffector.setFlywheel(s_EndEffector.calculateFlywheelVoltage(Constants.EndEffector.speakerShotRPM));
     //intake push note into flywheel if up to speed
-    s_EndEffector.setIntake(0.8);
-
-
+    if(Math.abs(s_EndEffector.getTopMotorVelocity()) >= 4500){
+      //s_EndEffector.setIntake(Constants.EndEffector.passthroughPower);
+      s_EndEffector.setIntake(0.8);
+    }
   }
 
   // Called once the command ends or is interrupted.

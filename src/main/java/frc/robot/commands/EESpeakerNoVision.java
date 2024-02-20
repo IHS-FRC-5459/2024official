@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.EndEffector;
 
-public class EEShootFullSpeed extends Command {
+public class EESpeakerNoVision extends Command {
   private EndEffector s_EndEffector;
 
-  /** Creates a new ShootFullSpeed. */
-  public EEShootFullSpeed(EndEffector endEffector) {
+  /** Creates a new EESpeakerNoVision. */
+  public EESpeakerNoVision(EndEffector endEffector) {
     s_EndEffector = endEffector;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(s_EndEffector);
@@ -32,10 +32,11 @@ public class EEShootFullSpeed extends Command {
     SmartDashboard.putString("EE CMD", "Intake");
 
     //spin flywheel up to speed
-    s_EndEffector.setFlywheel(s_EndEffector.calculateFlywheelVoltage(Constants.EndEffector.speakerShotRPM));
+    s_EndEffector.setFlywheel(8);
     //intake push note into flywheel if up to speed
-    if(s_EndEffector.getTopMotorVelocity() >= 0.9 * 4500){
-      s_EndEffector.setIntake(Constants.EndEffector.passthroughPower);
+    if(Math.abs(s_EndEffector.getTopMotorVelocity()) >= 4500){
+      //s_EndEffector.setIntake(Constants.EndEffector.passthroughPower);
+      s_EndEffector.setIntake(0.8);
     }
   }
 
