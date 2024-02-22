@@ -32,7 +32,7 @@ public class EESpinUp extends Command {
     SmartDashboard.putString("EE CMD", "Intake");
 
     //spin flywheel up to speed
-    s_EndEffector.setFlywheel(8);
+    s_EndEffector.setVelocity(Constants.EndEffector.speakerShotRPS);
 
   }
 
