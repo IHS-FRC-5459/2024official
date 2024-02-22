@@ -51,7 +51,7 @@ public class CenterVision extends Command {
             true
         );
 
-        System.out.println(goalAngle - s_Swerve.gyroYawDouble());
+        //System.out.println(goalAngle - s_Swerve.gyroYawDouble());
   }
 
   // Called once the command ends or is interrupted.

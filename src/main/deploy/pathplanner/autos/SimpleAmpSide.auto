@@ -3,9 +3,9 @@
   "startingPose": {
     "position": {
       "x": 0.68,
-      "y": 6.73
+      "y": 6.74
     },
-    "rotation": 61.472615757635715
+    "rotation": 59.33245916944033
   },
   "command": {
     "type": "sequential",
@@ -20,7 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Subwiffer Side Path"
+            "pathName": "SimpleAmpSide"
           }
         }
       ]

@@ -22,13 +22,13 @@ public final class Constants {
     }
 
     public static final class LimeLight {
-        public static final double kP_rotate = 0.01;
+        public static final double kP_rotate = 0.013;
         public static final double kD_rotate = -0.00135;
 
         public static final String llTableName = "limelight";
         public static final String targetInVisionKey = "tv";
         public static final String targetInAngleKey = "tx";
-        public static final String targetPoseCameraSpaceKey = "targetpose_cameraspace";
+        //public static final String targetPoseCameraSpaceKey = "targetpose_cameraspace";
         public static final String targetPoseRobotSpaceKey = "targetpose_robotspace";
 
         /*

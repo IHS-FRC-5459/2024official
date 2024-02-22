@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.71,
-      "y": 4.38
+      "x": 0.7434431971001721,
+      "y": 4.387391197585246
     },
-    "rotation": -58.53667602928441
+    "rotation": -58.861027563021224
   },
   "command": {
     "type": "sequential",
@@ -20,7 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Source Side Path"
+            "pathName": "GoToShootPreloadR6"
           }
         }
       ]

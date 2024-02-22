@@ -45,7 +45,6 @@ public class RobotContainer {
     private final JoystickButton ampPivot = new JoystickButton(operator, XboxController.Button.kA.value);
     private final JoystickButton ampShoot = new JoystickButton(operator, XboxController.Button.kX.value);
 
-
     private final JoystickButton intakeButton = new JoystickButton(operator, XboxController.Button.kB.value);
 
     /* Sensors */
@@ -55,9 +54,9 @@ public class RobotContainer {
     /* Subsystems */
 
     public final Swerve s_Swerve = new Swerve(vision);
-    private final Pivot s_Pivot = new Pivot(vision, beambreak);
-    private final EndEffector s_EndEffector = new EndEffector(beambreak);
-    private final Climber s_Climber = new Climber();
+   // private final Pivot s_Pivot = new Pivot(vision, beambreak);
+   // private final EndEffector s_EndEffector = new EndEffector(beambreak);
+   // private final Climber s_Climber = new Climber();
 
 
 
@@ -69,10 +68,10 @@ public class RobotContainer {
     public RobotContainer() {
 
         //named commands for swerve
-        NamedCommands.registerCommand("intake", new EEIntake(s_EndEffector));//intaking
-        NamedCommands.registerCommand("shoot", autoShoot());//shooting
+       // NamedCommands.registerCommand("intake", new EEIntake(s_EndEffector));//intaking
+      //  NamedCommands.registerCommand("shoot", autoShoot());//shooting
 
-        s_Swerve.setDefaultCommand(
+         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
                 () -> -driver.getRawAxis(translationAxis), 
@@ -80,7 +79,7 @@ public class RobotContainer {
                 () -> -driver.getRawAxis(rotationAxis), 
                 () -> robotCentric.getAsBoolean()
             )
-        );
+        );/* 
 
           s_Pivot.setDefaultCommand(
           new PivotToNeutral(
@@ -95,7 +94,7 @@ public class RobotContainer {
         s_EndEffector.setDefaultCommand(
             new EENeutral(s_EndEffector)
        );
-
+*/
         
 
         
@@ -121,7 +120,7 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
-        
+        /* 
         climberLockOut.and(climberDownButton).whileTrue(new ClimberTranslate(s_Climber, Constants.Climber.climberDownPower));
         climberLockOut.and(climberUpButton).whileTrue((new ClimberTranslate(s_Climber, Constants.Climber.climberUpPower)));
 
@@ -130,10 +129,7 @@ public class RobotContainer {
         shotButton.whileTrue(shootSpeaker());
         ampPivot.whileTrue(s_Pivot.withNoteTimeout(new PivotToAmp(s_Pivot)));
         ampShoot.whileTrue(new EEShootAmpSpeed(s_EndEffector));
-        
-        //eeTest.whileTrue(new EERunner(s_EndEffector));
-        //eeTest.whileTrue(Commands.race(new PivotToAmp(s_Pivot), new EERunner(s_EndEffector)));
-        //centerButton.onTrue(new CenterVision(s_Swerve));
+        */
     }
 
     /**
@@ -148,7 +144,7 @@ public class RobotContainer {
 
     //large command builders:
     //for during teleop
-     public Command shootSpeaker(){
+  /*    public Command shootSpeaker(){
         if(vision.validTarget()){
             double goalPivotAngle = vision.calculateGoalAngle();
             
@@ -191,7 +187,7 @@ public class RobotContainer {
                 Commands.deadline(Commands.waitUntil(() -> (s_Pivot.getAngle() > Constants.Arm.subwooferAngle - 2)), new EESpinUp(s_EndEffector)))
             ).withTimeout(4);
         }
-    }
+    }*/
 
 /* 
 
