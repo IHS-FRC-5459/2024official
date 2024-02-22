@@ -32,7 +32,7 @@ public class EESpeakerWithVision extends Command {
     SmartDashboard.putString("EE CMD", "Intake");
 
     //spin flywheel up to speed
-    s_EndEffector.setFlywheel(s_EndEffector.calculateFlywheelVoltage(Constants.EndEffector.speakerShotRPM));
+    s_EndEffector.setVelocity(Constants.EndEffector.speakerShotRPS);
     //intake push note into flywheel if up to speed
     if(Math.abs(s_EndEffector.getTopMotorVelocity()) >= 400){
       //s_EndEffector.setIntake(Constants.EndEffector.passthroughPower);

@@ -90,8 +90,8 @@ public class Pivot extends SubsystemBase {
   }
 
   //from vision:
-  public double calculateGoalAngle(){
-    return m_Vision.calculateGoalAngle();
+  public double calculateGoalAngle(double dist){
+    return m_Vision.calculateGoalAngle(dist);
   }
 
   // from beambreak:

@@ -11,10 +11,12 @@ import frc.robot.subsystems.Pivot;
 
 public class PivotToSpeaker extends Command {
   private Pivot s_Pivot;
+  private double goalAngle;
 
   /** Creates a new PivotToAmp. */
-  public PivotToSpeaker(Pivot s_Pivot) {
+  public PivotToSpeaker(Pivot s_Pivot, double angle) {
     // Use addRequirements() here to declare subsystem dependencies.
+    goalAngle = angle;
     this.s_Pivot=s_Pivot;
     addRequirements(s_Pivot);
   }
@@ -29,7 +31,7 @@ public class PivotToSpeaker extends Command {
     //put smart dashboard running command update
     SmartDashboard.putString("Pivot CMD", "Speaker");
 
-    s_Pivot.setRotationVoltage(s_Pivot.calculateRotationVoltage(s_Pivot.calculateGoalAngle()));
+    s_Pivot.setRotationVoltage(s_Pivot.calculateRotationVoltage(goalAngle));
   }
 
   // Called once the command ends or is interrupted.

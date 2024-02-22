@@ -35,20 +35,16 @@ public class EENeutral extends Command {
     if(s_EndEffector.hasNote()){
       if(s_EndEffector.hasNoteShooter()){
       s_EndEffector.setIntake(Constants.EndEffector.recenterPower);
-      s_EndEffector.setFlywheel(s_EndEffector.calculateFlywheelVoltage(Constants.EndEffector.restingVelocity));
+      s_EndEffector.setVelocity(Constants.EndEffector.restingVelocity);
 
     }  else {
-      s_EndEffector.setFlywheel(s_EndEffector.calculateFlywheelVoltage(Constants.EndEffector.neutralRPM));
+      s_EndEffector.setVelocity(Constants.EndEffector.neutralRPS);
       s_EndEffector.setIntake(0);
     }
   } else {
       s_EndEffector.setIntake(0);
-      s_EndEffector.setFlywheel(s_EndEffector.calculateFlywheelVoltage(Constants.EndEffector.restingVelocity));
-
-  }
-
-
-
+      s_EndEffector.setVelocity(Constants.EndEffector.restingVelocity);
+    }
   }
 
   // Called once the command ends or is interrupted.

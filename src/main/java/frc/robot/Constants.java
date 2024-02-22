@@ -60,15 +60,17 @@ public final class Constants {
 
         public static final double restingVelocity = 0;
 
-        public static final double speakerShotRPM = 1000;
-        public static final double ampShotRPM = 500;
-        public static final double neutralRPM = 500;
+        public static final double subwooferShotRPS = 3500 * 0.016666666666667;
+        public static final double speakerShotRPS = 4500 * 0.016666666666667;
+        public static final double ampShotRPS = 500 * 0.016666666666667;
+        public static final double neutralRPS = 500 * 0.016666666666667;
+        public static final double intakingFlywheelRPS = -200 * 0.016666666666667;
+
 
 
         public static final double intakingPower = 0.75;
         public static final double passthroughPower = 0.4;
         public static final double recenterPower = -0.1;
-        public static final double intakingFlywheelVoltage = -1;
 
 
 

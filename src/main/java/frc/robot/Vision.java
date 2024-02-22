@@ -32,6 +32,12 @@ public class Vision {
     return Constants.LimeLight.quadratic[0]*Math.pow(getDistance(),2) + Constants.LimeLight.quadratic[1]*getDistance() + Constants.LimeLight.quadratic[2];
   }
 
+    //calculate pivot angle
+  public double calculateGoalAngle(double dist)
+  {
+    return Constants.LimeLight.quadratic[0]*Math.pow(dist,2) + Constants.LimeLight.quadratic[1]*dist + Constants.LimeLight.quadratic[2];
+  }
+
   //check if aprilTag is in shot range
   public boolean isTagInRange(double distanceToTag){
     return (distanceToTag >= Constants.LimeLight.shotRange[0] && distanceToTag <= Constants.LimeLight.shotRange[1]);

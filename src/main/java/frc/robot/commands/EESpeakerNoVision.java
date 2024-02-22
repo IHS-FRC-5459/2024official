@@ -32,9 +32,9 @@ public class EESpeakerNoVision extends Command {
     SmartDashboard.putString("EE CMD", "Intake");
 
     //spin flywheel up to speed
-    s_EndEffector.setFlywheel(8);
+    s_EndEffector.setVelocity(Constants.EndEffector.subwooferShotRPS);
     //intake push note into flywheel if up to speed
-    if(Math.abs(s_EndEffector.getTopMotorVelocity()) >= 4500){
+    if(Math.abs(s_EndEffector.getTopMotorVelocity()) >= 300){
       //s_EndEffector.setIntake(Constants.EndEffector.passthroughPower);
       s_EndEffector.setIntake(0.8);
     }

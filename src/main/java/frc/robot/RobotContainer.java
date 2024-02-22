@@ -150,7 +150,7 @@ public class RobotContainer {
             
             return Commands.parallel(
                         s_Swerve.centerVisionBuilder(),
-                        s_Pivot.withNoteTimeout(new PivotToSpeaker(s_Pivot)),
+                        s_Pivot.withNoteTimeout(new PivotToSpeaker(s_Pivot, goalPivotAngle)),
                         Commands.waitUntil(() -> (s_Pivot.getAngle() > goalPivotAngle - 2)).andThen(
                         s_EndEffector.EETimedShooterBuilder(new EESpeakerWithVision(s_EndEffector)),
                         Commands.deadline(Commands.waitUntil(() -> (s_Pivot.getAngle() > goalPivotAngle - 2)), new EESpinUp(s_EndEffector)))
@@ -173,7 +173,7 @@ public class RobotContainer {
             double goalPivotAngle = vision.calculateGoalAngle();
 
             return Commands.parallel(
-                s_Pivot.withNoteTimeout(new PivotToSpeaker(s_Pivot)),
+                s_Pivot.withNoteTimeout(new PivotToSpeaker(s_Pivot, goalPivotAngle)),
                 Commands.waitUntil(() -> (s_Pivot.getAngle() > goalPivotAngle - 2)).andThen(
                 s_EndEffector.EETimedShooterBuilder(new EESpeakerWithVision(s_EndEffector)),
                 Commands.deadline(Commands.waitUntil(() -> (s_Pivot.getAngle() > goalPivotAngle - 2)), new EESpinUp(s_EndEffector)))

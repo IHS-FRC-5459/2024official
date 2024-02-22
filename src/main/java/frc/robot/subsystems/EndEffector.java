@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.configs.Slot1Configs;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.CANSparkMax;
@@ -34,19 +37,13 @@ public class EndEffector extends SubsystemBase {
   TalonFX flywheelTop = new TalonFX(Constants.EndEffector.flywheelMotor1);
   TalonFX flywheelBottom = new TalonFX(Constants.EndEffector.flywheelMotor2);
   TalonFX intakeFalcon = new TalonFX(Constants.EndEffector.intakeMotor);
-  SimpleMotorFeedforward flywheelTopFeedForward = new SimpleMotorFeedforward(kS_FlywheelTop, kV_FlywheelTop, kA_FlywheelTop);
-  SimpleMotorFeedforward flywheelBottomFeedForward = new SimpleMotorFeedforward(kS_FlywheelBottom, kV_FlywheelBottom, kA_FlywheelBottom);
-
-  BangBangController controller = new BangBangController();
-  private RelativeEncoder flywheelTopEncoder;
-  private RelativeEncoder flywheelBottomEncoder;
-  private RelativeEncoder intakeEncoder;
-
-  private double flywheelTopFeedForwardPercentage = 0.92;
-  private double flywheelBottomFeedForwardPercentage = 0.92;
-
 
   private BeamBreak beamBreak;
+
+  final VelocityVoltage m_velocityTop = new VelocityVoltage(0);
+  final VelocityVoltage m_velocityBottom = new VelocityVoltage(0);
+  
+
 
 
   /** Creates a new EndEffector. */
@@ -58,30 +55,34 @@ public class EndEffector extends SubsystemBase {
     flywheelBottom.setInverted(true);
     intakeFalcon.setNeutralMode(NeutralModeValue.Brake);
     intakeFalcon.setInverted(true);
+
+    var slot0Configs = new Slot0Configs();
+    var slot1Configs = new Slot1Configs();
+
+    slot0Configs.kV = 0.12;
+    slot0Configs.kP = 0.11;
+    slot0Configs.kI = 0.48;
+    slot0Configs.kD = 0.01;
+    flywheelTop.getConfigurator().apply(slot0Configs, 0.050);
+
+
+    slot1Configs.kV = 0.12;
+    slot1Configs.kP = 0.11;
+    slot1Configs.kI = 0.48;
+    slot1Configs.kD = 0.01;
+    flywheelBottom.getConfigurator().apply(slot1Configs, 0.050);
+
+
   }
 
 
 
-  //calculate bang-bang output for flywheel
-  public double[] calculateFlywheelVoltage(double setpoint){
-    double voltage[] = {0,0};
-    //double[] voltage = {(controller.calculate(getTopMotorVelocity(), setpoint) * 12.0 + flywheelTopFeedForwardPercentage * flywheelTopFeedForward.calculate(setpoint)), controller.calculate(getBottomMotorVelocity(), setpoint) * 12.0 + flywheelBottomFeedForwardPercentage * flywheelBottomFeedForward.calculate(setpoint)};
-    if(setpoint < 1){
-      double fullVoltage[] = {-1,0};  // -1
-      return fullVoltage;
-    } 
-    if(setpoint < 600){
-      double fullVoltage1[] = {4,0};
-      return fullVoltage1;
-    }
-    if(setpoint >= 999){
-      double fullVoltage2[] = {12,0};
-      return fullVoltage2;
-    }
+  public void setVelocity(double setpoint){
+    m_velocityTop.Slot = 0;
+    m_velocityTop.Slot = 1;
+    flywheelTop.setControl(m_velocityTop.withVelocity(setpoint));
+    flywheelBottom.setControl(m_velocityBottom.withVelocity(setpoint));
 
-
-
-    return voltage;
   }
 
   public double getTopMotorVelocity(){

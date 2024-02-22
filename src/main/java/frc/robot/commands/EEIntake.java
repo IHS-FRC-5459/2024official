@@ -43,7 +43,7 @@ public class EEIntake extends Command {
      
     } else {
        //run shooter motors slowly backwards
-      s_EndEffector.setFlywheel(Constants.EndEffector.intakingFlywheelVoltage);
+      s_EndEffector.setVelocity(Constants.EndEffector.intakingFlywheelRPS);
       // run intake
       s_EndEffector.setIntake(Constants.EndEffector.intakingPower);
 

@@ -31,7 +31,7 @@ public class EEShootAmpSpeed extends Command {
     SmartDashboard.putString("EE CMD", "Amp");
 
     //spin flywheel up to speed
-    s_EndEffector.setFlywheel(s_EndEffector.calculateFlywheelVoltage(Constants.EndEffector.ampShotRPM));
+    s_EndEffector.setVelocity(Constants.EndEffector.ampShotRPS);
     //intake push note into flywheel if up to speed
     s_EndEffector.setIntake(0.8);
 
