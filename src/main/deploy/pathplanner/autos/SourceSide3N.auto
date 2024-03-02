@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.17,
-      "y": 4.1
+      "x": 0.7050561319382253,
+      "y": 4.438407050851191
     },
-    "rotation": -51.483073692999994
+    "rotation": -59.42077312751089
   },
   "command": {
     "type": "sequential",
@@ -15,6 +15,24 @@
           "type": "named",
           "data": {
             "name": "shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.02
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "pivot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.02
           }
         },
         {
@@ -43,59 +61,63 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "wait",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "GoToSecondNoteR4"
-                }
-              }
-            ]
+            "waitTime": 0.1
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "shoot"
+            "name": "pivot"
           }
         },
         {
-          "type": "parallel",
+          "type": "wait",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "GoToThirdNoteR4"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "shoot"
+            "waitTime": 0.02
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "GoToMiddleNoteR4Prt1"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "ComeBackFromFirstNote"
+            "pathName": "GoToSecondNoteR4"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "shoot"
+            "name": "farshot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.02
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "pivot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.02
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GoToThirdNoteR4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "farshotLast"
           }
         }
       ]

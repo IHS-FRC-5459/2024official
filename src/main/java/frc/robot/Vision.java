@@ -32,7 +32,6 @@ public class Vision {
     double dist = getDistance();
 
         return Constants.LimeLight.cubicFit[0]*Math.pow(dist,3) + Constants.LimeLight.cubicFit[1]*Math.pow(dist,2) + Constants.LimeLight.cubicFit[2]*Math.pow(dist,1)  + Constants.LimeLight.cubicFit[3];
-    
   }
 
     //calculate pivot angle

@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.commands.*;
@@ -70,8 +72,12 @@ public class RobotContainer {
     public RobotContainer() {
 
         //named commands for swerve
-        NamedCommands.registerCommand("intake", new EEIntake(s_EndEffector).withTimeout(2));//intaking
-        NamedCommands.registerCommand("shoot", autoShoot());//shooting
+        NamedCommands.registerCommand("intake", Commands.parallel(new EEIntake(s_EndEffector), new PivotToNeutral(s_Pivot)).withTimeout(2));//intaking
+        NamedCommands.registerCommand("pivot", new PivotToNeutral(s_Pivot).withTimeout(0.6));
+        NamedCommands.registerCommand("shoot", Commands.race(Commands.waitUntil(() -> !beambreak.hasNote()),(new ParallelCommandGroup(autoShoot()))).withTimeout(4));//shooting
+        NamedCommands.registerCommand("farshot", Commands.race(Commands.waitUntil(() -> !beambreak.hasNote()),(new ParallelCommandGroup(autoShootTwo()))).withTimeout(4));//shooting
+        NamedCommands.registerCommand("farshotLast", Commands.race(Commands.waitUntil(() -> !beambreak.hasNote()),(new ParallelCommandGroup(autoShootLast()))).withTimeout(4));//shooting
+
         //NamedCommands.registerCommand("turnDegrees", new SwerveToAngle());
 
          s_Swerve.setDefaultCommand(
@@ -126,6 +132,7 @@ public class RobotContainer {
        // shotButton.whileTrue(testingShot(40));
        //shotButton.whileTrue(testingShot(39.83));
        shotButton.whileTrue(shootSpeaker());
+       //shotButton.whileTrue(new PivotToSpeaker(s_Pivot, 35));
         intakeButton.whileTrue(new EEIntake(s_EndEffector)).debounce(0.3);
         
         climberLockOut.and(climberDownButton).whileTrue(new ClimberTranslate(s_Climber, Constants.Climber.climberDownPower));
@@ -173,8 +180,9 @@ public class RobotContainer {
     //large command builders:
     //for during teleop
       public Command shootSpeaker(){
-        if(vision.validTarget() && vision.calculateGoalAngle() > 1.5){
+        if(vision.validTarget() && vision.getDistance() > 1.5){
         double goalPivotAngle = vision.calculateGoalAngle();
+        System.out.println(goalPivotAngle);
             return Commands.parallel(
                 s_Swerve.centerVisionBuilder(),
                 s_Pivot.withNoteTimeout(new PivotToSpeaker(s_Pivot, goalPivotAngle)),
@@ -182,7 +190,7 @@ public class RobotContainer {
                 s_EndEffector.EETimedShooterBuilder(new EESpeakerWithVision(s_EndEffector)),
                 Commands.deadline(Commands.waitUntil(() -> (s_Pivot.getAngle() > goalPivotAngle - 2)), new EESpinUp(s_EndEffector)))
         );        
-    } else {
+    } else if (vision.validTarget() && vision.getDistance() <=1.5){
             //subwoofer shot sequence. no center or vision use for angle
             return Commands.parallel(
             s_Pivot.withNoteTimeout(new PivotAtSubwoofer(s_Pivot)),
@@ -190,19 +198,19 @@ public class RobotContainer {
             s_EndEffector.EETimedShooterBuilder(new EESpeakerNoVision(s_EndEffector)),
             Commands.deadline(Commands.waitUntil(() -> (s_Pivot.getAngle() > Constants.Arm.subwooferAngle - 2)), new EESpinUp(s_EndEffector)))
         );
+        } else {
+            return Commands.waitSeconds(0.01);
         }
-        
     }
 
 
 
 //for during auto
     public Command autoShoot(){
-        if(vision.validTarget() && vision.calculateGoalAngle() > 1.5){
-            double goalPivotAngle = vision.calculateGoalAngle();
+        if(vision.validTarget() && vision.getDistance() > 1.5){
 
 
-            return (Commands.race(
+          /*   return (Commands.race(
              (Commands.waitUntil(() -> (!beambreak.hasNote()))),
              (Commands.parallel(
                         s_Pivot.withNoteTimeout(new PivotToSpeaker(s_Pivot, goalPivotAngle)),
@@ -210,11 +218,24 @@ public class RobotContainer {
                         s_EndEffector.EETimedShooterBuilder(new EESpeakerWithVision(s_EndEffector)),
                         Commands.deadline(Commands.waitUntil(() -> (s_Pivot.getAngle() > goalPivotAngle - 2)), new EESpinUp(s_EndEffector))
              )))).andThen(new PivotToNeutral(s_Pivot))).withTimeout(3);
+*/
+            
+              double goalPivotAngle = vision.calculateGoalAngle(vision.getDistance());
+            // System.out.println(goalPivotAngle);
+            return new ParallelCommandGroup(
+                        s_Pivot.withNoteTimeout(new PivotToSpeaker(s_Pivot, goalPivotAngle)),
+                        Commands.waitUntil(() -> (s_Pivot.getAngle() > goalPivotAngle - 2)).andThen(
+                        s_EndEffector.EETimedShooterBuilder(new EESpeakerWithVision(s_EndEffector)),
+                        Commands.deadline(Commands.waitUntil(() -> (s_Pivot.getAngle() > goalPivotAngle - 2))), new EESpinUp(s_EndEffector))
+        );  
+
+
+        
 
         } else {
             //subwoofer shot sequence. no center or vision use for angle
 
-            return (Commands.race(
+          /*   return (Commands.race(
              (Commands.waitUntil(() -> (!beambreak.hasNote()))),
              (
                 Commands.parallel(
@@ -222,8 +243,42 @@ public class RobotContainer {
             Commands.waitUntil(() -> (s_Pivot.getAngle() > Constants.Arm.subwooferAngle - 2)).andThen(
             s_EndEffector.EETimedShooterBuilder(new EESpeakerNoVision(s_EndEffector)),
             Commands.deadline(Commands.waitUntil(() -> (s_Pivot.getAngle() > Constants.Arm.subwooferAngle - 2))), new EESpinUp(s_EndEffector))))).andThen(new PivotToNeutral(s_Pivot))).withTimeout(3);
+*/          
+                   //       System.out.println("auto shoot subwoofer");
 
+            return new ParallelCommandGroup((Commands.parallel(
+            s_Pivot.withNoteTimeout(new PivotAtSubwoofer(s_Pivot)),
+            Commands.waitUntil(() -> (s_Pivot.getAngle() > Constants.Arm.subwooferAngle - 2)).andThen(
+            s_EndEffector.EETimedShooterBuilder(new EESpeakerNoVision(s_EndEffector)),
+            Commands.deadline(Commands.waitUntil(() -> (s_Pivot.getAngle() > Constants.Arm.subwooferAngle - 2))), new EESpinUp(s_EndEffector))
+            )).withTimeout(3));
         }
+    }
+
+    public Command autoShootTwo(){
+        double angle = 35;
+                    return new ParallelCommandGroup(
+                        s_Pivot.withNoteTimeout(new PivotToSpeaker(s_Pivot, angle)),
+                        Commands.waitUntil(() -> (s_Pivot.getAngle() > angle - 2)).andThen(
+                        s_EndEffector.EETimedShooterBuilder(new EESpeakerWithVision(s_EndEffector)),
+                        Commands.deadline(Commands.waitUntil(() -> (s_Pivot.getAngle() > angle - 2))), new EESpinUp(s_EndEffector))
+        );  
+
+        
+
+    }
+
+     public Command autoShootLast(){
+        double angle = 36.5;
+                    return new ParallelCommandGroup(
+                        s_Pivot.withNoteTimeout(new PivotToSpeaker(s_Pivot, angle)),
+                        Commands.waitUntil(() -> (s_Pivot.getAngle() > angle - 2)).andThen(
+                        s_EndEffector.EETimedShooterBuilder(new EESpeakerWithVision(s_EndEffector)),
+                        Commands.deadline(Commands.waitUntil(() -> (s_Pivot.getAngle() > angle - 2))), new EESpinUp(s_EndEffector))
+        );  
+
+        
+
     }
 
 /* 
