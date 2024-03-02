@@ -72,6 +72,9 @@ public class Pivot extends SubsystemBase {
     if(getAngle() < 10){
       local_kP_rotate = 0.01;
     }
+    if(getAngle() > 10 && goalAngle < 0){
+      local_kP_rotate = 0.006;
+    }
 
     double pwr = ((MathUtil.clamp((local_kP_rotate * (getAngle() - goalAngle) * -12),-voltsMax,voltsMax)) + feedforwardPercentage * (kF_rotate * Math.cos(Math.toRadians(getAngle()))));
 

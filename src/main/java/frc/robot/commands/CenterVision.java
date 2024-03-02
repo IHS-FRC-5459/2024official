@@ -69,7 +69,7 @@ public class CenterVision extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(s_Swerve.visionAngleError()) < 1;
+    return false;
   }
 
 }

@@ -29,14 +29,17 @@ public class Vision {
   //calculate pivot angle
   public double calculateGoalAngle()
   {
-    return Constants.LimeLight.quadratic[0]*Math.pow(getDistance(),2) + Constants.LimeLight.quadratic[1]*getDistance() + Constants.LimeLight.quadratic[2];
+    double dist = getDistance();
+
+        return Constants.LimeLight.cubicFit[0]*Math.pow(dist,3) + Constants.LimeLight.cubicFit[1]*Math.pow(dist,2) + Constants.LimeLight.cubicFit[2]*Math.pow(dist,1)  + Constants.LimeLight.cubicFit[3];
+    
   }
 
     //calculate pivot angle
   public double calculateGoalAngle(double dist)
   {
-    return Constants.LimeLight.quadratic[0]*Math.pow(dist,2) + Constants.LimeLight.quadratic[1]*dist + Constants.LimeLight.quadratic[2];
-  }
+        return Constants.LimeLight.cubicFit[0]*Math.pow(dist,3) + Constants.LimeLight.cubicFit[1]*Math.pow(dist,2) + Constants.LimeLight.cubicFit[2]*Math.pow(dist,1)  + Constants.LimeLight.cubicFit[3];
+}
 
   //check if aprilTag is in shot range
   public boolean isTagInRange(double distanceToTag){

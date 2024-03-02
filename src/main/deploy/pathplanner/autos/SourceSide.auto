@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7044441642327478,
-      "y": 4.37764143936839
+      "x": 1.17,
+      "y": 4.0
     },
-    "rotation": -60.25511870305777
+    "rotation": -53.30567620599999
   },
   "command": {
     "type": "sequential",
@@ -18,15 +18,16 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "GoToFirstNoteR2"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GoToFirstNoteR2"
+                }
+              }
+            ]
           }
         },
         {
@@ -42,15 +43,16 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "GoToSecondNoteR2"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GoToSecondNoteR2"
+                }
+              }
+            ]
           }
         },
         {

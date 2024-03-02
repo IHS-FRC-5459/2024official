@@ -25,15 +25,6 @@ import frc.robot.Constants;
 
 public class EndEffector extends SubsystemBase {
 
-  
-  public static final double kS_FlywheelTop = 0; 
-  public static final double kV_FlywheelTop = 0;
-  public static final double kA_FlywheelTop = 0;
-  
-  public static final double kS_FlywheelBottom = 0; 
-  public static final double kV_FlywheelBottom = 0;
-  public static final double kA_FlywheelBottom = 0;
-
   TalonFX flywheelTop = new TalonFX(Constants.EndEffector.flywheelMotor1);
   TalonFX flywheelBottom = new TalonFX(Constants.EndEffector.flywheelMotor2);
   TalonFX intakeFalcon = new TalonFX(Constants.EndEffector.intakeMotor);
@@ -59,17 +50,21 @@ public class EndEffector extends SubsystemBase {
     var slot0Configs = new Slot0Configs();
     var slot1Configs = new Slot1Configs();
 
-    slot0Configs.kV = 0.12;
-    slot0Configs.kP = 0.11;
-    slot0Configs.kI = 0.48;
-    slot0Configs.kD = 0.01;
+    slot0Configs.kV = 0.11963;
+    slot1Configs.kS = 0.096037;
+    slot1Configs.kA = 0.011707;
+
+    slot0Configs.kP = 0.090179;
+
     flywheelTop.getConfigurator().apply(slot0Configs, 0.050);
 
 
-    slot1Configs.kV = 0.12;
-    slot1Configs.kP = 0.11;
-    slot1Configs.kI = 0.48;
-    slot1Configs.kD = 0.01;
+    slot1Configs.kV = 0.11885;
+    slot1Configs.kS = 0.13919;
+    slot1Configs.kA = 0.011095;
+
+    slot1Configs.kP = 0.09285;
+
     flywheelBottom.getConfigurator().apply(slot1Configs, 0.050);
 
 
@@ -79,7 +74,7 @@ public class EndEffector extends SubsystemBase {
 
   public void setVelocity(double setpoint){
     m_velocityTop.Slot = 0;
-    m_velocityTop.Slot = 1;
+    m_velocityBottom.Slot = 1;
     flywheelTop.setControl(m_velocityTop.withVelocity(setpoint));
     flywheelBottom.setControl(m_velocityBottom.withVelocity(setpoint));
 

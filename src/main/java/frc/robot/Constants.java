@@ -10,6 +10,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import frc.lib.util.COTSTalonFXSwerveConstants;
+import frc.lib.util.LinearInterpolator;
 import frc.lib.util.SwerveModuleConstants;
 
 public final class Constants {
@@ -22,8 +23,8 @@ public final class Constants {
     }
 
     public static final class LimeLight {
-        public static final double kP_rotate = 0.013;
-        public static final double kD_rotate = -0.00135;
+        public static final double kP_rotate = 0.025;
+        public static final double kD_rotate = -0.0014;
 
         public static final String llTableName = "limelight";
         public static final String targetInVisionKey = "tv";
@@ -31,23 +32,23 @@ public final class Constants {
         //public static final String targetPoseCameraSpaceKey = "targetpose_cameraspace";
         public static final String targetPoseRobotSpaceKey = "targetpose_robotspace";
 
-        /*
-        where in form ax^2 + bx + c, quadratic[0] = a, quadratic[1]=b, quadratic[2] = c 
-        x is in meters, output in desired reading from REV throughbore abs. encoder
-        */ 
-        public static final double[] quadratic = {0,0,20}; 
+        public static final double[] cubicFit = {0.191216,-4.39133,27.9382,-14.6854}; 
+//0.191216 x^3 - 4.39133 x^2 + 27.9382 x - 14.6854
 
-        public static final double[] shotRange = {0,2}; // in meters, closest location for shots, furthest location for shots.
+        public static final double[] shotRange = {1.1,4.6}; // in meters, closest location for shots, furthest location for shots.
     }
 
 
     public static final class Arm {
         public static final double subwooferAngle = 15;
 
-        public static final double restingAngle = -6;
+        public static final double restingAngle = -6.2;
         public static final double ampAngle = 90;
         public static final double voltageDeadband = 0.1;
 
+        public static final double[][] shotAngles = 
+        {{1.33,15},{2,26},{2.5,31},{3.02,34.4},{3.5,36.25}, {4,37}, {4.5,38.1}, {5,39.1}};
+        public static final LinearInterpolator shooterLinInt = new LinearInterpolator(shotAngles);
     }
 
     public static final class EndEffector {
@@ -58,19 +59,19 @@ public final class Constants {
         public static final double waitTime = 4;
 
 
-        public static final double restingVelocity = 0;
+        public static final double restingVelocity =  200 * 0.016666666666667;
 
-        public static final double subwooferShotRPS = 3500 * 0.016666666666667;
-        public static final double speakerShotRPS = 4500 * 0.016666666666667;
+        public static final double subwooferShotRPS = 3600 * 0.016666666666667;
+        public static final double speakerShotRPS = 3600 * 0.016666666666667;
         public static final double ampShotRPS = 500 * 0.016666666666667;
-        public static final double neutralRPS = 500 * 0.016666666666667;
+        public static final double neutralRPS = 200 * 0.016666666666667;
         public static final double intakingFlywheelRPS = -200 * 0.016666666666667;
 
 
 
         public static final double intakingPower = 0.75;
         public static final double passthroughPower = 0.4;
-        public static final double recenterPower = -0.1;
+        public static final double recenterPower = -0.13;
 
 
 
@@ -195,14 +196,14 @@ public final class Constants {
     }
 
     public static final class AutoConstants { 
-        public static final double kMaxSpeedMetersPerSecond = 4;
+        public static final double kMaxSpeedMetersPerSecond = 2;
         public static final double kMaxAccelerationMetersPerSecondSquared = 3;
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
         public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
     
-        public static final double kPXController = 1.8;
-        public static final double kPYController = 1.8;
-        public static final double kPThetaController = 1.3;
+        public static final double kPXController = 5.5;
+        public static final double kPYController = 2;
+        public static final double kPThetaController = 0.9;
     
         /* Constraint for the motion profilied robot angle controller */
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =

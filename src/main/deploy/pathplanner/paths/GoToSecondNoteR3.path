@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.5420000000000016,
+        "x": 2.29,
         "y": 7.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.5420000000000016,
-        "y": 6.5
+        "x": 1.765530052746715,
+        "y": 6.689056341075646
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.55,
-        "y": 5.55
+        "x": 2.25,
+        "y": 6.0
       },
       "prevControl": {
-        "x": 2.55,
-        "y": 6.05
+        "x": 1.8735540604984342,
+        "y": 6.405596008935608
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,25 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.5,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -44,6 +62,9 @@
   },
   "reversed": false,
   "folder": "AmpSide3N",
-  "previewStartingState": null,
+  "previewStartingState": {
+    "rotation": 32.438225793,
+    "velocity": 0
+  },
   "useDefaultConstraints": false
 }

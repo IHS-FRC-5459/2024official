@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.68,
-      "y": 6.74
+      "x": 1.17,
+      "y": 7.5
     },
-    "rotation": 59.72223162868825
+    "rotation": 58.77501832
   },
   "command": {
     "type": "sequential",
@@ -18,15 +18,9 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "intake"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "GoToFirstNote"
+            "pathName": "GoToFirstNotePart1"
           }
         },
         {
@@ -42,15 +36,16 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "GoToSecondNote"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GoToSecondNote"
+                }
+              }
+            ]
           }
         },
         {

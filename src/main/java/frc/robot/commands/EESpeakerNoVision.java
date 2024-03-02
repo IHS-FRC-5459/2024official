@@ -34,7 +34,7 @@ public class EESpeakerNoVision extends Command {
     //spin flywheel up to speed
     s_EndEffector.setVelocity(Constants.EndEffector.subwooferShotRPS);
     //intake push note into flywheel if up to speed
-    if(Math.abs(s_EndEffector.getTopMotorVelocity()) >= 300){
+    if(Math.abs(s_EndEffector.getTopMotorVelocity()) >= Constants.EndEffector.subwooferShotRPS * 0.9){
       //s_EndEffector.setIntake(Constants.EndEffector.passthroughPower);
       s_EndEffector.setIntake(0.8);
     }

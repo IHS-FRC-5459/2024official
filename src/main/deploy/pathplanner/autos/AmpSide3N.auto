@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.68,
-      "y": 6.737082927847566
+      "x": 1.17,
+      "y": 7.0
     },
-    "rotation": 59.74
+    "rotation": 50.710593138
   },
   "command": {
     "type": "sequential",
@@ -18,15 +18,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "intake"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GoToFirstNoteR3"
+                }
+              }
+            ]
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "GoToFirstNoteR3"
+            "pathName": "TurnToShootFromFirstNoteR3"
           }
         },
         {
@@ -36,15 +43,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "intake"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GoToSecondNoteR3"
+                }
+              }
+            ]
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "GoToSecondNoteR3"
+            "pathName": "GoToShootSecondNoteR3"
           }
         },
         {
@@ -60,27 +74,22 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "intake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "shoot"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "intake"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "GoToMiddleNoteR3"
+            "pathName": "GoToMiddleNoteR3Prt1"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GoToMiddleNoteR3Prt2"
+                }
+              }
+            ]
           }
         },
         {

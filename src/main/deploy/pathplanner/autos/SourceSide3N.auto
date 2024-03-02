@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.6751948895821795,
-      "y": 4.358141922934678
+      "x": 1.17,
+      "y": 4.1
     },
-    "rotation": -59.67639313745001
+    "rotation": -51.483073692999994
   },
   "command": {
     "type": "sequential",
@@ -18,21 +18,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "intake"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GoToFirstNoteR4"
+                }
+              }
+            ]
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "GoToFirstNoteR4"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "GoToSecondNoteR4"
+            "pathName": "GoToShootSecondNoteR4"
           }
         },
         {
@@ -42,9 +43,16 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "intake"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GoToSecondNoteR4"
+                }
+              }
+            ]
           }
         },
         {
@@ -54,15 +62,16 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "GoToThirdNoteR4"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GoToThirdNoteR4"
+                }
+              }
+            ]
           }
         },
         {
@@ -72,15 +81,9 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "intake"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "GoToMiddleNoteR4"
+            "pathName": "GoToMiddleNoteR4Prt1"
           }
         },
         {

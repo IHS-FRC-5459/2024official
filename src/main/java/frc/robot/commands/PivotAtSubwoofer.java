@@ -27,7 +27,7 @@ public class PivotAtSubwoofer extends Command {
   @Override
   public void execute() {
     //put smart dashboard running command update
-    SmartDashboard.putString("Pivot CMD", "Speaker");
+    SmartDashboard.putString("Pivot CMD", "subwoofer");
     s_Pivot.setRotationVoltage(s_Pivot.calculateRotationVoltage(Constants.Arm.subwooferAngle));
   }
 

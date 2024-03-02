@@ -4,24 +4,24 @@
     {
       "anchor": {
         "x": 1.17,
-        "y": 7.0
+        "y": 7.5
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.1933737500491532,
-        "y": 7.040063561574963
+        "x": 2.176657654978019,
+        "y": 7.809556331701738
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.29,
-        "y": 7.0
+        "x": 7.52,
+        "y": 7.45
       },
       "prevControl": {
-        "x": 2.29,
-        "y": 6.95
+        "x": 6.729794742249817,
+        "y": 7.634060683798327
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,10 +32,10 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.4,
+      "name": "Start Intaking",
+      "waypointRelativePos": 0.8,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
@@ -50,18 +50,21 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 0.0,
-    "rotateFast": false
+    "rotation": 0,
+    "rotateFast": true
   },
   "reversed": false,
-  "folder": "AmpSide3N",
-  "previewStartingState": null,
-  "useDefaultConstraints": false
+  "folder": "AmpSide",
+  "previewStartingState": {
+    "rotation": 58.77501832,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
 }
