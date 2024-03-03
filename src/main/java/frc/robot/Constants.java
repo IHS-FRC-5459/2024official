@@ -32,7 +32,7 @@ public final class Constants {
         //public static final String targetPoseCameraSpaceKey = "targetpose_cameraspace";
         public static final String targetPoseRobotSpaceKey = "targetpose_robotspace";
 
-        public static final double[] cubicFit = {0.603155,-8.36751,40.1452,-26.7}; 
+        public static final double[] cubicFit = {0.603155,-8.36751,40.1452,-26.5}; 
 //old:0.191216 x^3 - 4.39133 x^2 + 27.9382 x - 14.6854
 //0.603155 x^3 - 8.36751 x^2 + 40.1452 x - 26.4888
         public static final double[] shotRange = {1.1,4.6}; // in meters, closest location for shots, furthest location for shots.
@@ -71,7 +71,7 @@ public final class Constants {
 
         public static final double intakingPower = 0.75;
         public static final double passthroughPower = 0.4;
-        public static final double recenterPower = -0.13;
+        public static final double recenterPower = -0.08;
 
 
 
