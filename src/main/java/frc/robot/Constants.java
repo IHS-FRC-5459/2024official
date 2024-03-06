@@ -32,10 +32,13 @@ public final class Constants {
         //public static final String targetPoseCameraSpaceKey = "targetpose_cameraspace";
         public static final String targetPoseRobotSpaceKey = "targetpose_robotspace";
 
-        public static final double[] cubicFit = {0.603155,-8.36751,40.1452,-26.5}; 
+        public static final double[] cubicFit = {0.458292,-6.07052,30.1399,-15.8}; 
 //old:0.191216 x^3 - 4.39133 x^2 + 27.9382 x - 14.6854
 //0.603155 x^3 - 8.36751 x^2 + 40.1452 x - 26.4888
-        public static final double[] shotRange = {1.1,4.6}; // in meters, closest location for shots, furthest location for shots.
+//newest: 0.458292 x^3 - 6.07052 x^2 + 30.1399 x - 16.0338
+
+
+        public static final double[] shotRange = {1.1,3.6}; // in meters, closest location for shots, furthest location for shots.
     }
 
 
@@ -60,9 +63,10 @@ public final class Constants {
 
 
         public static final double restingVelocity =  200 * 0.016666666666667;
+        public static final double recenteringFlywheelVelocity = -200 * 0.016666666666667;
 
-        public static final double subwooferShotRPS = 3600 * 0.016666666666667;
-        public static final double speakerShotRPS = 3600 * 0.016666666666667;
+        public static final double subwooferShotRPS = 3000 * 0.016666666666667;
+        public static final double speakerShotRPS = 3000 * 0.016666666666667;
         public static final double ampShotRPS = 500 * 0.016666666666667;
         public static final double neutralRPS = 200 * 0.016666666666667;
         public static final double intakingFlywheelRPS = -200 * 0.016666666666667;
@@ -71,7 +75,7 @@ public final class Constants {
 
         public static final double intakingPower = 0.75;
         public static final double passthroughPower = 0.4;
-        public static final double recenterPower = -0.08;
+        public static final double recenterPower = -0.1;
 
 
 

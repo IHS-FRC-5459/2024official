@@ -35,7 +35,7 @@ public class EENeutral extends Command {
     if(s_EndEffector.hasNote()){
       if(s_EndEffector.hasNoteShooter()){
       s_EndEffector.setIntake(Constants.EndEffector.recenterPower);
-      s_EndEffector.setVelocity(Constants.EndEffector.restingVelocity);
+      s_EndEffector.setVelocity(Constants.EndEffector.recenteringFlywheelVelocity );
 
     }  else {
       s_EndEffector.setVelocity(Constants.EndEffector.neutralRPS);
@@ -43,7 +43,7 @@ public class EENeutral extends Command {
     }
   } else {
       s_EndEffector.setIntake(0);
-      s_EndEffector.setVelocity(Constants.EndEffector.restingVelocity);
+      s_EndEffector.setVelocity(Constants.EndEffector.recenteringFlywheelVelocity);
     }
   }
 
