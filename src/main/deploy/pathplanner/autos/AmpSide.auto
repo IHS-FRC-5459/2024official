@@ -18,6 +18,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "pivot"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "GoToFirstNotePart1"
@@ -33,6 +39,12 @@
           "type": "named",
           "data": {
             "name": "shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "pivot"
           }
         },
         {

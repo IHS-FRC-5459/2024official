@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.17,
-      "y": 7.0
+      "x": 1.4,
+      "y": 5.531335051274091
     },
-    "rotation": 50.710593138
+    "rotation": 90.0
   },
   "command": {
     "type": "sequential",
@@ -15,6 +15,12 @@
           "type": "named",
           "data": {
             "name": "shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "pivot"
           }
         },
         {
@@ -43,6 +49,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "pivot"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -62,40 +74,21 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "GoToThirdNoteR3"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "shoot"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "GoToMiddleNoteR3Prt1"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "GoToMiddleNoteR3Prt2"
-                }
-              }
-            ]
+            "name": "pivot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "GoToShootMiddleNoteR3"
+            "pathName": "GoToThirdNoteR3"
           }
         },
         {
