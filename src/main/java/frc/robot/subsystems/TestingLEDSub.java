@@ -4,11 +4,11 @@
 
 package frc.robot.subsystems;
 import frc.robot.Constants;
-//import com.ctre.phoenix6.led.CANdle;
+import com.ctre.phoenix.led.CANdle;
 
 public class TestingLEDSub {
 
-    //static CANdle _candle = new CANdle(Constants.LED.CANdleID, Constants.LED.CANDdleCANbus);
+    static CANdle _candle = new CANdle(Constants.LED.CANdleID, Constants.LED.CANDdleCANbus);
 
     public TestingLEDSub() {
     
@@ -17,7 +17,7 @@ public class TestingLEDSub {
     // sets the colors of an LED
     public static void setLED(int LEDId, int[] RGBVal) {
 
-        //_candle.setLEDs(RGBVal[0], RGBVal[1], RGBVal[2], 0, LEDId, 1);
+        _candle.setLEDs(RGBVal[0], RGBVal[1], RGBVal[2], 0, LEDId, 1);
     
     }
 
