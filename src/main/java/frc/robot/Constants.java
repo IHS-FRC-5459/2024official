@@ -80,6 +80,23 @@ public final class Constants {
 
 
     }
+    public static final class LED {
+        public static final int CANdleID = 30;
+
+        public static final String CANDdleCANbus = "light bus";
+
+    }
+
+    public static final class Colors {
+        public static final int[] noColor = {0, 0, 0};
+        public static final int[] redColor = {255, 0, 0};
+        public static final int[] greenColor = {0, 255, 0};
+        public static final int[] blueColor = {0, 0, 255};
+        public static final int[] cyanColor = {0, 255, 255};
+        public static final int[] magentaColor = {255, 0, 255};
+        public static final int[] yellowColor = {255, 255, 0};
+        public static final int[] whiteColor = {255, 255, 255};
+    }
 
     public static final class Swerve {
 
