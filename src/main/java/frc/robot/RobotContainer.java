@@ -17,8 +17,8 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
+import com.ctre.phoenix.led.CANdle;
 import frc.robot.commands.*;
-import frc.robot.commands.TestLED;
 import frc.robot.subsystems.*;
 
 /**
@@ -41,32 +41,30 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton shotButton = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
+    public final JoystickButton shotButton = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
     
     private final JoystickButton climberLockOut = new JoystickButton(operator, XboxController.Button.kY.value);
     private final JoystickButton climberDownButton = new JoystickButton(operator, XboxController.Button.kLeftBumper.value);
     private final JoystickButton climberUpButton = new JoystickButton(operator, XboxController.Button.kRightBumper.value);
     
     private final JoystickButton ampPivot = new JoystickButton(operator, XboxController.Button.kA.value);
-    private final JoystickButton ampShoot = new JoystickButton(operator, XboxController.Button.kX.value);
+    public final JoystickButton ampShoot = new JoystickButton(operator, XboxController.Button.kX.value);
 
-    //testing buttons
-    private final JoystickButton testLED = new JoystickButton(driver, XboxController.Button.kX.value);
-
-    //change back to operator #TODO
+    
     private final JoystickButton intakeButton = new JoystickButton(operator, XboxController.Button.kB.value);
 
     /* Sensors */
     public final int[] channels = {7,6};
     public final Vision vision = new Vision();
     public final BeamBreak beambreak = new BeamBreak(channels);
+    public final CANdle CANdle = new CANdle(Constants.LED.CANdleID,Constants.LED.CANDdleCANbus);
     /* Subsystems */
 
     public final Swerve s_Swerve = new Swerve(vision);
     private final Pivot s_Pivot = new Pivot(vision, beambreak);
     private final EndEffector s_EndEffector = new EndEffector(beambreak);
     private final Climber s_Climber = new Climber();
-    private final TestingLEDSub s_Led = new TestingLEDSub();
+    private final TestingLEDSub s_Led = new TestingLEDSub(CANdle);
 
 
     private final SendableChooser<Command> autoChooser;
@@ -148,8 +146,8 @@ public class RobotContainer {
         ampPivot.whileTrue(s_Pivot.withNoteTimeout(new PivotToAmp(s_Pivot)));
         ampShoot.whileTrue(new EEShootAmpSpeed(s_EndEffector));
         
-        int[] testingColor = {40,40,40};
-        testLED.whileTrue(new TestLED(1, testingColor, s_Led));
+        
+        //int[] testingColor = {0,0,225};
     }
 
     /**
