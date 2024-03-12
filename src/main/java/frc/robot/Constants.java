@@ -85,7 +85,7 @@ public final class Constants {
 
         public static final String CANDdleCANbus = "rio";
 
-        public static final int blinkingDelay = 100;
+        public static final int blinkingDelay = 10/*20*/;
     }
 
     public static final class Colors {
