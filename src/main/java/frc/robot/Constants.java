@@ -32,7 +32,7 @@ public final class Constants {
         //public static final String targetPoseCameraSpaceKey = "targetpose_cameraspace";
         public static final String targetPoseRobotSpaceKey = "targetpose_robotspace";
 
-        public static final double[] cubicFit = {0.458292,-6.07052,30.1399,-15.8}; 
+        public static final double[] cubicFit = {0.458292,-6.07052,30.1399,-14.2}; 
 //old:0.191216 x^3 - 4.39133 x^2 + 27.9382 x - 14.6854
 //0.603155 x^3 - 8.36751 x^2 + 40.1452 x - 26.4888
 //newest: 0.458292 x^3 - 6.07052 x^2 + 30.1399 x - 16.0338
@@ -65,7 +65,7 @@ public final class Constants {
         public static final double restingVelocity =  200 * 0.016666666666667;
         public static final double recenteringFlywheelVelocity = -200 * 0.016666666666667;
 
-        public static final double subwooferShotRPS = 3000 * 0.016666666666667;
+        public static final double subwooferShotRPS = 2500 * 0.016666666666667;
         public static final double speakerShotRPS = 3000 * 0.016666666666667;
         public static final double ampShotRPS = 500 * 0.016666666666667;
         public static final double neutralRPS = 200 * 0.016666666666667;
@@ -81,10 +81,11 @@ public final class Constants {
 
     }
     public static final class LED {
-        public static final int CANdleID = 30;
+        public static final int CANdleID = 53;
 
-        public static final String CANDdleCANbus = "light bus";
+        public static final String CANDdleCANbus = "rio";
 
+        public static final int blinkingDelay = 100;
     }
 
     public static final class Colors {
@@ -93,9 +94,10 @@ public final class Constants {
         public static final int[] greenColor = {0, 255, 0};
         public static final int[] blueColor = {0, 0, 255};
         public static final int[] cyanColor = {0, 255, 255};
-        public static final int[] magentaColor = {255, 0, 255};
+        public static final int[] purpleColor = {139, 0, 139};
         public static final int[] yellowColor = {255, 255, 0};
         public static final int[] whiteColor = {255, 255, 255};
+        public static final int[] orangeColor = {255,140,0};
     }
 
     public static final class Swerve {
@@ -217,7 +219,7 @@ public final class Constants {
     }
 
     public static final class AutoConstants { 
-        public static final double kMaxSpeedMetersPerSecond = 2;
+        public static final double kMaxSpeedMetersPerSecond = 3;
         public static final double kMaxAccelerationMetersPerSecondSquared = 3;
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
         public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
