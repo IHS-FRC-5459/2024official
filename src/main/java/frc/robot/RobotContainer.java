@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import com.ctre.phoenix.led.CANdle;
@@ -108,20 +107,12 @@ public class RobotContainer {
             new EENeutral(s_EndEffector)
        );
 
-        
-
-        
-
-
-
-
-
         // Configure the button bindings
         configureButtonBindings();
 
         autoChooser = AutoBuilder.buildAutoChooser();
         SmartDashboard.putData("Auto Chooser", autoChooser);
-
+        s_Swerve.zeroHeading();
     }
 
     /**

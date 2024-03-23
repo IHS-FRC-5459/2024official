@@ -5,8 +5,6 @@
 package frc.robot.subsystems;
 import frc.robot.Constants;
 
-import java.util.HashMap;
-
 import com.ctre.phoenix.led.CANdle;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
