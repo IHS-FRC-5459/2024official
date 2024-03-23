@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "SimpleAmpSide",
+  "folder": null,
   "previewStartingState": {
     "rotation": 59.19855402386321,
     "velocity": 0

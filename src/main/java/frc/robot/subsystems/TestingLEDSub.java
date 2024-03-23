@@ -70,10 +70,10 @@ public void periodic(){
     }
     shouldExcecute = true;
 
-    pivotAngleString = SmartDashboard.getString("pivot angle","0").toString();
-    pivotAngle = Double.parseDouble(pivotAngleString);
-    //shootingStr = SmartDashboard.getString("shooting","false");
-    pivotCMD = SmartDashboard.getString("Pivot CMD","neutral");
+    // pivotAngleString = SmartDashboard.getString("pivot angle","0").toString();
+    // pivotAngle = Double.parseDouble(pivotAngleString);
+    // //shootingStr = SmartDashboard.getString("shooting","false");
+    // pivotCMD = SmartDashboard.getString("Pivot CMD","neutral");
 
 
     //shootingToSpeaker = pivotAngle < 90 && shootingStr == "true";
@@ -119,7 +119,6 @@ public void periodic(){
     }else */if(jammed){
         setLED(Constants.Colors.purpleColor);
     }else if(intaking){
-        System.out.println(intakeCounter + "intaking");
         if(intakeCounter % Constants.LED.blinkingDelay == 0){
             intakeBlink = !intakeBlink;
             intakeCounter = Constants.LED.blinkingDelay;

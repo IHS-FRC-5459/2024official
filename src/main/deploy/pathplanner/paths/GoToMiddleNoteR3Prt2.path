@@ -61,7 +61,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "AmpSide3N",
+  "folder": null,
   "previewStartingState": {
     "rotation": 0,
     "velocity": 2.0
