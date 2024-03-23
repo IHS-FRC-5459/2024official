@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.BeamBreak;
 import frc.robot.Constants;
-import frc.robot.Vision;
 
 public class Pivot extends SubsystemBase {
 
