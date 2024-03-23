@@ -89,7 +89,7 @@ public class Vision extends SubsystemBase{
             this.lastValue = newVal;
       }
   }
-  private double getRangeFromCache(){
+  public double getRangeFromCache(){
     if(Calendar.getInstance().compareTo(this.lastTime) <= this.duration){
         return this.lastValue;
     }

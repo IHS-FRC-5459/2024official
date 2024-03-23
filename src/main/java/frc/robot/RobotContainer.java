@@ -181,8 +181,8 @@ public class RobotContainer {
     if(!vision.validTarget()){
         return Commands.none();
     } else {
-        if(vision.getDistance() > 1.4){
-        double goalPivotAngle = vision.calculateGoalAngle(vision.getDistance());
+        if(vision.getRangeFromCache() > 1.4){
+        double goalPivotAngle = vision.calculateGoalAngle(vision.getRangeFromCache());
         return Commands.parallel(
                 s_Swerve.centerVisionBuilder(),
                 s_Pivot.withNoteTimeout(new PivotToSpeaker(s_Pivot, goalPivotAngle)),
@@ -222,7 +222,7 @@ public class RobotContainer {
 
 //for during auto
     public Command autoShoot(){
-        if(vision.validTarget() && vision.getDistance() > 1.5){
+        if(vision.validTarget() && vision.getRangeFromCache() > 1.5){
 
 
           /*   return (Commands.race(
@@ -235,7 +235,7 @@ public class RobotContainer {
              )))).andThen(new PivotToNeutral(s_Pivot))).withTimeout(3);
 */
             
-              double goalPivotAngle = vision.calculateGoalAngle(vision.getDistance());
+              double goalPivotAngle = vision.calculateGoalAngle(vision.getRangeFromCache());
             // System.out.println(goalPivotAngle);
             return new ParallelCommandGroup(
                         s_Pivot.withNoteTimeout(new PivotToSpeaker(s_Pivot, goalPivotAngle)),
