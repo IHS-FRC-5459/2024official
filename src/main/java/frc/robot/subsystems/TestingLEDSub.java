@@ -20,15 +20,15 @@ public class TestingLEDSub extends SubsystemBase {
     private Boolean hasNote;
     private Boolean intaking;
     private Boolean empty;
-    private String pivotAngleString;
+    /*private String pivotAngleString;
     private Double pivotAngle;
     private String shootingStr;
     private String pivotCMD;
     private int speakerCounter = Constants.LED.blinkingDelay;
-    private int ampCounter = Constants.LED.blinkingDelay;
+    private int ampCounter = Constants.LED.blinkingDelay;*/
     private int intakeCounter = Constants.LED.blinkingDelay;
-    private Boolean speakerBlink = true;
-    private Boolean ampBlink = true;
+    /*private Boolean speakerBlink = true;
+    private Boolean ampBlink = true;*/
     private Boolean intakeBlink = true;
     private Boolean shouldExcecute = true;
     //static CANdle _candle = new CANdle(Constants.LED.CANdleID, Constants.LED.CANDdleCANbus);
