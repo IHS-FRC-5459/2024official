@@ -77,8 +77,8 @@ public void periodic(){
     //shootingToSpeaker = pivotAngle < 90 && shootingStr == "true";
    // shootingToAmp = SmartDashboard.getString("Pivot CMD","false") == "amp" && shootingStr == "false";
     jammed = SmartDashboard.getBoolean("bb top",false) && SmartDashboard.getBoolean("bb bottom",false);
-    targetInRange = SmartDashboard.getNumber("distance",0) <= 3.5 && 0.1 < SmartDashboard.getNumber("distance",0);
-    targetVisible = SmartDashboard.getNumber("distance",0) > 0.1;
+    targetInRange = SmartDashboard.getNumber("actual distance",0) <= 3.5 && 0 != SmartDashboard.getNumber("distance",0);
+    targetVisible = SmartDashboard.getNumber("actual distance",0) > 0.1;
     hasNote = SmartDashboard.getBoolean("bb bottom",false);
     intaking = Math.abs(SmartDashboard.getNumber("intake",0)) > 0.5;
     empty = !hasNote;
@@ -114,9 +114,7 @@ public void periodic(){
             shouldExcecute = false;
         }
         ampCounter--;
-    }else */if(jammed){
-        setLED(Constants.Colors.purpleColor);
-    }else if(intaking){
+    }else */if(intaking){
         if(intakeCounter % Constants.LED.blinkingDelay == 0){
             intakeBlink = !intakeBlink;
             intakeCounter = Constants.LED.blinkingDelay;
@@ -131,15 +129,17 @@ public void periodic(){
         }
         intakeCounter--;
     }
-    else if(targetInRange){
+    else if(targetInRange && hasNote){
         setLED(Constants.Colors.greenColor);
-    }else if(targetVisible){
+    }else if(targetVisible && hasNote){
         setLED(Constants.Colors.cyanColor);
     }else if(hasNote){
         setLED(Constants.Colors.orangeColor);
     }else if(empty){
         setBrightness(0);
         shouldExcecute = false;
+    }else if(jammed){
+        setLED(Constants.Colors.purpleColor);
     }
 
     //SmartDashboard.putString("Am I excecuting???","yes");

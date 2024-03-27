@@ -7,6 +7,8 @@ package frc.robot.subsystems;
 import java.util.Calendar;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.LimeLight;
@@ -19,8 +21,9 @@ public class Vision extends SubsystemBase{
   private double default_ = 0.0;
   private double lastValue = default_;
   private Calendar lastTime = Calendar.getInstance();
-  private double duration =  0.5 * 1000;/*secondsToMiliseconds(1)*/
-  
+  private int duration =  2 * 1000;/*secondsToMiliseconds(1)*/
+  private Calendar currentCalendar;
+  private double timeDifference;
   /** Creates a new Vision. */
   public Vision() {}
 
@@ -55,8 +58,8 @@ public class Vision extends SubsystemBase{
 
   //get vision data atributes
   public boolean isTargetInVision(){
-    //fetchData();
-    return /*targetInVision > 0.9*/ getRangeFromCache() > default_;
+    fetchData();
+    return targetInVision > 0.9 /*getRangeFromCache() > default_*/;
   }
 
   public double getAngle(){
@@ -90,13 +93,19 @@ public class Vision extends SubsystemBase{
       }
   }
   public double getRangeFromCache(){
-    if(Calendar.getInstance().compareTo(this.lastTime) <= this.duration){
-        return this.lastValue;
+    this.currentCalendar = Calendar.getInstance();
+    currentCalendar.add(currentCalendar.MILLISECOND, -1 * (int)duration);
+    this.timeDifference = currentCalendar.compareTo(this.lastTime);
+    if(this.timeDifference >= 0){
+      SmartDashboard.putNumber("The current difference in time: " ,timeDifference);
+      return this.lastValue;
     }
-  return this.default_;
+    SmartDashboard.putNumber("The current difference in time: " , timeDifference);
+    return this.default_;
 }
 @Override
 public void periodic(){
   setRangeToCache(getDistance());
+  SmartDashboard.putNumber("cache distance", getRangeFromCache());
   }
 }

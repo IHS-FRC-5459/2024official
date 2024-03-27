@@ -32,7 +32,7 @@ public final class Constants {
         //public static final String targetPoseCameraSpaceKey = "targetpose_cameraspace";
         public static final String targetPoseRobotSpaceKey = "targetpose_robotspace";
 
-        public static final double[] cubicFit = {0.427984,-3.53836,17.7615,-7.6}; 
+        public static final double[] cubicFit = {0.427984,-3.53836,17.7615,-7.1}; 
 //old:0.191216 x^3 - 4.39133 x^2 + 27.9382 x - 14.6854
 //0.603155 x^3 - 8.36751 x^2 + 40.1452 x - 26.4888
 //newest: 0.458292 x^3 - 6.07052 x^2 + 30.1399 x - 16.0338
@@ -75,8 +75,9 @@ public final class Constants {
 
         public static final double intakingPower = 0.75;
         public static final double passthroughPower = 0.4;
-        public static final double recenterPower = -0.1;
-
+        public static double recenterPower = -0.1;
+        public static final double finalRecenterPower = -0.1;
+        public static final double increacedRecenterPower = -0.2;
 
 
     }
@@ -85,7 +86,7 @@ public final class Constants {
 
         public static final String CANDdleCANbus = "rio";
 
-        public static final int blinkingDelay = 10/*20*/;
+        public static final int blinkingDelay = 10;
     }
 
     public static final class Colors {
@@ -97,7 +98,7 @@ public final class Constants {
         public static final int[] purpleColor = {139, 0, 139};
         public static final int[] yellowColor = {255, 255, 0};
         public static final int[] whiteColor = {255, 255, 255};
-        public static final int[] orangeColor = {255,140,0};
+        public static final int[] orangeColor = {242,90,45};
     }
 
     public static final class Swerve {

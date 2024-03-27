@@ -77,7 +77,9 @@ public class RobotContainer {
         NamedCommands.registerCommand("intake", Commands.parallel(new EEIntake(s_EndEffector), new PivotToNeutral(s_Pivot)).withTimeout(2));//intaking
         NamedCommands.registerCommand("pivot", new PivotToNeutral(s_Pivot).withTimeout(0.6));
        // NamedCommands.registerCommand("shoot", Commands.race(Commands.waitUntil(() -> !beambreak.hasNote()),(new ParallelCommandGroup(autoShoot()))).withTimeout(4));//shooting
-        NamedCommands.registerCommand("shoot", Commands.defer( ()->(Commands.race(Commands.waitUntil(() -> !beambreak.hasNote()),(new ParallelCommandGroup(autoShoot()))).withTimeout(4)), Set.of(s_EndEffector,s_Pivot)));
+        NamedCommands.registerCommand("shoot", Commands.defer( ()->(Commands.race(Commands.waitUntil(() -> !beambreak.hasNote()),(new ParallelCommandGroup(autoShoot()))).withTimeout(4)), Set.of(s_EndEffector,s_Pivot, vision)));
+        NamedCommands.registerCommand("increaseRecenter", new SetRecenter(Constants.EndEffector.increacedRecenterPower));
+        NamedCommands.registerCommand("resetRecenter", new SetRecenter(Constants.EndEffector.finalRecenterPower));
         //  NamedCommands.registerCommand("farshot", Commands.race(Commands.waitUntil(() -> !beambreak.hasNote()),(new ParallelCommandGroup(autoShootTwo()))).withTimeout(4));//shooting
         //NamedCommands.registerCommand("farshotLast", Commands.race(Commands.waitUntil(() -> !beambreak.hasNote()),(new ParallelCommandGroup(autoShootLast()))).withTimeout(4));//shooting
 
@@ -127,7 +129,7 @@ public class RobotContainer {
         subShotButton.whileTrue(shootSubwoofer());
        // shotButton.whileTrue(testingShot(40));
       //shotButton.whileTrue(Commands.defer(() -> testingShot(24.03),Set.of(s_EndEffector,s_Pivot)));
-       shotButton.whileTrue(Commands.defer(this::shootSpeaker,Set.of(s_EndEffector,s_Pivot, s_Swerve))).debounce(0.3);
+       shotButton.whileTrue(Commands.defer(this::shootSpeaker,Set.of(s_EndEffector,s_Pivot, s_Swerve, vision))).debounce(0.3);
        //shotButton.whileTrue(new PivotToSpeaker(s_Pivot, 35));
         intakeButton.whileTrue(new EEIntake(s_EndEffector)).debounce(0.3);
         
@@ -181,8 +183,8 @@ public class RobotContainer {
     if(!vision.validTarget()){
         return Commands.none();
     } else {
-        if(vision.getRangeFromCache() > 1.4){
-        double goalPivotAngle = vision.calculateGoalAngle(vision.getRangeFromCache());
+        if(vision.getDistance() > 1.4){
+        double goalPivotAngle = vision.calculateGoalAngle(vision.getDistance());
         return Commands.parallel(
                 s_Swerve.centerVisionBuilder(),
                 s_Pivot.withNoteTimeout(new PivotToSpeaker(s_Pivot, goalPivotAngle)),
@@ -222,7 +224,7 @@ public class RobotContainer {
 
 //for during auto
     public Command autoShoot(){
-        if(vision.validTarget() && vision.getRangeFromCache() > 1.5){
+        if(vision.validTarget() && vision.getDistance() > 1.4){
 
 
           /*   return (Commands.race(
@@ -235,7 +237,7 @@ public class RobotContainer {
              )))).andThen(new PivotToNeutral(s_Pivot))).withTimeout(3);
 */
             
-              double goalPivotAngle = vision.calculateGoalAngle(vision.getRangeFromCache());
+              double goalPivotAngle = vision.calculateGoalAngle(vision.getDistance());
             // System.out.println(goalPivotAngle);
             return new ParallelCommandGroup(
                         s_Pivot.withNoteTimeout(new PivotToSpeaker(s_Pivot, goalPivotAngle)),

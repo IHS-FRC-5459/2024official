@@ -52,7 +52,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("bb bottom",  m_robotContainer.beambreak.getResults().bottomState);
 
     SmartDashboard.putNumber("angle", m_robotContainer.vision.getAngle());
-    SmartDashboard.putNumber("distance", m_robotContainer.vision.getDistance());
+    //SmartDashboard.putNumber("cache distance", m_robotContainer.vision.getRangeFromCache());
+    SmartDashboard.putNumber("actual distance", m_robotContainer.vision.getDistance());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

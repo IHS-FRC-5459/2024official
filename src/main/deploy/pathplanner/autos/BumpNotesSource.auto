@@ -1,0 +1,37 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7085127656260409,
+      "y": 4.428424531149317
+    },
+    "rotation": -58.87752980320805
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BumpNotesPartOneSource"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BumpNotesPartTwoSource"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}
