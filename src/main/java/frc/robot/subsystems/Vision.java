@@ -9,6 +9,8 @@ import java.util.Calendar;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.LimeLight;
@@ -21,11 +23,8 @@ public class Vision extends SubsystemBase{
   private double default_ = 0.0;
   private double lastValue = default_;
   private Calendar lastTime = Calendar.getInstance();
-  private int duration =  1;/*in seconds*/
-  private Calendar currentCalendar;
-  private double timeDifference;
-  private double myNewVal;
-  private Calendar testingCalendar = Calendar.getInstance();
+  private double duration =  0.5 * 1000;/*secondsToMiliseconds(1)*/
+  
   /** Creates a new Vision. */
   public Vision() {
     testingCalendar.add(Calendar.SECOND, 20);
@@ -99,18 +98,13 @@ public class Vision extends SubsystemBase{
       }
   }
   public double getRangeFromCache(){
-    this.currentCalendar = Calendar.getInstance();
-    this.currentCalendar.add(Calendar.SECOND, -duration);
-    this.timeDifference = currentCalendar.compareTo(this.lastTime);
-    if(this.timeDifference <= 0){
-      return this.lastValue;
+    if(Calendar.getInstance().compareTo(this.lastTime) <= this.duration){
+        return this.lastValue;
     }
-    return this.default_;
+  return this.default_;
 }
 @Override
 public void periodic(){
-  updateCache();
-  SmartDashboard.putNumber("cache distance", getRangeFromCache());
-  //System.out.println(Calendar.getInstance().compareTo(this.testingCalendar));
-}
+  setRangeToCache(getDistance());
+  }
 }

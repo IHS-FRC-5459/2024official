@@ -74,10 +74,9 @@ public final class Constants {
 
 
         public static final double intakingPower = 0.75;
-        public static final double passthroughPower = 0.4; // never used
-        public static double recenterPower = -0.12;
-        public static final double finalRecenterPower = -0.12;
-        public static final double increacedRecenterPower = -0.14;
+        public static final double passthroughPower = 0.4;
+        public static final double recenterPower = -0.1;
+
 
 
     }
@@ -98,7 +97,7 @@ public final class Constants {
         public static final int[] purpleColor = {139, 0, 139};
         public static final int[] yellowColor = {255, 255, 0};
         public static final int[] whiteColor = {255, 255, 255};
-        public static final int[] orangeColor = {255,165,0};
+        public static final int[] orangeColor = {255,140,0};
     }
 
     public static final class Swerve {

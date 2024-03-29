@@ -77,8 +77,8 @@ public void periodic(){
     //shootingToSpeaker = pivotAngle < 90 && shootingStr == "true";
    // shootingToAmp = SmartDashboard.getString("Pivot CMD","false") == "amp" && shootingStr == "false";
     jammed = SmartDashboard.getBoolean("bb top",false) && SmartDashboard.getBoolean("bb bottom",false);
-    targetInRange = SmartDashboard.getNumber("cache distance",0) <= 3.5 && 0 != SmartDashboard.getNumber("distance",0);
-    targetVisible = SmartDashboard.getNumber("cache distance",0) > 0.1;
+    targetInRange = SmartDashboard.getNumber("distance",0) <= 3.5 && 0.1 < SmartDashboard.getNumber("distance",0);
+    targetVisible = SmartDashboard.getNumber("distance",0) > 0.1;
     hasNote = SmartDashboard.getBoolean("bb bottom",false);
     intaking = Math.abs(SmartDashboard.getNumber("intake",0)) > 0.5;
     empty = !hasNote;
@@ -140,6 +140,8 @@ public void periodic(){
     }else if(empty){
         setBrightness(0);
         shouldExcecute = false;
+    }else if(jammed){
+        setLED(Constants.Colors.purpleColor);
     }
 
     //SmartDashboard.putString("Am I excecuting???","yes");
