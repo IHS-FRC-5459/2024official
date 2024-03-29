@@ -7,6 +7,8 @@ package frc.robot.subsystems;
 import java.util.Calendar;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.LimeLight;
@@ -19,15 +21,20 @@ public class Vision extends SubsystemBase{
   private double default_ = 0.0;
   private double lastValue = default_;
   private Calendar lastTime = Calendar.getInstance();
-  private double duration =  0.5 * 1000;/*secondsToMiliseconds(1)*/
-  
+  private int duration =  1;/*in seconds*/
+  private Calendar currentCalendar;
+  private double timeDifference;
+  private double myNewVal;
+  private Calendar testingCalendar = Calendar.getInstance();
   /** Creates a new Vision. */
-  public Vision() {}
+  public Vision() {
+    testingCalendar.add(Calendar.SECOND, 20);
+  }
 
   //valid target
   public boolean validTarget(){
     if(isTargetInVision()){
-      if(isTagInRange(getDistance())){
+      if(isTagInRange(getRangeFromCache())){
         return true;
       }
     }
@@ -37,7 +44,7 @@ public class Vision extends SubsystemBase{
   //calculate pivot angle
   public double calculateGoalAngle()
   {
-    double dist = getDistance();
+    double dist = getRangeFromCache();
 
         return Constants.LimeLight.cubicFit[0]*Math.pow(dist,3) + Constants.LimeLight.cubicFit[1]*Math.pow(dist,2) + Constants.LimeLight.cubicFit[2]*Math.pow(dist,1)  + Constants.LimeLight.cubicFit[3];
   }
@@ -55,8 +62,8 @@ public class Vision extends SubsystemBase{
 
   //get vision data atributes
   public boolean isTargetInVision(){
-    //fetchData();
-    return /*targetInVision > 0.9*/ getRangeFromCache() > default_;
+    fetchData();
+    return targetInVision > 0.9 /*getRangeFromCache() > default_*/;
   }
 
   public double getAngle(){
@@ -83,20 +90,27 @@ public class Vision extends SubsystemBase{
     double[] lltable =  NetworkTableInstance.getDefault().getTable(Constants.LimeLight.llTableName).getEntry(Constants.LimeLight.targetPoseRobotSpaceKey).getDoubleArray(defaultReturn);
     distance = Math.sqrt(Math.pow(lltable[0],2) + Math.pow(lltable[2],2));
   }
-  private void setRangeToCache(double newVal){
-        if(newVal >= this.default_){
+  private void updateCache(){
+    fetchData();
+    this.myNewVal = getDistance();
+        if(this.myNewVal > this.default_){
             this.lastTime = Calendar.getInstance();
-            this.lastValue = newVal;
+            this.lastValue = this.myNewVal;
       }
   }
   public double getRangeFromCache(){
-    if(Calendar.getInstance().compareTo(this.lastTime) <= this.duration){
-        return this.lastValue;
+    this.currentCalendar = Calendar.getInstance();
+    this.currentCalendar.add(Calendar.SECOND, -duration);
+    this.timeDifference = currentCalendar.compareTo(this.lastTime);
+    if(this.timeDifference <= 0){
+      return this.lastValue;
     }
-  return this.default_;
+    return this.default_;
 }
 @Override
 public void periodic(){
-  setRangeToCache(getDistance());
-  }
+  updateCache();
+  SmartDashboard.putNumber("cache distance", getRangeFromCache());
+  //System.out.println(Calendar.getInstance().compareTo(this.testingCalendar));
+}
 }

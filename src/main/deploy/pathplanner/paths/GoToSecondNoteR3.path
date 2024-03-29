@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.64,
-        "y": 6.81
+        "x": 2.6,
+        "y": 7.04
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.115530052746715,
-        "y": 6.4990563410756454
+        "x": 2.523152022769052,
+        "y": 6.614589087137842
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.64,
-        "y": 5.771856864378813
+        "x": 2.8071304541185604,
+        "y": 5.823439215087209
       },
       "prevControl": {
-        "x": 2.2635540604984343,
-        "y": 6.1774528733144205
+        "x": 2.7892352475570923,
+        "y": 6.147690960481963
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,7 +32,7 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "New Event Marker",
+      "name": "intake",
       "waypointRelativePos": 0.5,
       "command": {
         "type": "parallel",
@@ -47,23 +47,40 @@
           ]
         }
       }
+    },
+    {
+      "name": "setRecenterPower",
+      "waypointRelativePos": 0.25,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "increaseRecenter"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 2.0,
+    "maxVelocity": 2.03,
+    "maxAcceleration": 2.03,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": -40.0,
+    "velocity": 1.5,
+    "rotation": -77.19,
     "rotateFast": true
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 25.16,
+    "rotation": 27.56694949197313,
     "velocity": 0
   },
   "useDefaultConstraints": true

@@ -37,18 +37,21 @@ public class RobotContainer {
     private final int strafeAxis = XboxController.Axis.kLeftX.value;
     private final int rotationAxis = XboxController.Axis.kRightX.value;
 
+
+    
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     public final JoystickButton shotButton = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
     public final JoystickButton subShotButton = new JoystickButton(driver, XboxController.Button.kA.value);
+    // operator buttons
     private final JoystickButton climberLockOut = new JoystickButton(operator, XboxController.Button.kY.value);
     private final JoystickButton climberDownButton = new JoystickButton(operator, XboxController.Button.kLeftBumper.value);
     private final JoystickButton climberUpButton = new JoystickButton(operator, XboxController.Button.kRightBumper.value);
     
     private final JoystickButton ampPivot = new JoystickButton(operator, XboxController.Button.kA.value);
     public final JoystickButton ampShoot = new JoystickButton(operator, XboxController.Button.kX.value);
-
+    
     
     private final JoystickButton intakeButton = new JoystickButton(operator, XboxController.Button.kB.value);
 
@@ -77,7 +80,9 @@ public class RobotContainer {
         NamedCommands.registerCommand("intake", Commands.parallel(new EEIntake(s_EndEffector), new PivotToNeutral(s_Pivot)).withTimeout(2));//intaking
         NamedCommands.registerCommand("pivot", new PivotToNeutral(s_Pivot).withTimeout(0.6));
        // NamedCommands.registerCommand("shoot", Commands.race(Commands.waitUntil(() -> !beambreak.hasNote()),(new ParallelCommandGroup(autoShoot()))).withTimeout(4));//shooting
-        NamedCommands.registerCommand("shoot", Commands.defer( ()->(Commands.race(Commands.waitUntil(() -> !beambreak.hasNote()),(new ParallelCommandGroup(autoShoot()))).withTimeout(4)), Set.of(s_EndEffector,s_Pivot)));
+        NamedCommands.registerCommand("shoot", Commands.defer( ()->(Commands.race(Commands.waitUntil(() -> !beambreak.hasNote()),(new ParallelCommandGroup(autoShoot()))).withTimeout(4)), Set.of(s_EndEffector,s_Pivot, vision)));
+        NamedCommands.registerCommand("increaseRecenter", new SetRecenter(Constants.EndEffector.increacedRecenterPower));
+        NamedCommands.registerCommand("resetRecenter", new SetRecenter(Constants.EndEffector.finalRecenterPower));
         //  NamedCommands.registerCommand("farshot", Commands.race(Commands.waitUntil(() -> !beambreak.hasNote()),(new ParallelCommandGroup(autoShootTwo()))).withTimeout(4));//shooting
         //NamedCommands.registerCommand("farshotLast", Commands.race(Commands.waitUntil(() -> !beambreak.hasNote()),(new ParallelCommandGroup(autoShootLast()))).withTimeout(4));//shooting
 
@@ -127,7 +132,7 @@ public class RobotContainer {
         subShotButton.whileTrue(shootSubwoofer());
        // shotButton.whileTrue(testingShot(40));
       //shotButton.whileTrue(Commands.defer(() -> testingShot(24.03),Set.of(s_EndEffector,s_Pivot)));
-       shotButton.whileTrue(Commands.defer(this::shootSpeaker,Set.of(s_EndEffector,s_Pivot, s_Swerve))).debounce(0.3);
+       shotButton.whileTrue(Commands.defer(this::shootSpeaker,Set.of(s_EndEffector,s_Pivot, s_Swerve, vision))).debounce(0.3);
        //shotButton.whileTrue(new PivotToSpeaker(s_Pivot, 35));
         intakeButton.whileTrue(new EEIntake(s_EndEffector)).debounce(0.3);
         
@@ -222,7 +227,7 @@ public class RobotContainer {
 
 //for during auto
     public Command autoShoot(){
-        if(vision.validTarget() && vision.getRangeFromCache() > 1.5){
+        if(vision.validTarget() && vision.getRangeFromCache() > 1.4){
 
 
           /*   return (Commands.race(

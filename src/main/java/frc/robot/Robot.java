@@ -4,11 +4,11 @@
 
 package frc.robot;
 
+import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -28,6 +28,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    for(int port = 5800; port <= 5809; port ++){
+      PortForwarder.add(port, "limelight.local", port);
+    }
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
@@ -42,6 +45,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+
+
+    m_robotContainer.vision.fetchData();
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
@@ -52,7 +58,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("bb bottom",  m_robotContainer.beambreak.getResults().bottomState);
 
     SmartDashboard.putNumber("angle", m_robotContainer.vision.getAngle());
-    SmartDashboard.putNumber("distance", m_robotContainer.vision.getDistance());
+    //SmartDashboard.putNumber("cache distance", m_robotContainer.vision.getRangeFromCache());
+    SmartDashboard.putNumber("actual distance", m_robotContainer.vision.getDistance());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
