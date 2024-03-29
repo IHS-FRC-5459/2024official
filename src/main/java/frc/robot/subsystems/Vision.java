@@ -24,7 +24,8 @@ public class Vision extends SubsystemBase{
   private double lastValue = default_;
   private Calendar lastTime = Calendar.getInstance();
   private double duration =  0.5 * 1000;/*secondsToMiliseconds(1)*/
-  
+  private Calendar testingCalendar = Calendar.getInstance();
+  private double myNewVal = default_;
   /** Creates a new Vision. */
   public Vision() {
     testingCalendar.add(Calendar.SECOND, 20);
@@ -105,6 +106,6 @@ public class Vision extends SubsystemBase{
 }
 @Override
 public void periodic(){
-  setRangeToCache(getDistance());
+   updateCache();
   }
 }

@@ -75,7 +75,9 @@ public final class Constants {
 
         public static final double intakingPower = 0.75;
         public static final double passthroughPower = 0.4;
-        public static final double recenterPower = -0.1;
+        public static double recenterPower = -0.1;
+        public static final double finalrecenterPower = -0.12;
+        public static final double recenterPowerIncreaced = -0.14;
 
 
 
