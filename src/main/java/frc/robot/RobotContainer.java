@@ -45,9 +45,9 @@ public class RobotContainer {
     public final JoystickButton shotButton = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
     public final JoystickButton subShotButton = new JoystickButton(driver, XboxController.Button.kA.value);
     // operator buttons
-    private final JoystickButton climberLockOut = new JoystickButton(operator, XboxController.Button.kY.value);
-    private final JoystickButton climberDownButton = new JoystickButton(operator, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton climberUpButton = new JoystickButton(operator, XboxController.Button.kRightBumper.value);
+    // private final JoystickButton climberLockOut = new JoystickButton(operator, XboxController.Button.kY.value);
+    // private final JoystickButton climberDownButton = new JoystickButton(operator, XboxController.Button.kLeftBumper.value);
+    // private final JoystickButton climberUpButton = new JoystickButton(operator, XboxController.Button.kRightBumper.value);
     
     private final JoystickButton ampPivot = new JoystickButton(operator, XboxController.Button.kA.value);
     public final JoystickButton ampShoot = new JoystickButton(operator, XboxController.Button.kX.value);
@@ -65,7 +65,7 @@ public class RobotContainer {
     public final Swerve s_Swerve = new Swerve(vision);
     private final Pivot s_Pivot = new Pivot(vision, beambreak);
     private final EndEffector s_EndEffector = new EndEffector(beambreak);
-    private final Climber s_Climber = new Climber();
+    //private final Climber s_Climber = new Climber();
     private final TestingLEDSub s_Led = new TestingLEDSub(CANdle);
 
 
@@ -80,7 +80,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("intake", Commands.parallel(new EEIntake(s_EndEffector), new PivotToNeutral(s_Pivot)).withTimeout(2));//intaking
         NamedCommands.registerCommand("pivot", new PivotToNeutral(s_Pivot).withTimeout(0.6));
        // NamedCommands.registerCommand("shoot", Commands.race(Commands.waitUntil(() -> !beambreak.hasNote()),(new ParallelCommandGroup(autoShoot()))).withTimeout(4));//shooting
-        NamedCommands.registerCommand("shoot", Commands.defer( ()->(Commands.race(Commands.waitUntil(() -> !beambreak.hasNote()),(new ParallelCommandGroup(autoShoot()))).withTimeout(4)), Set.of(s_EndEffector,s_Pivot)));
+       NamedCommands.registerCommand("shoot", Commands.defer( ()->(Commands.race(Commands.waitUntil(() -> !beambreak.hasNote()),(new ParallelCommandGroup(autoShoot()))).withTimeout(4)), Set.of(s_EndEffector,s_Pivot)));
         //  NamedCommands.registerCommand("farshot", Commands.race(Commands.waitUntil(() -> !beambreak.hasNote()),(new ParallelCommandGroup(autoShootTwo()))).withTimeout(4));//shooting
         //NamedCommands.registerCommand("farshotLast", Commands.race(Commands.waitUntil(() -> !beambreak.hasNote()),(new ParallelCommandGroup(autoShootLast()))).withTimeout(4));//shooting
 
@@ -100,11 +100,11 @@ public class RobotContainer {
           new PivotToNeutral(
             s_Pivot
             )
-      );
+     );
  
-        s_Climber.setDefaultCommand(
+        /*s_Climber.setDefaultCommand(
             new ClimberDefault(s_Climber)
-        );
+        );*/
        
         s_EndEffector.setDefaultCommand(
             new EENeutral(s_EndEffector)
@@ -129,13 +129,13 @@ public class RobotContainer {
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
         subShotButton.whileTrue(shootSubwoofer());
        // shotButton.whileTrue(testingShot(40));
-      //shotButton.whileTrue(Commands.defer(() -> testingShot(24.03),Set.of(s_EndEffector,s_Pivot)));
+       //shotButton.whileTrue(Commands.defer(() -> testingShot(24.03),Set.of(s_EndEffector,s_Pivot)));
        shotButton.whileTrue(Commands.defer(this::shootSpeaker,Set.of(s_EndEffector,s_Pivot, s_Swerve, vision))).debounce(0.3);
        //shotButton.whileTrue(new PivotToSpeaker(s_Pivot, 35));
         intakeButton.whileTrue(new EEIntake(s_EndEffector)).debounce(0.3);
         
-        climberLockOut.and(climberDownButton).whileTrue(new ClimberTranslate(s_Climber, Constants.Climber.climberDownPower));
-        climberLockOut.and(climberUpButton).whileTrue((new ClimberTranslate(s_Climber, Constants.Climber.climberUpPower)));
+        // climberLockOut.and(climberDownButton).whileTrue(new ClimberTranslate(s_Climber, Constants.Climber.climberDownPower));
+        // climberLockOut.and(climberUpButton).whileTrue((new ClimberTranslate(s_Climber, Constants.Climber.climberUpPower)));
 
              //   shotButton.whileTrue(shootSpeaker());
         ampPivot.whileTrue(s_Pivot.withNoteTimeout(new PivotToAmp(s_Pivot)));
@@ -171,10 +171,10 @@ public class RobotContainer {
         }*/
 
            return Commands.parallel(
-            s_Pivot.withNoteTimeout(new PivotToSpeaker(s_Pivot, angle)),
-            Commands.waitUntil(() -> (s_Pivot.getAngle() > angle - 4)).andThen(
-            s_EndEffector.EETimedShooterBuilder(new EESpeakerNoVision(s_EndEffector)),
-            Commands.deadline(Commands.waitUntil(() -> (s_Pivot.getAngle() > angle - 4)), new EESpinUp(s_EndEffector)))
+            // s_Pivot.withNoteTimeout(new PivotToSpeaker(s_Pivot, angle)),
+            // Commands.waitUntil(() -> (s_Pivot.getAngle() > angle - 4)).andThen(
+            // s_EndEffector.EETimedShooterBuilder(new EESpeakerNoVision(s_EndEffector)),
+            // Commands.deadline(Commands.waitUntil(() -> (s_Pivot.getAngle() > angle - 4)), new EESpinUp(s_EndEffector)))
         );
     }
 
