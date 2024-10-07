@@ -77,8 +77,8 @@ public void periodic(){
     //shootingToSpeaker = pivotAngle < 90 && shootingStr == "true";
    // shootingToAmp = SmartDashboard.getString("Pivot CMD","false") == "amp" && shootingStr == "false";
     jammed = SmartDashboard.getBoolean("bb top",false) && SmartDashboard.getBoolean("bb bottom",false);
-    targetInRange = SmartDashboard.getNumber("distance",0) <= 3.5 && 0.1 < SmartDashboard.getNumber("distance",0);
-    targetVisible = SmartDashboard.getNumber("distance",0) > 0.1;
+    targetInRange = SmartDashboard.getNumber("actual distance",0) <= 3.5 && 0.1 < SmartDashboard.getNumber("actual distance",0);
+    targetVisible = SmartDashboard.getNumber("actual distance",0) > 0.1;
     hasNote = SmartDashboard.getBoolean("bb bottom",false);
     intaking = Math.abs(SmartDashboard.getNumber("intake",0)) > 0.5;
     empty = !hasNote;
